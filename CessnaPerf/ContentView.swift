@@ -15,6 +15,7 @@ struct ContentView: View {
     @State var isTempValid: Bool = true
     @State var elevationEntry: String = "1000"
     @State var isElevationValid: Bool = true
+    @State var showResults: Bool = false
     
     var body: some View {
       //  ScrollView {
@@ -35,9 +36,10 @@ struct ContentView: View {
                         .foregroundColor(.white)
                         .padding(5)
                     Button {
+                        showResults = true
                         //calculation is done here!
                     }label: {
-                        Text("Calculate")
+                        Text("  Calculate  ")
                             .foregroundColor(.white)
                             .font(.custom("Noteworthy Bold", size: 25))
                             .padding(5)
@@ -80,6 +82,11 @@ struct ContentView: View {
                             .environmentObject(checkCalc)
                     
  }
+            .sheet(isPresented: $showResults) {
+                //ResultsView(ftTOD: $ftTOD)
+                Color.green
+                
+            }
        // .edgesIgnoringSafeArea(.all)
     }
 }
