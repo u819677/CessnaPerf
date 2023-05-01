@@ -16,6 +16,8 @@ struct ContentView: View {
     @State var isTempValid: Bool = true
     @State var elevationEntry: String = "1000"
     @State var isElevationValid: Bool = true
+    @State var qnhEntry: String = "1013"
+    @State var isQNHValid: Bool = true
     @State var showResults: Bool = false
     
     @State var ftTOD: Double = 0
@@ -48,10 +50,14 @@ struct ContentView: View {
                         .padding(5)
                     Button {
                         
-                        let elevation = Int(elevationEntry)!
+                      //  let elevation = Int(elevationEntry)!
+                        let (elevation, validity) = correctedPA(elevationEntry: elevationEntry, qnhEntry: qnhEntry)
                         let temperature = Int(tempEntry)!
                         let weight = Int(weightEntry)!
-                        
+                        if validity != true {
+                            print("pa out of range")
+                            return
+                        }
                         print(lowerElevationAndTemperatureBoundaryIndicees(elevation: elevation, temperature: temperature))
                         ftTOD = Double(todFeet(dataFrame: dataFrame, elevation: elevation, temperature: temperature, weight: weight))
                         showResults = true
@@ -85,7 +91,7 @@ struct ContentView: View {
               
                         ElevationView(elevationEntry: $elevationEntry, isElevationValid: $isElevationValid)
                 
-
+                    QNHView(qnhEntry: $qnhEntry, isQNHValid: $isQNHValid)
                
 
                     

@@ -5,6 +5,7 @@
 //  Created by Richard Clark on 01/05/2023.
 //
 import TabularData
+
 func todFeet(dataFrame: DataFrame, elevation: Int, temperature: Int, weight: Int) -> Int {
     let (lowerElevationRow2400, lowerTemperatureColumn) = lowerElevationAndTemperatureBoundaryIndicees(elevation: elevation, temperature: temperature)
     let lowerElevationRow2200 = lowerElevationRow2400 + 4
@@ -76,4 +77,23 @@ func todForActualWeight(weight: Int, tod2400: Int, tod2200: Int, tod2000: Int) -
         print("weight out of range")
     }
     return tod
+}
+
+func correctedPA(elevationEntry: String, qnhEntry: String) -> (Int, Bool) {
+    //MARK:- calculate pa
+    if qnhEntry == "1013" {
+        return (Int(elevationEntry)!, true)
+    } else {
+        var pa = Double(elevationEntry)!    //need to protect here for pa < 0 as well as  pa > 2000
+        let qnhCorrection = ((Double(qnhEntry)!) - 1013.2) * -27.3
+        pa = pa + qnhCorrection
+        if pa > 2000.0 || pa < 0.0 {
+            return (Int(pa), false)
+        } else {
+            print(" pa is \(pa)")
+            return (Int(pa), true)
+            
+ 
+        }
+    }
 }
