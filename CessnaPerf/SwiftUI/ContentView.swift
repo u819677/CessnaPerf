@@ -7,7 +7,25 @@
 import SwiftUI
 import TabularData
 
+enum ActiveSheet: Identifiable, Equatable {
+    case displayResults
+    case displayWindPicker
+    //case addTopic
+    //case addNewQuestion
+    //case questionAnswerView(Question)
+    var id: String {//this is for the enum's id
+        let mirror = Mirror(reflecting: self)
+        if let label = mirror.children.first?.label {
+            return label
+        } else {
+            return "\(self)"
+        }
+    }
+}
+
 struct ContentView: View {
+    @State private var activeSheet: ActiveSheet?
+    
     @StateObject var checkCalc: CheckCalc = CheckCalc()
     
     @State var weightEntry: String = "2400"
@@ -36,78 +54,80 @@ struct ContentView: View {
     }
     
     var body: some View {
-      //  ScrollView {
-            ZStack{
-                    Image("C172Panel")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .edgesIgnoringSafeArea(.all)
-                        //.padding(10)
-                VStack{
-                    Text("C172P Take Off Performance")
-                    
-                        .font(.custom("Noteworthy Bold", size: 26))
-                        .foregroundColor(.white)
-                        .padding(5)
-                    Button {
-                        let (elevation, validPA) = correctedPA(elevationEntry: elevationEntry, qnhEntry: qnhEntry)
-                        let temperature = Int(tempEntry)!
-                        let weight = Int(weightEntry)!
-                        if validPA == false {
-                            print("pa out of range")
-                            return
-                        }
-                        ftTOD = Double(todFeet(dataFrame: dataFrame, elevation: elevation, temperature: temperature, weight: weight))
-                        showResults = true
-                    }label: {
-                        Text("  Calculate  ")
-                            .foregroundColor(.white)
-                            .font(.custom("Noteworthy Bold", size: 25))
-                            .padding(5)
-                            .overlay(RoundedRectangle(cornerRadius: 5)
-                                .stroke(Color.white, lineWidth: 2)
-                            )
-                            .background(Color.gray)
-                    }//end of Button
-               
-                    Spacer()
-                }
-                VStack{
-                    
-                    Spacer()
-                    WeightView(weightEntry: $weightEntry, isWeightValid: $isWeightValid)
-                        .padding(10)
-                    
-                    
-                    
-                    TemperatureView(temperatureEntry: $tempEntry, isTempValid: $isTempValid)
-                                                .padding(10)
-              
-                        ElevationView(elevationEntry: $elevationEntry, isElevationValid: $isElevationValid)
+        //  ScrollView {
+        ZStack{
+            Image("C172Panel")
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .edgesIgnoringSafeArea(.all)
+            //.padding(10)
+            VStack{
+                Text("C172P Take Off Performance")
                 
-                    QNHView(qnhEntry: $qnhEntry, isQNHValid: $isQNHValid)
-               WindView(wind: wind)
-
-                    
-               // )
-             
-                .padding(12)
+                    .font(.custom("Noteworthy Bold", size: 26))
+                    .foregroundColor(.white)
+                    .padding(5)
+                Button {
+                    let (elevation, validPA) = correctedPA(elevationEntry: elevationEntry, qnhEntry: qnhEntry)
+                    let temperature = Int(tempEntry)!
+                    let weight = Int(weightEntry)!
+                    if validPA == false {
+                        print("pa out of range")
+                        return
+                    }
+                    ftTOD = Double(todFeet(dataFrame: dataFrame, elevation: elevation, temperature: temperature, weight: weight))
+                    showResults = true
+                }label: {
+                    Text("  Calculate  ")
+                        .foregroundColor(.white)
+                        .font(.custom("Noteworthy Bold", size: 25))
+                        .padding(5)
+                        .overlay(RoundedRectangle(cornerRadius: 5)
+                            .stroke(Color.white, lineWidth: 2)
+                        )
+                        .background(Color.gray)
+                }//end of Button
+                
+                Spacer()
+            }
+            VStack{
+                
+                Spacer()
+                WeightView(weightEntry: $weightEntry, isWeightValid: $isWeightValid)
+                    .padding(10)
+                
+                
+                
+                TemperatureView(temperatureEntry: $tempEntry, isTempValid: $isTempValid)
+                    .padding(10)
+                
+                ElevationView(elevationEntry: $elevationEntry, isElevationValid: $isElevationValid)
+                    .padding(10)
+                QNHView(qnhEntry: $qnhEntry, isQNHValid: $isQNHValid)
+                WindView(wind: wind)
+                    .padding(10)
+                
+                // )
+                
+                    .padding(12)
                 //Spacer()
-                    Spacer()
-                    Spacer()
-                    
-                         }
-                            .environmentObject(checkCalc)
-                    
- }
-            .sheet(isPresented: $showResults) {
-            
-                ResultsView(ftTOD: $ftTOD)
-               // Color.green
+                Spacer()
+                Spacer()
                 
             }
-       // .edgesIgnoringSafeArea(.all)
+            .environmentObject(checkCalc)
+            
+        }
+        .sheet(isPresented: $showResults) {
+            
+            ResultsView(ftTOD: $ftTOD)
+            // Color.green
+            
+        }
+        // .edgesIgnoringSafeArea(.all)
     }
+    
+    
 }
 
 struct ContentView_Previews: PreviewProvider {
