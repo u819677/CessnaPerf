@@ -18,7 +18,7 @@ struct ContentView: View {
     @State var isElevationValid: Bool = true
     @State var showResults: Bool = false
     
-    @State var ftTOD: Double = 0.0
+    @State var ftTOD: Double = 0
     @State var ftROLL: Double = 0.0
     
     var dataFrame = DataFrame()
@@ -47,7 +47,13 @@ struct ContentView: View {
                         .foregroundColor(.white)
                         .padding(5)
                     Button {
-                        ftTOD = 1000
+                        
+                        let elevation = Int(elevationEntry)!
+                        let temperature = Int(tempEntry)!
+                        let weight = Int(weightEntry)!
+                        
+                        print(lowerElevationAndTemperatureBoundaryIndicees(elevation: elevation, temperature: temperature))
+                        ftTOD = Double(todFeet(dataFrame: dataFrame, elevation: elevation, temperature: temperature, weight: weight))
                         showResults = true
                         //calculation is done here!
                     }label: {

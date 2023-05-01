@@ -30,10 +30,10 @@ struct ResultsView: View {
         VStack{
             // TOD = \(trimmedFeet)ft
             Text("""
-                TOD = \(String(format: "%.1f", ftTOD)) ft
+                TOD = \(String(format: "%.0f", ftTOD)) ft
                 
                 TODR (incl x 1.25)
-                = \(String(format: "%.1f",(ftTOD * 1.25 / 3.28) )) metres
+                = \(String(format: "%.0f",(ftTOD * 1.25 / 3.28) )) metres
                 """)
               //  = \(trimmedMetres)m
                 
