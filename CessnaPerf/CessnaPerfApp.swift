@@ -11,8 +11,8 @@ import SwiftUI
 struct CessnaPerfApp: App {
     var body: some Scene {
         WindowGroup {
-            WindPicker(windComponent: .constant("testing"))
-           // ContentView()
+            //WindPicker(windComponent: .constant("testing"))
+            ContentView()
         }
     }
 }

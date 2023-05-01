@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		230DF5482A0025DC009218CD /* WindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230DF5472A0025DC009218CD /* WindView.swift */; };
 		236E894129FFAE170011B767 /* CessnaPerfApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236E894029FFAE170011B767 /* CessnaPerfApp.swift */; };
 		236E894329FFAE170011B767 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236E894229FFAE170011B767 /* ContentView.swift */; };
 		236E894529FFAE190011B767 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 236E894429FFAE190011B767 /* Assets.xcassets */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		230DF5472A0025DC009218CD /* WindView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindView.swift; sourceTree = "<group>"; };
 		236E893D29FFAE170011B767 /* CessnaPerf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CessnaPerf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		236E894029FFAE170011B767 /* CessnaPerfApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CessnaPerfApp.swift; sourceTree = "<group>"; };
 		236E894229FFAE170011B767 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				236E895A29FFB6F40011B767 /* ResultsView.swift */,
 				236E895E29FFD53B0011B767 /* QNHView.swift */,
 				236E89662A0015C00011B767 /* WindPicker.swift */,
+				230DF5472A0025DC009218CD /* WindView.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -176,6 +179,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				230DF5482A0025DC009218CD /* WindView.swift in Sources */,
 				236E895829FFB31A0011B767 /* TemperatureView.swift in Sources */,
 				236E895B29FFB6F40011B767 /* ResultsView.swift in Sources */,
 				236E895F29FFD53B0011B767 /* QNHView.swift in Sources */,

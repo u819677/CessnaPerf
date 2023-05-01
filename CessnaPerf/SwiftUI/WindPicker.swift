@@ -13,8 +13,8 @@
 //
 
 import SwiftUI
-import UIKit
-import Foundation
+//import UIKit
+//import Foundation
 
 struct WindPicker: View {
 
@@ -36,6 +36,21 @@ struct WindPicker: View {
                 .offset(x: -100, y: 0)
              
         CustomPicker(selected: self.$windComponent)
+            VStack{
+                Spacer()
+                Button(" OK  "){
+                  //  presentationMode.wrappedValue.dismiss()
+                }
+                //.font(.largeTitle)
+                .font(.custom("Noteworthy Bold", size: 30))
+                .foregroundColor(.white)
+                
+                .overlay(RoundedRectangle(cornerRadius: 5)
+                  
+                    .stroke(Color.white, lineWidth: 2)
+                         )
+                .padding(.bottom, 150)
+            }
         }
     }
 }

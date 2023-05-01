@@ -18,6 +18,7 @@ struct ContentView: View {
     @State var isElevationValid: Bool = true
     @State var qnhEntry: String = "1013"
     @State var isQNHValid: Bool = true
+    @StateObject var wind: Wind = Wind()
     @State var showResults: Bool = false
     
     @State var ftTOD: Double = 0
@@ -85,7 +86,7 @@ struct ContentView: View {
                         ElevationView(elevationEntry: $elevationEntry, isElevationValid: $isElevationValid)
                 
                     QNHView(qnhEntry: $qnhEntry, isQNHValid: $isQNHValid)
-               
+               WindView(wind: wind)
 
                     
                // )
