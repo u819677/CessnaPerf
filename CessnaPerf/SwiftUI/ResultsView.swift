@@ -10,8 +10,7 @@ import SwiftUI
 
 struct ResultsView: View {
     @Environment(\.presentationMode) var presentationMode
-   // @Binding
-    var ftTOD: Double
+    @Binding var ftTOD: Double
    // @Binding var activeSheet: ActiveSheet
     //@State  var trimmedFeet: String = ""
     //@State var trimmedMetres: String = ""

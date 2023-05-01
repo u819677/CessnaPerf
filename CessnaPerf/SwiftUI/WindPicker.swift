@@ -17,9 +17,10 @@ import SwiftUI
 //import Foundation
 
 struct WindPicker: View {
-
+    @Binding var showPicker: Bool
     @Binding var windComponent: String // = "calm"
-    init(windComponent: Binding<String>){
+    init(showPicker: Binding<Bool>, windComponent: Binding<String>){
+        self._showPicker = showPicker
         self._windComponent = windComponent
     }
    
@@ -39,6 +40,7 @@ struct WindPicker: View {
             VStack{
                 Spacer()
                 Button(" OK  "){
+                    showPicker = false
                   //  presentationMode.wrappedValue.dismiss()
                 }
                 //.font(.largeTitle)

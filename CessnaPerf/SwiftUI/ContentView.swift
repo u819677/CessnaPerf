@@ -9,7 +9,7 @@ import TabularData
 
 enum ActiveSheet: Identifiable, Equatable {
     case firstSheet
-    case displayResults
+    case displayResults//(results)//can't do this, due results is not known here
     case displayWindPicker
     //case addTopic
     //case addNewQuestion
@@ -70,7 +70,7 @@ struct ContentView: View {
                     .padding(5)
                 
                 
-                // MARK: Calculate Button
+// MARK: Calculate Button
                 
                 Button {
                     let (elevation, validPA) = correctedPA(elevationEntry: elevationEntry, qnhEntry: qnhEntry)
@@ -126,7 +126,8 @@ struct ContentView: View {
         }
         .sheet(item: $activeSheet){
             item in
-            SheetView(item: item, results: ftTOD)
+           // SheetView(item: item, results: ftTOD)
+            sheetView(with: item)
         }
 //        .sheet(isPresented: $showResults) {
 //
@@ -136,17 +137,18 @@ struct ContentView: View {
 //        }
         // .edgesIgnoringSafeArea(.all)
     }//end of body
-    //    @ViewBuilder
-    //    private func sheetView(with item: ActiveSheet) -> some View {
-    //        switch item {
-    //        case .firstSheet:
-    //            Color.red
-    //        case .displayResults:
-    //            Color.green
-    //        case .displayWindPicker:
-    //            Color.blue
-    //        }
-    //    }
+        @ViewBuilder
+        private func sheetView(with item: ActiveSheet) -> some View {
+            switch item {
+            case .firstSheet:
+                Color.red
+            case .displayResults:
+                ResultsView(ftTOD: $ftTOD)
+               // Color.green
+            case .displayWindPicker:
+                Color.blue
+            }
+        }
     
 }//end of struct
 
@@ -158,18 +160,20 @@ struct ContentView_Previews: PreviewProvider {
 class CheckCalc: ObservableObject {
     @Published var isValid: Bool = true
 }
-struct SheetView: View {
-    var item: ActiveSheet
-   // @Binding var activeSheet: ActiveSheet?
-    var results: Double
-    var body: some View {
-        switch item {
-        case .firstSheet:
-            Color.red
-        case .displayResults:
-            ResultsView(ftTOD: 1000.0)//$results)//, activeSheet: activeSheet)
-        case .displayWindPicker:
-            Color.green
-        }
-    }
-}
+//struct SheetView: View {
+//    var item: ActiveSheet
+//   // @Binding var activeSheet: ActiveSheet?
+//    var results: Double
+//    var body: some View {
+//        switch item {
+//        case .firstSheet:
+//            Color.red
+////        case .displayResults:
+////            ResultsView(ftTOD: 1000.0)//$results)//, activeSheet: activeSheet)
+//        case .displayWindPicker:
+//            Color.green
+//            default:
+//            Color.brown
+//        }
+//    }
+//}

@@ -10,6 +10,7 @@ import SwiftUI
 struct WindView: View {
     let lightBlue = UIColor(hue: 0.5472, saturation: 0.42, brightness: 0.97, alpha: 1.0)
     @ObservedObject var wind: Wind
+    @State var showPicker: Bool = false
     var body: some View {
       //  NavigationView{   //doesn't go here! The Navigation is from Content view, so that is where it needs to be!
         HStack{
@@ -31,8 +32,15 @@ struct WindView: View {
             .background(RoundedRectangle(cornerRadius: 10).fill(Color(lightBlue)))
             //}//end HStack
             .onTapGesture {
+                showPicker = true
                 print("tapped WindView")
             }
+                .sheet(isPresented: $showPicker) {
+                    WindPicker(showPicker: $showPicker, windComponent: $wind.windComponent)
+                    //ResultsView(ftTOD: $ftTOD)
+                    // Color.green
+        
+                }
         }
     }
 //}
