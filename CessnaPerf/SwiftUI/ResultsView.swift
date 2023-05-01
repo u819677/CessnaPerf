@@ -10,7 +10,9 @@ import SwiftUI
 
 struct ResultsView: View {
     @Environment(\.presentationMode) var presentationMode
-    @Binding var ftTOD: Double
+   // @Binding
+    var ftTOD: Double
+   // @Binding var activeSheet: ActiveSheet
     //@State  var trimmedFeet: String = ""
     //@State var trimmedMetres: String = ""
     //var metres: Double
@@ -29,10 +31,11 @@ struct ResultsView: View {
                // .offset(x: -100, y: 0)
         VStack{
             // TOD = \(trimmedFeet)ft
+            //now follows a multi-line string literal, line breaks are required
             Text("""
                 TOD = \(String(format: "%.0f", ftTOD)) ft
                 
-                TODR (incl x 1.25)
+                TODR (= TOD x 1.25)
                 = \(String(format: "%.0f",(ftTOD * 1.25 / 3.28) )) metres
                 """)
               //  = \(trimmedMetres)m
@@ -61,6 +64,7 @@ struct ResultsView: View {
 
 struct ResultsView_Previews: PreviewProvider {
     static var previews: some View {
-        ResultsView(ftTOD: .constant(0000.0))
+       // ResultsView(ftTOD: .constant(0000.0))
+        Color.red
     }
 }

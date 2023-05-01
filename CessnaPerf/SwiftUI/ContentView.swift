@@ -8,6 +8,7 @@ import SwiftUI
 import TabularData
 
 enum ActiveSheet: Identifiable, Equatable {
+    case firstSheet
     case displayResults
     case displayWindPicker
     //case addTopic
@@ -39,7 +40,7 @@ struct ContentView: View {
     @StateObject var wind: Wind = Wind()
     @State var showResults: Bool = false
     
-    @State var ftTOD: Double = 0
+    @State var ftTOD: Double = 0.0
     @State var ftROLL: Double = 0.0
     
     var dataFrame = DataFrame()
@@ -67,6 +68,10 @@ struct ContentView: View {
                     .font(.custom("Noteworthy Bold", size: 26))
                     .foregroundColor(.white)
                     .padding(5)
+                
+                
+                // MARK: Calculate Button
+                
                 Button {
                     let (elevation, validPA) = correctedPA(elevationEntry: elevationEntry, qnhEntry: qnhEntry)
                     let temperature = Int(tempEntry)!
@@ -76,7 +81,8 @@ struct ContentView: View {
                         return
                     }
                     ftTOD = Double(todFeet(dataFrame: dataFrame, elevation: elevation, temperature: temperature, weight: weight))
-                    showResults = true
+                    //showResults = true
+                    activeSheet = .displayResults
                 }label: {
                     Text("  Calculate  ")
                         .foregroundColor(.white)
@@ -118,17 +124,31 @@ struct ContentView: View {
             .environmentObject(checkCalc)
             
         }
-        .sheet(isPresented: $showResults) {
-            
-            ResultsView(ftTOD: $ftTOD)
-            // Color.green
-            
+        .sheet(item: $activeSheet){
+            item in
+            SheetView(item: item, results: ftTOD)
         }
+//        .sheet(isPresented: $showResults) {
+//
+//            ResultsView(ftTOD: $ftTOD)
+//            // Color.green
+//
+//        }
         // .edgesIgnoringSafeArea(.all)
-    }
+    }//end of body
+    //    @ViewBuilder
+    //    private func sheetView(with item: ActiveSheet) -> some View {
+    //        switch item {
+    //        case .firstSheet:
+    //            Color.red
+    //        case .displayResults:
+    //            Color.green
+    //        case .displayWindPicker:
+    //            Color.blue
+    //        }
+    //    }
     
-    
-}
+}//end of struct
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
@@ -137,4 +157,19 @@ struct ContentView_Previews: PreviewProvider {
 }
 class CheckCalc: ObservableObject {
     @Published var isValid: Bool = true
+}
+struct SheetView: View {
+    var item: ActiveSheet
+   // @Binding var activeSheet: ActiveSheet?
+    var results: Double
+    var body: some View {
+        switch item {
+        case .firstSheet:
+            Color.red
+        case .displayResults:
+            ResultsView(ftTOD: 1000.0)//$results)//, activeSheet: activeSheet)
+        case .displayWindPicker:
+            Color.green
+        }
+    }
 }
