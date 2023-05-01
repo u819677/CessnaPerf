@@ -19,6 +19,7 @@
 		236E895B29FFB6F40011B767 /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236E895A29FFB6F40011B767 /* ResultsView.swift */; };
 		236E895D29FFC1E40011B767 /* Calculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236E895C29FFC1E40011B767 /* Calculations.swift */; };
 		236E895F29FFD53B0011B767 /* QNHView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236E895E29FFD53B0011B767 /* QNHView.swift */; };
+		236E89672A0015C00011B767 /* WindPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236E89662A0015C00011B767 /* WindPicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		236E895A29FFB6F40011B767 /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
 		236E895C29FFC1E40011B767 /* Calculations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculations.swift; sourceTree = "<group>"; };
 		236E895E29FFD53B0011B767 /* QNHView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QNHView.swift; sourceTree = "<group>"; };
+		236E89662A0015C00011B767 /* WindPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindPicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +99,7 @@
 				236E895729FFB3190011B767 /* TemperatureView.swift */,
 				236E895A29FFB6F40011B767 /* ResultsView.swift */,
 				236E895E29FFD53B0011B767 /* QNHView.swift */,
+				236E89662A0015C00011B767 /* WindPicker.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -178,6 +181,7 @@
 				236E895F29FFD53B0011B767 /* QNHView.swift in Sources */,
 				236E895629FFB2F00011B767 /* ElevationView.swift in Sources */,
 				236E895429FFB2960011B767 /* WeightView.swift in Sources */,
+				236E89672A0015C00011B767 /* WindPicker.swift in Sources */,
 				236E894329FFAE170011B767 /* ContentView.swift in Sources */,
 				236E895D29FFC1E40011B767 /* Calculations.swift in Sources */,
 				236E894129FFAE170011B767 /* CessnaPerfApp.swift in Sources */,

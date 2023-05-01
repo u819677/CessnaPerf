@@ -49,31 +49,24 @@ struct ContentView: View {
                         .foregroundColor(.white)
                         .padding(5)
                     Button {
-                        
-                      //  let elevation = Int(elevationEntry)!
-                        let (elevation, validity) = correctedPA(elevationEntry: elevationEntry, qnhEntry: qnhEntry)
+                        let (elevation, validPA) = correctedPA(elevationEntry: elevationEntry, qnhEntry: qnhEntry)
                         let temperature = Int(tempEntry)!
                         let weight = Int(weightEntry)!
-                        if validity != true {
+                        if validPA == false {
                             print("pa out of range")
                             return
                         }
-                        print(lowerElevationAndTemperatureBoundaryIndicees(elevation: elevation, temperature: temperature))
                         ftTOD = Double(todFeet(dataFrame: dataFrame, elevation: elevation, temperature: temperature, weight: weight))
                         showResults = true
-                        //calculation is done here!
                     }label: {
                         Text("  Calculate  ")
                             .foregroundColor(.white)
                             .font(.custom("Noteworthy Bold", size: 25))
                             .padding(5)
-                        
-                        .overlay(RoundedRectangle(cornerRadius: 5)
-                          
-                            .stroke(Color.white, lineWidth: 2)
-                                 )
-                        .background(Color.gray)
-                        
+                            .overlay(RoundedRectangle(cornerRadius: 5)
+                                .stroke(Color.white, lineWidth: 2)
+                            )
+                            .background(Color.gray)
                     }//end of Button
                
                     Spacer()
