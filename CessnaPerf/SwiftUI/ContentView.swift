@@ -17,6 +17,9 @@ struct ContentView: View {
     @State var isElevationValid: Bool = true
     @State var showResults: Bool = false
     
+    @State var ftTOD: Double = 0.0
+    @State var ftROLL: Double = 0.0
+    
     var body: some View {
       //  ScrollView {
             ZStack{
@@ -36,6 +39,7 @@ struct ContentView: View {
                         .foregroundColor(.white)
                         .padding(5)
                     Button {
+                        ftTOD = 1000
                         showResults = true
                         //calculation is done here!
                     }label: {
@@ -83,8 +87,9 @@ struct ContentView: View {
                     
  }
             .sheet(isPresented: $showResults) {
-                //ResultsView(ftTOD: $ftTOD)
-                Color.green
+            
+                ResultsView(ftTOD: $ftTOD)
+               // Color.green
                 
             }
        // .edgesIgnoringSafeArea(.all)
