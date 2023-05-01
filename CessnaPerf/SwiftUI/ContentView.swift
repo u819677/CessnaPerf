@@ -5,6 +5,7 @@
 //  Created by Richard Clark on 01/05/2023.
 
 import SwiftUI
+import TabularData
 
 struct ContentView: View {
     @StateObject var checkCalc: CheckCalc = CheckCalc()
@@ -20,13 +21,20 @@ struct ContentView: View {
     @State var ftTOD: Double = 0.0
     @State var ftROLL: Double = 0.0
     
+    var dataFrame = DataFrame()
+    init() {
+        let fileURL = Bundle.main.url(forResource: "C172Perf", withExtension: "csv")
+        do {
+            self.dataFrame = try DataFrame(contentsOfCSVFile: fileURL!)
+            print(dataFrame)
+        } catch {
+            print("url loading failed")
+        }
+    }
+    
     var body: some View {
       //  ScrollView {
             ZStack{
-             //   Color.blue
-                
-
-        
                     Image("C172Panel")
                         .resizable()
                         .aspectRatio(contentMode: .fill)

@@ -65,4 +65,34 @@
                     \cf15 // example.txt not found!\cf9 \
                 \}\
             \}\
-above works a treat}
+above works a treat\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f0\b\fs36 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\shad\shadx0\shady-20\shadr0\shado0 \shadc0 if
+\f1\b0 \cf4 \shad\shadx0\shady-20\shadr0\shado0 \shadc0  
+\f0\b \cf2 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 let
+\f1\b0 \cf4 \shad\shadx0\shady-20\shadr0\shado0 \shadc0  fileContents = 
+\f0\b \cf2 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 try
+\f1\b0 \cf4 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 ? \cf5 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 String\cf4 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 (contentsOf: fileURL) \{\
+    \cf8 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 // we loaded the file into a string!\cf4 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 \
+\}\
+\
+
+\f0\b \cf2 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 if
+\f1\b0 \cf4 \shad\shadx0\shady-20\shadr0\shado0 \shadc0  
+\f0\b \cf2 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 let
+\f1\b0 \cf4 \shad\shadx0\shady-20\shadr0\shado0 \shadc0  fileURL = \cf5 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 Bundle\cf4 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 .main.\cf6 \cb3 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 url\cf4 \cb3 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 (forResource: \cf7 \cb3 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 "some-file"\cf4 \cb3 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 , withExtension: \cf7 \cb3 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 "txt"\cf4 \cb3 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 ) \{\
+    \cf8 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 // we found the file in our bundle!\cf4 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 \
+\}\
+\
+\pard\tx593\pardeftab593\pardirnatural\partightenfactor0
+
+\fs24 \cf9 \cb10 \kerning1\expnd0\expndtw0 \shad0         
+\f0\b \cf13 if
+\f1\b0 \cf9  
+\f0\b \cf13 let
+\f1\b0 \cf9  filepath = \cf11 Bundle\cf9 .\cf14 main\cf9 .\cf14 path\cf9 (\cf14 forResource\cf9 : \cf12 "C172Perf"\cf9 , \cf14 ofType\cf9 : \cf12 "csv"\cf9 )\{\
+            \cf14 print\cf9 (\cf12 "file is found"\cf9 )\
+        \} //this works, not needed.}
