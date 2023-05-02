@@ -1,13 +1,16 @@
 {\rtf1\ansi\ansicpg1252\cocoartf2706
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Bold;\f1\fnil\fcharset0 Menlo-Regular;}
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 Menlo-Bold;\f1\fnil\fcharset0 Menlo-Regular;\f2\fnil\fcharset0 .AppleSystemUIFontMonospaced-Regular;
+}
 {\colortbl;\red255\green255\blue255;\red235\green0\blue121;\red24\green24\blue28;\red246\green246\blue239;
 \red103\green225\blue255;\red72\green212\blue251;\red248\green60\blue79;\red93\green108\blue125;\red0\green0\blue0;
 \red255\green255\blue255;\red57\green0\blue160;\red196\green26\blue22;\red155\green35\blue147;\red108\green54\blue169;
-\red93\green108\blue121;}
+\red93\green108\blue121;\red8\green64\blue128;\red244\green244\blue244;\red35\green38\blue42;\red166\green63\blue5;
+}
 {\*\expandedcolortbl;;\cssrgb\c94902\c14118\c54902;\cssrgb\c12549\c12549\c14510;\cssrgb\c97255\c97255\c94902;
 \cssrgb\c46275\c90196\c100000;\cssrgb\c32941\c86275\c98824;\cssrgb\c98824\c33725\c38039;\cssrgb\c43922\c50196\c56471;\csgenericrgb\c0\c0\c0\c85000;
 \csgenericrgb\c100000\c100000\c100000;\csgenericrgb\c22454\c0\c62803;\csgenericrgb\c77000\c10200\c8600;\csgenericrgb\c60759\c13753\c57628;\csgenericrgb\c42190\c21278\c66379;
-\csgenericrgb\c36526\c42188\c47515;}
+\csgenericrgb\c36526\c42188\c47515;\cssrgb\c392\c32941\c57647;\cssrgb\c96471\c96471\c96471;\cssrgb\c18431\c20000\c21569;\cssrgb\c71765\c32549\c392;
+}
 \paperw12240\paperh15840\margl1440\margr1440\vieww9000\viewh8400\viewkind0
 \deftab720
 \pard\pardeftab720\partightenfactor0
@@ -83,7 +86,7 @@ above works a treat\
 \f0\b \cf2 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 if
 \f1\b0 \cf4 \shad\shadx0\shady-20\shadr0\shado0 \shadc0  
 \f0\b \cf2 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 let
-\f1\b0 \cf4 \shad\shadx0\shady-20\shadr0\shado0 \shadc0  fileURL = \cf5 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 Bundle\cf4 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 .main.\cf6 \cb3 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 url\cf4 \cb3 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 (forResource: \cf7 \cb3 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 "some-file"\cf4 \cb3 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 , withExtension: \cf7 \cb3 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 "txt"\cf4 \cb3 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 ) \{\
+\f1\b0 \cf4 \shad\shadx0\shady-20\shadr0\shado0 \shadc0  fileURL = \cf5 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 Bundle\cf4 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 .main.\cf6 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 url\cf4 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 (forResource: \cf7 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 "some-file"\cf4 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 , withExtension: \cf7 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 "txt"\cf4 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 ) \{\
     \cf8 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 // we found the file in our bundle!\cf4 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 \
 \}\
 \
@@ -95,4 +98,13 @@ above works a treat\
 \f0\b \cf13 let
 \f1\b0 \cf9  filepath = \cf11 Bundle\cf9 .\cf14 main\cf9 .\cf14 path\cf9 (\cf14 forResource\cf9 : \cf12 "C172Perf"\cf9 , \cf14 ofType\cf9 : \cf12 "csv"\cf9 )\{\
             \cf14 print\cf9 (\cf12 "file is found"\cf9 )\
-        \} //this works, not needed.}
+        \} //this works, not needed.\
+\
+\pard\pardeftab720\partightenfactor0
+
+\f2\fs26 \cf16 \cb17 \expnd0\expndtw0\kerning0
+func\cf18  \cf19 setDefaultValue\cf18 (item: \cf19 String\cf18 , inComponent: \cf19 Int\cf18 )\{\
+ \cf16 if\cf18  \cf16 let\cf18  indexPosition = pickerData.firstIndex(of: item)\{\
+   pickerView.selectRow(indexPosition, inComponent: inComponent, animated: \cf19 true\cf18 )   \
+ \}\
+\}}

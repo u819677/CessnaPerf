@@ -33,7 +33,8 @@ struct WindView: View {
             //}//end HStack
             .onTapGesture {
                 showPicker = true
-                print("tapped WindView")
+                print("component \($wind.windComponent)")
+
             }
                 .sheet(isPresented: $showPicker) {
                     WindPicker(showPicker: $showPicker, windComponent: $wind.windComponent)

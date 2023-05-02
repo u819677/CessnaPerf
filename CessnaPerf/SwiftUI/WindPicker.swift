@@ -73,6 +73,8 @@ struct CustomPicker : UIViewRepresentable {
         let picker = UIPickerView()
         picker.dataSource = context.coordinator
         picker.delegate = context.coordinator
+       // if let indexPosition = components.firstIndex{
+        picker.selectRow(3, inComponent: 0, animated: true)
         return picker
     }
     
@@ -126,6 +128,7 @@ struct CustomPicker : UIViewRepresentable {
         }
         func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
             self.parent.selected = components[row]
+            print("row \(row) was selected")
         }
         
     }

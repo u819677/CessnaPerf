@@ -43,7 +43,7 @@ struct ResultsView: View {
                 
                 .font(.custom("Noteworthy Bold", size: 25))
                 .foregroundColor(.white)
-            .padding(50)
+            .padding(30)
             Button(" OK  "){
                 presentationMode.wrappedValue.dismiss()
             }
