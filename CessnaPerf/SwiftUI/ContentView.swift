@@ -80,7 +80,9 @@ struct ContentView: View {
                         print("pa out of range")
                         return
                     }
+                    //first calc calm tod then correct for windComponent
                     ftTOD = Double(todFeet(dataFrame: dataFrame, elevation: elevation, temperature: temperature, weight: weight))
+                    ftTOD = ftTOD * WindComponent(component: wind.windComponent)
                     //showResults = true
                     activeSheet = .displayResults
                 }label: {

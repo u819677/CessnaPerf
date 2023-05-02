@@ -32,3 +32,27 @@ func pickerRow(selected: String) -> Int {
     }
 }
 //["9kt HW", "6kts HW", "3kts HW", "calm", "2kts TW", "4kts TW", "6kts TW", "8kts TW" , "10kts TW"]
+func WindComponent(component: String) -> Double {
+    switch component {
+    case "calm":
+        return 1.0
+    case "2kts TW":
+        return 1.10
+    case "4kts TW":
+        return 1.20
+    case "6kts TW":
+        return 1.30
+    case "8kts TW":
+        return 1.40
+    case "10kts TW":
+        return 1.50
+    case "3kts HW":
+        return 0.9666
+    case "6kts HW":
+        return 0.9333
+    case "9kts HW":
+        return 0.90
+    default:
+        return 1.0
+    }
+}

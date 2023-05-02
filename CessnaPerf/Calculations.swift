@@ -97,3 +97,4 @@ func correctedPA(elevationEntry: String, qnhEntry: String) -> (Int, Bool) {
         }
     }
 }
+
