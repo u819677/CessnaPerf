@@ -28,7 +28,7 @@ struct WeightView: View {
                             isWeightValid = false
                         }
                     }
-                }
+                }.keyboardType(.asciiCapableNumberPad)
                 //        onCommit: {   //this seems to be optional. Enter not always tapped though, so not reliable
                 //        }
                 

@@ -43,6 +43,9 @@ struct ContentView: View {
     @State var ftTOD: Double = 0.0
     @State var ftROLL: Double = 0.0
     
+   // @FocusState private var showKeyboard: Bool //= false
+    //focus state needs to be in environment?
+    
     var dataFrame = DataFrame()
     init() {
         let fileURL = Bundle.main.url(forResource: "C172Perf", withExtension: "csv")
@@ -61,6 +64,9 @@ struct ContentView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .edgesIgnoringSafeArea(.all)
+                .onTapGesture {
+                    print("panel was tapped")
+                }
             //.padding(10)
             VStack{
                 Text("C172P Take Off Performance")
