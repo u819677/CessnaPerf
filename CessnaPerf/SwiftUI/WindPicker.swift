@@ -99,7 +99,7 @@ struct CustomPicker : UIViewRepresentable {
         func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
            // let view = UIView()//not sure why need complexity of following mod to view
             let lightBlue = UIColor(hue: 0.5472, saturation: 0.42, brightness: 0.97, alpha: 1.0)
-            let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 100, height: 50))
+            let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 150, height: 50))
             
             let label = UILabel(frame: CGRect(x:0, y:0, width: view.bounds.width, height: view.bounds.height))
             
@@ -108,7 +108,7 @@ struct CustomPicker : UIViewRepresentable {
             label.textAlignment = .center
            // label.font = .systemFont(ofSize: 25, weight: .bold)
                 //label.font(custom("Noteworthy Bold", size: 25))
-            label.font = UIFont(name: "NoteworthyBold", size: 25)
+            label.font = UIFont(name: "Noteworthy-Bold", size: 25)
             view.backgroundColor = lightBlue
  
             view.addSubview(label)
@@ -116,8 +116,8 @@ struct CustomPicker : UIViewRepresentable {
             view.clipsToBounds = true
             view.layer.cornerRadius = view.bounds.height / 5
             
-            view.layer.borderWidth = 2
-            view.layer.borderColor = UIColor.white.cgColor
+            view.layer.borderWidth = 1
+            view.layer.borderColor = UIColor.black.cgColor
             return view
         }
         func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
