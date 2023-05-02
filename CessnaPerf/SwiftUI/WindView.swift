@@ -42,12 +42,17 @@ struct WindView: View {
                     // Color.green
         
                 }
-        }
+                .onAppear() {
+                    print("onAppear")
+                }
+        }//end of body
+    
     }
 //}
 class Wind: ObservableObject {
-    @Published var windComponent: String = "calm"
+    @Published var windComponent: String = "calm"// wind.windComponent
 }
+
 //struct WindView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        WindView(wind: )

@@ -19,9 +19,11 @@ import SwiftUI
 struct WindPicker: View {
     @Binding var showPicker: Bool
     @Binding var windComponent: String // = "calm"
+ 
     init(showPicker: Binding<Bool>, windComponent: Binding<String>){
         self._showPicker = showPicker
         self._windComponent = windComponent
+    
     }
    
     
@@ -73,12 +75,19 @@ struct CustomPicker : UIViewRepresentable {
         let picker = UIPickerView()
         picker.dataSource = context.coordinator
         picker.delegate = context.coordinator
-       // if let indexPosition = components.firstIndex{
-        picker.selectRow(3, inComponent: 0, animated: true)
+  // print("makeUIView ran and selected is \(selected)")
+        let selectedRow = pickerRow(selected: selected)
+       // print("makeUIView ran and selectedRow is: \(selectedRow)")
+        picker.selectRow(selectedRow, inComponent: 0, animated: true)
+  
         return picker
     }
     
     func updateUIView(_ uiView: UIPickerView, context: UIViewRepresentableContext<CustomPicker>) {
+//        print("updateView ran and selected is: \(selected)")
+//        let picker = UIPickerView()
+//        let selectedRow = pickerRow(selected: selected)
+//        picker.selectRow(selectedRow, inComponent: 0, animated: true)
         
     }
     class Coordinator : NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
@@ -133,5 +142,5 @@ struct CustomPicker : UIViewRepresentable {
         
     }
 }
-var components = ["9kt HW", "6kts HW", "3kts HW", "calm", "2kts TW", "4kts TW", "6kts TW", "8kts TW" , "10kts TW"]
+var components = ["9kts HW", "6kts HW", "3kts HW", "calm", "2kts TW", "4kts TW", "6kts TW", "8kts TW" , "10kts TW"]
 //var components = ["one", "two", "three"]
