@@ -13,6 +13,7 @@ struct TemperatureView: View {
     @EnvironmentObject var checkCalc: CheckCalc
     @Binding var temperatureEntry: String
     @Binding var isTempValid: Bool  //order of the @Binding vars makes a difference here when the view is called!
+    var focused: FocusState<Bool?>.Binding
     let lightBlue = UIColor(hue: 0.5472, saturation: 0.42, brightness: 0.97, alpha: 1.0)
     var body: some View {
         ZStack(alignment: .center){
@@ -22,7 +23,7 @@ struct TemperatureView: View {
                     .padding(.leading)
                     .foregroundColor(.black)
                     .font(.custom("Noteworthy Bold", size: 25))
-                TextField("enter Temp(°C)", text: $temperatureEntry)
+                TextField("     ", text: $temperatureEntry)
                 {
                     isEditing in
                     if isEditing == true {
@@ -33,9 +34,8 @@ struct TemperatureView: View {
                         }
                     }
                 }
-                onCommit: {
-                }
-                
+                .focused(focused, equals: true)
+                .keyboardType(.asciiCapableNumberPad)
                 .font(.custom("Noteworthy Bold", size: 25))
                 .padding()
                 .position(x: 50, y: 12)//generates a new view
@@ -74,8 +74,8 @@ func checkTemp(_ tempInput: String) -> Bool {
     return false
 }
 
-struct TemperatureView_Previews: PreviewProvider {
-    static var previews: some View {
-        TemperatureView(temperatureEntry: .constant("20"), isTempValid: .constant(true))
-    }
-}
+//struct TemperatureView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TemperatureView(temperatureEntry: .constant("20"), isTempValid: .constant(true))
+//    }
+//}

@@ -13,13 +13,14 @@ struct ElevationView: View {
     @EnvironmentObject var checkCalc: CheckCalc
     @Binding var elevationEntry: String
     @Binding var isElevationValid: Bool
+    var focused: FocusState<Bool?>.Binding
     let lightBlue = UIColor(hue: 0.5472, saturation: 0.42, brightness: 0.97, alpha: 1.0)
     var body: some View {
         ZStack(alignment: .center) {
             HStack{
                 Text("Airfield elevn:")
                     .font(.custom("Noteworthy Bold", size: 25))
-                TextField("enter Pressure Altitude", text: $elevationEntry)
+                TextField("       ", text: $elevationEntry)
                 {
                     isEditing in //self.isEditing = isEditing
                     if isEditing == true {
@@ -35,8 +36,10 @@ struct ElevationView: View {
                         }
                     }
                 }
-                onCommit: {
-                }
+                .focused(focused, equals: true)
+                .keyboardType(.asciiCapableNumberPad)
+//                onCommit: {
+//                }
                 .font(.custom("Noteworthy Bold", size: 25))
                 .padding()
                 .position(x: 50, y: 12)//generates a new view
@@ -71,8 +74,8 @@ func checkElevation(_ elevationInput: String) -> Bool {
     }
     return false
 }
-struct PAView_Previews: PreviewProvider {
-    static var previews: some View {
-        ElevationView(elevationEntry: .constant( "1000"), isElevationValid: .constant(true))
-    }
-}
+//struct PAView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ElevationView(elevationEntry: .constant( "1000"), isElevationValid: .constant(true))
+//    }
+//}

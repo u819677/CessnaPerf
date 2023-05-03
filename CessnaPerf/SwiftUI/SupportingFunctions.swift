@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import TabularData
 
 func pickerRow(selected: String) -> Int {
     switch selected {
@@ -55,4 +56,8 @@ func WindComponent(component: String) -> Double {
     default:
         return 1.0
     }
+}
+func TODDataFrame(dataFrame: DataFrame) -> DataFrame {
+    let todData = dataFrame.selecting(columnNames: "weight", "elevation", "TOD0", "TOD10", "TOD20", "TOD30", "TOD40", "TOD40.1" )
+    return todData
 }

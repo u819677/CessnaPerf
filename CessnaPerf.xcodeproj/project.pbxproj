@@ -13,7 +13,6 @@
 		236E894329FFAE170011B767 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236E894229FFAE170011B767 /* ContentView.swift */; };
 		236E894529FFAE190011B767 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 236E894429FFAE190011B767 /* Assets.xcassets */; };
 		236E894829FFAE190011B767 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 236E894729FFAE190011B767 /* Preview Assets.xcassets */; };
-		236E895029FFAF750011B767 /* C172Perf.csv in Resources */ = {isa = PBXBuildFile; fileRef = 236E894F29FFAF750011B767 /* C172Perf.csv */; };
 		236E895229FFB0D10011B767 /* Notes.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 236E895129FFB0D10011B767 /* Notes.rtf */; };
 		236E895429FFB2960011B767 /* WeightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236E895329FFB2960011B767 /* WeightView.swift */; };
 		236E895629FFB2F00011B767 /* ElevationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236E895529FFB2F00011B767 /* ElevationView.swift */; };
@@ -22,6 +21,7 @@
 		236E895D29FFC1E40011B767 /* Calculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236E895C29FFC1E40011B767 /* Calculations.swift */; };
 		236E895F29FFD53B0011B767 /* QNHView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236E895E29FFD53B0011B767 /* QNHView.swift */; };
 		236E89672A0015C00011B767 /* WindPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236E89662A0015C00011B767 /* WindPicker.swift */; };
+		23E299822A0250750036E691 /* C172Perf.csv in Resources */ = {isa = PBXBuildFile; fileRef = 23E299812A0250750036E691 /* C172Perf.csv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +33,6 @@
 		236E894429FFAE190011B767 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		236E894729FFAE190011B767 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		236E894E29FFAEEF0011B767 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		236E894F29FFAF750011B767 /* C172Perf.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = C172Perf.csv; path = ../../../../../Desktop/C172Perf.csv; sourceTree = "<group>"; };
 		236E895129FFB0D10011B767 /* Notes.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Notes.rtf; sourceTree = "<group>"; };
 		236E895329FFB2960011B767 /* WeightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightView.swift; sourceTree = "<group>"; };
 		236E895529FFB2F00011B767 /* ElevationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationView.swift; sourceTree = "<group>"; };
@@ -42,6 +41,7 @@
 		236E895C29FFC1E40011B767 /* Calculations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculations.swift; sourceTree = "<group>"; };
 		236E895E29FFD53B0011B767 /* QNHView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QNHView.swift; sourceTree = "<group>"; };
 		236E89662A0015C00011B767 /* WindPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindPicker.swift; sourceTree = "<group>"; };
+		23E299812A0250750036E691 /* C172Perf.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = C172Perf.csv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +58,7 @@
 		236E893429FFAE170011B767 = {
 			isa = PBXGroup;
 			children = (
+				23E299812A0250750036E691 /* C172Perf.csv */,
 				236E893F29FFAE170011B767 /* CessnaPerf */,
 				236E893E29FFAE170011B767 /* Products */,
 			);
@@ -79,7 +80,6 @@
 				236E894429FFAE190011B767 /* Assets.xcassets */,
 				236E895C29FFC1E40011B767 /* Calculations.swift */,
 				236E894E29FFAEEF0011B767 /* Info.plist */,
-				236E894F29FFAF750011B767 /* C172Perf.csv */,
 				236E894629FFAE190011B767 /* Preview Content */,
 				236E895129FFB0D10011B767 /* Notes.rtf */,
 			);
@@ -168,8 +168,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23E299822A0250750036E691 /* C172Perf.csv in Resources */,
 				236E895229FFB0D10011B767 /* Notes.rtf in Resources */,
-				236E895029FFAF750011B767 /* C172Perf.csv in Resources */,
 				236E894829FFAE190011B767 /* Preview Assets.xcassets in Resources */,
 				236E894529FFAE190011B767 /* Assets.xcassets in Resources */,
 			);

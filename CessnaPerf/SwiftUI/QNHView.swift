@@ -12,6 +12,8 @@ struct QNHView: View {
     @EnvironmentObject var checkCalc: CheckCalc
     @Binding var qnhEntry: String
     @Binding var isQNHValid: Bool
+    var focused: FocusState<Bool?>.Binding
+    
     @State var isEditing: Bool = false
     @State var hadFocus: Bool = false
     @State var boolCount: Int = 0
@@ -21,7 +23,7 @@ struct QNHView: View {
             HStack {
                 Text("           QNH:   ")
                     .font(.custom("Noteworthy Bold", size: 25))
-                TextField("enter QNH", text: $qnhEntry)
+                TextField("    ", text: $qnhEntry)
                 {
                     isEditing in //self.isEditing = isEditing
                     if isEditing == true {
@@ -34,6 +36,8 @@ struct QNHView: View {
                 }
                 onCommit: {     //this is the new(ish) trailing closure syntax
                 }
+                .focused(focused, equals: true)
+                .keyboardType(.asciiCapableNumberPad)
                 .font(.custom("Noteworthy Bold", size: 25))
                 .padding()
                 .position(x: 50, y: 12)//generates a new view
@@ -70,8 +74,8 @@ func checkQNH(_ qnhInput: String) -> Bool {
     }
     return false
 }
-struct QNHView_Previews: PreviewProvider {
-    static var previews: some View {
-        QNHView(qnhEntry: .constant( "1013"), isQNHValid: .constant(true))
-    }
-}
+//struct QNHView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        QNHView(qnhEntry: .constant( "1013"), isQNHValid: .constant(true))
+//    }
+//}

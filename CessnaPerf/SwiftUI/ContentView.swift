@@ -25,17 +25,19 @@ enum ActiveSheet: Identifiable, Equatable {
 }
 
 struct ContentView: View {
+    
+    @FocusState  var focused: Bool?
     @State private var activeSheet: ActiveSheet?
     
     @StateObject var checkCalc: CheckCalc = CheckCalc()
     
     @State var weightEntry: String = "2400"
     @State var isWeightValid: Bool = true
-    @State var tempEntry: String = "15"
+    @State var tempEntry: String = "    "
     @State var isTempValid: Bool = true
-    @State var elevationEntry: String = "1000"
+    @State var elevationEntry: String = "   "
     @State var isElevationValid: Bool = true
-    @State var qnhEntry: String = "1013"
+    @State var qnhEntry: String = "    "
     @State var isQNHValid: Bool = true
     @StateObject var wind: Wind = Wind()
     @State var showResults: Bool = false
@@ -65,7 +67,8 @@ struct ContentView: View {
                 .aspectRatio(contentMode: .fill)
                 .edgesIgnoringSafeArea(.all)
                 .onTapGesture {
-                    print("panel was tapped")
+                    focused = nil
+                  print("ran focused = nil")
                 }
             //.padding(10)
             VStack{
@@ -79,6 +82,7 @@ struct ContentView: View {
 // MARK: Calculate Button
                 
                 Button {
+                    let todDataFrame = TODDataFrame(dataFrame: dataFrame)
                     let (elevation, validPA) = correctedPA(elevationEntry: elevationEntry, qnhEntry: qnhEntry)
                     let temperature = Int(tempEntry)!
                     let weight = Int(weightEntry)!
@@ -87,7 +91,7 @@ struct ContentView: View {
                         return
                     }
                     //first calc calm tod then correct for windComponent
-                    ftTOD = Double(todFeet(dataFrame: dataFrame, elevation: elevation, temperature: temperature, weight: weight))
+                    ftTOD = Double(todFeet(dataFrame: todDataFrame, elevation: elevation, temperature: temperature, weight: weight))
                     ftTOD = ftTOD * WindComponent(component: wind.windComponent)
                     //showResults = true
                     activeSheet = .displayResults
@@ -107,17 +111,17 @@ struct ContentView: View {
             VStack{
                 
                 Spacer()
-                WeightView(weightEntry: $weightEntry, isWeightValid: $isWeightValid)
+                WeightView(weightEntry: $weightEntry, isWeightValid: $isWeightValid, focused: $focused)
                     .padding(10)
                 
                 
                 
-                TemperatureView(temperatureEntry: $tempEntry, isTempValid: $isTempValid)
+                TemperatureView(temperatureEntry: $tempEntry, isTempValid: $isTempValid, focused: $focused)
                     .padding(10)
                 
-                ElevationView(elevationEntry: $elevationEntry, isElevationValid: $isElevationValid)
+                ElevationView(elevationEntry: $elevationEntry, isElevationValid: $isElevationValid, focused: $focused)
                     .padding(10)
-                QNHView(qnhEntry: $qnhEntry, isQNHValid: $isQNHValid)
+                QNHView(qnhEntry: $qnhEntry, isQNHValid: $isQNHValid, focused: $focused)
                 WindView(wind: wind)
                     .padding(10)
                 
