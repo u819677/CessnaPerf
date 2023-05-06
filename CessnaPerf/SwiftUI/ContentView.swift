@@ -49,14 +49,21 @@ struct ContentView: View {
     //focus state needs to be in environment?
     
     var dataFrame = DataFrame()
+    
+    let userDefaults = UserDefaults.standard
+    
+    
     init() {
         let fileURL = Bundle.main.url(forResource: "C172Perf", withExtension: "csv")
         do {
             self.dataFrame = try DataFrame(contentsOfCSVFile: fileURL!)
-            print(dataFrame)
+            //print(dataFrame)
+            print(TODDataFrame(dataFrame: dataFrame))
+            print(TORDataFrame(dataFrame: dataFrame))
         } catch {
             print("url loading failed")
         }
+        //userDefaults.set(Date(), forKey: "timeStamp")
     }
     
     var body: some View {
@@ -83,6 +90,8 @@ struct ContentView: View {
                 
                 Button {
                     let todDataFrame = TODDataFrame(dataFrame: dataFrame)
+                    let torDataFrame = TORDataFrame(dataFrame: dataFrame)
+                    
                     let (elevation, validPA) = correctedPA(elevationEntry: elevationEntry, qnhEntry: qnhEntry)
                     let temperature = Int(tempEntry)!
                     let weight = Int(weightEntry)!
@@ -93,6 +102,10 @@ struct ContentView: View {
                     //first calc calm tod then correct for windComponent
                     ftTOD = Double(todFeet(dataFrame: todDataFrame, elevation: elevation, temperature: temperature, weight: weight))
                     ftTOD = ftTOD * WindComponent(component: wind.windComponent)
+                    ftROLL = Double(torFeet(dataFrame: torDataFrame, elevation: elevation, temperature: temperature, weight: weight))
+                    ftROLL = ftROLL * WindComponent(component: wind.windComponent)
+                    let extraGrassFeet = ftROLL * 0.15
+                    ftTOD += extraGrassFeet
                     //showResults = true
                     activeSheet = .displayResults
                 }label: {

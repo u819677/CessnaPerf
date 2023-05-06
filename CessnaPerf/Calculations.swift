@@ -11,13 +11,28 @@ func todFeet(dataFrame: DataFrame, elevation: Int, temperature: Int, weight: Int
     let lowerElevationRow2200 = lowerElevationRow2400 + 4
     let lowerElevationRow2000 = lowerElevationRow2200 + 4
     
-    let tod2400 = todActualElevationActualTemperature(dataFrame: dataFrame, elevation: elevation, lowerElevationRow: lowerElevationRow2400, temperature: temperature, lowerTemperatureColumn: lowerTemperatureColumn)
-    let tod2200 = todActualElevationActualTemperature(dataFrame: dataFrame, elevation: elevation, lowerElevationRow: lowerElevationRow2200, temperature: temperature, lowerTemperatureColumn: lowerTemperatureColumn)
-    let tod2000 = todActualElevationActualTemperature(dataFrame: dataFrame, elevation: elevation, lowerElevationRow: lowerElevationRow2000, temperature: temperature, lowerTemperatureColumn: lowerTemperatureColumn)
+    let tod2400 = feetActualElevationActualTemperature(dataFrame: dataFrame, elevation: elevation, lowerElevationRow: lowerElevationRow2400, temperature: temperature, lowerTemperatureColumn: lowerTemperatureColumn)
+    let tod2200 = feetActualElevationActualTemperature(dataFrame: dataFrame, elevation: elevation, lowerElevationRow: lowerElevationRow2200, temperature: temperature, lowerTemperatureColumn: lowerTemperatureColumn)
+    let tod2000 = feetActualElevationActualTemperature(dataFrame: dataFrame, elevation: elevation, lowerElevationRow: lowerElevationRow2000, temperature: temperature, lowerTemperatureColumn: lowerTemperatureColumn)
     
     let tod = todForActualWeight(weight: weight, tod2400: tod2400, tod2200: tod2200, tod2000: tod2000)
     return tod
 }
+
+
+func torFeet(dataFrame: DataFrame, elevation: Int, temperature: Int, weight: Int) -> Int {
+    let (lowerElevationRow2400, lowerTemperatureColumn) = lowerElevationAndTemperatureBoundaryIndicees(elevation: elevation, temperature: temperature)
+    let lowerElevationRow2200 = lowerElevationRow2400 + 4
+    let lowerElevationRow2000 = lowerElevationRow2200 + 4
+    
+    let tor2400 = feetActualElevationActualTemperature(dataFrame: dataFrame, elevation: elevation, lowerElevationRow: lowerElevationRow2400, temperature: temperature, lowerTemperatureColumn: lowerTemperatureColumn)
+    let tor2200 = feetActualElevationActualTemperature(dataFrame: dataFrame, elevation: elevation, lowerElevationRow: lowerElevationRow2200, temperature: temperature, lowerTemperatureColumn: lowerTemperatureColumn)
+    let tor2000 = feetActualElevationActualTemperature(dataFrame: dataFrame, elevation: elevation, lowerElevationRow: lowerElevationRow2000, temperature: temperature, lowerTemperatureColumn: lowerTemperatureColumn)
+    
+    let tor = torForActualWeight(weight: weight, tor2400: tor2400, tor2200: tor2200, tor2000: tor2000)
+    return tor
+}
+
 
 func lowerElevationAndTemperatureBoundaryIndicees(elevation: Int, temperature: Int) -> (Int, Int) {
     var lowerElevationRow: Int = 0
@@ -49,7 +64,7 @@ func lowerElevationAndTemperatureBoundaryIndicees(elevation: Int, temperature: I
     return (lowerElevationRow,lowerTemperatureColumn)
 }
 
-func todActualElevationActualTemperature(dataFrame: DataFrame, elevation: Int, lowerElevationRow: Int, temperature: Int, lowerTemperatureColumn: Int) ->
+func feetActualElevationActualTemperature(dataFrame: DataFrame, elevation: Int, lowerElevationRow: Int, temperature: Int, lowerTemperatureColumn: Int) ->
 Int {
     let lowerElevationLowerTemperatureDist = dataFrame.rows[lowerElevationRow][lowerTemperatureColumn] as! Int
     let lowerElevationHigherTemperatureDist = dataFrame.rows[lowerElevationRow][lowerTemperatureColumn + 1] as! Int
@@ -78,6 +93,22 @@ func todForActualWeight(weight: Int, tod2400: Int, tod2200: Int, tod2000: Int) -
     }
     return tod
 }
+
+func torForActualWeight(weight: Int, tor2400: Int, tor2200: Int, tor2000: Int) -> Int {
+    var tor: Int = 0
+    switch weight {
+    case 2400:
+        tor = tor2400
+    case  2200...2399:
+        tor = tor2200 +  (tor2400 - tor2200) * (weight - 2200) / 200
+    case 2000...2199:
+        tor = tor2000 + (tor2200 - tor2000) * (weight - 2000) / 200
+    default:
+        print("weight out of range")
+    }
+    return tor
+}
+
 
 func correctedPA(elevationEntry: String, qnhEntry: String) -> (Int, Bool) {
     //MARK:- calculate pa
