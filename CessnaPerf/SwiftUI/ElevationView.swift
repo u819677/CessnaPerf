@@ -35,15 +35,12 @@ struct ElevationView: View {
                             isElevationValid = false
                         }
                     }
-                }
-                .focused(focused, equals: true)
+                }.focused(focused, equals: true)
                 .keyboardType(.asciiCapableNumberPad)
-//                onCommit: {
-//                }
                 .font(.custom("Noteworthy Bold", size: 25))
                 .padding()
-                .position(x: 50, y: 12)//generates a new view
-                .frame(width: 110, height: 28)
+               // .position(x: 50, y: 12)//generates a new view
+                .frame(width: 120, height: 28)
                 .background(isElevationValid ? Color.clear : Color.red.opacity(0.7))
                 .border(Color.black, width: 0.5)
                 .font(.custom("Noteworthy Bold", size: 25))

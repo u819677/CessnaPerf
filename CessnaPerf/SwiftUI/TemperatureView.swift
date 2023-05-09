@@ -17,11 +17,11 @@ struct TemperatureView: View {
     let lightBlue = UIColor(hue: 0.5472, saturation: 0.42, brightness: 0.97, alpha: 1.0)
     var body: some View {
         ZStack(alignment: .center){
-            HStack(alignment: .firstTextBaseline) {
-                Spacer()
+            HStack { //}(alignment: .firstTextBaseline) {
+                //Spacer()
                 Text("          Temp:           ")
-                    .padding(.leading)
-                    .foregroundColor(.black)
+                   // .padding(.leading)
+                   // .foregroundColor(.black)
                     .font(.custom("Noteworthy Bold", size: 25))
                 TextField("     ", text: $temperatureEntry)
                 {
@@ -33,8 +33,7 @@ struct TemperatureView: View {
                             isTempValid = false
                         }
                     }
-                }
-                .focused(focused, equals: true)
+                }.focused(focused, equals: true)
                 .keyboardType(.asciiCapableNumberPad)
                 .font(.custom("Noteworthy Bold", size: 25))
                 .padding()
@@ -43,12 +42,12 @@ struct TemperatureView: View {
                 .background(isTempValid ? Color.clear : Color.red.opacity(0.7))
                 .border(Color.black, width: 0.5)
                 .font(.custom("Noteworthy Bold", size: 25))
-                .foregroundColor(.black)
+               // .foregroundColor(.black)
                 Text("°C")
-                    .padding(.trailing)
+                    //.padding(.trailing)
                     .font(.custom("Noteworthy Bold", size: 25))
-                    .foregroundColor(.black)
-                Spacer()
+                   // .foregroundColor(.black)
+              //  Spacer()
             }//end of HStack
             .frame(width: 320, height: 35)
             .background(RoundedRectangle(cornerRadius: 10).fill(Color(lightBlue)))

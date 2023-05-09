@@ -33,23 +33,24 @@ struct QNHView: View {
                             isQNHValid = false
                         }
                     }
-                }
-                onCommit: {     //this is the new(ish) trailing closure syntax
-                }
-                .focused(focused, equals: true)
+                }  .focused(focused, equals: true)
+//                onCommit: {     //this is the new(ish) trailing closure syntax
+//                }
+              
                 .keyboardType(.asciiCapableNumberPad)
                 .font(.custom("Noteworthy Bold", size: 25))
                 .padding()
-                .position(x: 50, y: 12)//generates a new view
-                .frame(width: 100, height: 28)
-                .background((!hadFocus || boolCount == 2) && isQNHValid ? Color.clear : Color.red.opacity(0.7))
+                //.position(x: 50, y: 12)//generates a new view
+                .frame(width: 120, height: 28)
+//                .background((!hadFocus || boolCount == 2) && isQNHValid ? Color.clear : Color.red.opacity(0.7))
+                .background(isQNHValid ? Color.clear : Color.red.opacity(0.7))
                 .border(Color.black, width: 0.5)
                 .font(.custom("Noteworthy Bold", size: 25))
                 Text("hPa")
                     //  .foregroundColor(.white)
                     .font(.custom("Noteworthy Bold", size: 25))
             }//end HStack
-            //}//end ZStack //seems like it doesn't go here
+    
             .frame(width: 320, height: 35)
             .background(RoundedRectangle(cornerRadius: 10).fill(Color(lightBlue)))
             .onTapGesture {

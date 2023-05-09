@@ -11,8 +11,7 @@ struct WeightView: View {
     @EnvironmentObject var checkCalc: CheckCalc
     @Binding var weightEntry: String
     @Binding var isWeightValid: Bool    //this extra check is to finesse the appearance of red background in textfield
-    var focused: FocusState<Bool?>.Binding
-    
+    var focused: FocusState<Bool?>.Binding    
     let lightBlue = UIColor(hue: 0.5472, saturation: 0.42, brightness: 0.97, alpha: 1.0)
     var body: some View {
         ZStack(alignment: .center){
@@ -32,9 +31,6 @@ struct WeightView: View {
                     }
                 }.focused(focused, equals: true)
                 .keyboardType(.asciiCapableNumberPad)
-                //        onCommit: {   //this seems to be optional. Enter not always tapped though, so not reliable
-                //        }
-                
                 .font(.custom("Noteworthy Bold", size: 25))
                 .padding()
                // .position(x: 50, y: 12)//generates a new view

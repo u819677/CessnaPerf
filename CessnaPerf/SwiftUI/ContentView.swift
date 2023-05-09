@@ -40,6 +40,7 @@ struct ContentView: View {
     @State var qnhEntry: String = "    "
     @State var isQNHValid: Bool = true
     @StateObject var wind: Wind = Wind()
+    @State var isTarmac: Bool = true
     @State var showResults: Bool = false
     
     @State var ftTOD: Double = 0.0
@@ -138,9 +139,9 @@ struct ContentView: View {
                 WindView(wind: wind)
                     .padding(10)
                 
-                // )
+               SurfaceView(isTarmac: $isTarmac)
                 
-                    .padding(12)
+                    .padding(10)
                 //Spacer()
                 Spacer()
                 Spacer()
