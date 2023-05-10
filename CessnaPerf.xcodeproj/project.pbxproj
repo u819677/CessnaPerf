@@ -23,6 +23,7 @@
 		236E89672A0015C00011B767 /* WindPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236E89662A0015C00011B767 /* WindPicker.swift */; };
 		23E299822A0250750036E691 /* C172Perf.csv in Resources */ = {isa = PBXBuildFile; fileRef = 23E299812A0250750036E691 /* C172Perf.csv */; };
 		23E299862A0A7FD60036E691 /* SurfaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E299852A0A7FD60036E691 /* SurfaceView.swift */; };
+		23E299A22A0BCFB10036E691 /* ScenePhaseCode.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 23E299A12A0BCFB10036E691 /* ScenePhaseCode.rtf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		236E89662A0015C00011B767 /* WindPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindPicker.swift; sourceTree = "<group>"; };
 		23E299812A0250750036E691 /* C172Perf.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = C172Perf.csv; sourceTree = "<group>"; };
 		23E299852A0A7FD60036E691 /* SurfaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfaceView.swift; sourceTree = "<group>"; };
+		23E299A12A0BCFB10036E691 /* ScenePhaseCode.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = ScenePhaseCode.rtf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				230DF5472A0025DC009218CD /* WindView.swift */,
 				230DF5632A00FBC6009218CD /* SupportingFunctions.swift */,
 				23E299852A0A7FD60036E691 /* SurfaceView.swift */,
+				23E299A12A0BCFB10036E691 /* ScenePhaseCode.rtf */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -171,6 +174,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23E299A22A0BCFB10036E691 /* ScenePhaseCode.rtf in Resources */,
 				23E299822A0250750036E691 /* C172Perf.csv in Resources */,
 				236E895229FFB0D10011B767 /* Notes.rtf in Resources */,
 				236E894829FFAE190011B767 /* Preview Assets.xcassets in Resources */,

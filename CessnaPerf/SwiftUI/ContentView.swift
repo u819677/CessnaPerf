@@ -11,9 +11,6 @@ enum ActiveSheet: Identifiable, Equatable {
     case firstSheet
     case displayResults//(results)//can't do this, due results is not known here
     case displayWindPicker
-    //case addTopic
-    //case addNewQuestion
-    //case questionAnswerView(Question)
     var id: String {//this is for the enum's id
         let mirror = Mirror(reflecting: self)
         if let label = mirror.children.first?.label {
@@ -29,6 +26,7 @@ struct ContentView: View {
     @FocusState  var focused: Bool?
     @State private var activeSheet: ActiveSheet?
     
+    
     @StateObject var checkCalc: CheckCalc = CheckCalc()
     
     @State var weightEntry: String = "2400"
@@ -40,7 +38,7 @@ struct ContentView: View {
     @State var qnhEntry: String = "    "
     @State var isQNHValid: Bool = true
     @StateObject var wind: Wind = Wind()
-    @State var isTarmac: Bool = true
+    @State var isGrass: Bool = false
     @State var showResults: Bool = false
     
     @State var ftTOD: Double = 0.0
@@ -51,6 +49,7 @@ struct ContentView: View {
     
     var dataFrame = DataFrame()
     
+    @Environment(\.scenePhase) var scenePhase
     let userDefaults = UserDefaults.standard
     
     
@@ -58,13 +57,13 @@ struct ContentView: View {
         let fileURL = Bundle.main.url(forResource: "C172Perf", withExtension: "csv")
         do {
             self.dataFrame = try DataFrame(contentsOfCSVFile: fileURL!)
-            //print(dataFrame)
+
             print(TODDataFrame(dataFrame: dataFrame))
             print(TORDataFrame(dataFrame: dataFrame))
         } catch {
             print("url loading failed")
         }
-        //userDefaults.set(Date(), forKey: "timeStamp")
+     
     }
     
     var body: some View {
@@ -76,7 +75,7 @@ struct ContentView: View {
                 .edgesIgnoringSafeArea(.all)
                 .onTapGesture {
                     focused = nil
-                  print("ran focused = nil")
+                    print("ran focused = nil")
                 }
             //.padding(10)
             VStack{
@@ -87,7 +86,7 @@ struct ContentView: View {
                     .padding(5)
                 
                 
-// MARK: Calculate Button
+                // MARK: Calculate Button
                 
                 Button {
                     let todDataFrame = TODDataFrame(dataFrame: dataFrame)
@@ -100,14 +99,16 @@ struct ContentView: View {
                         print("pa out of range")
                         return
                     }
-                    //first calc calm tod then correct for windComponent
+                    ///firstly calc calm tod then correct for windComponent
                     ftTOD = Double(todFeet(dataFrame: todDataFrame, elevation: elevation, temperature: temperature, weight: weight))
                     ftTOD = ftTOD * WindComponent(component: wind.windComponent)
                     ftROLL = Double(torFeet(dataFrame: torDataFrame, elevation: elevation, temperature: temperature, weight: weight))
                     ftROLL = ftROLL * WindComponent(component: wind.windComponent)
                     let extraGrassFeet = ftROLL * 0.15
-                    ftTOD += extraGrassFeet
-                    //showResults = true
+                    if isGrass {//add 15% for grass runway
+                        ftTOD += extraGrassFeet
+                    }
+                    userDefaults.set(Date(), forKey: "calcTime")
                     activeSheet = .displayResults
                 }label: {
                     Text("  Calculate  ")
@@ -128,8 +129,6 @@ struct ContentView: View {
                 WeightView(weightEntry: $weightEntry, isWeightValid: $isWeightValid, focused: $focused)
                     .padding(10)
                 
-                
-                
                 TemperatureView(temperatureEntry: $tempEntry, isTempValid: $isTempValid, focused: $focused)
                     .padding(10)
                 
@@ -138,30 +137,40 @@ struct ContentView: View {
                 QNHView(qnhEntry: $qnhEntry, isQNHValid: $isQNHValid, focused: $focused)
                 WindView(wind: wind)
                     .padding(10)
-                
-               SurfaceView(isTarmac: $isTarmac)
-                
+                SurfaceView(isGrass: $isGrass)
                     .padding(10)
-                //Spacer()
                 Spacer()
                 Spacer()
                 
             }
             .environmentObject(checkCalc)
-            
+        }
+        .onChange(of: scenePhase) { newPhase in
+            print("scenePhase changed")
+            if newPhase == .active {
+                
+                guard let calcTime = userDefaults.object(forKey: "calcTime") as! Date?
+                else {
+                    return  ///because calc has not been done yet so there's no calcTime
+                }
+                let calcExpiryTime = calcTime.addingTimeInterval(3600)///calc is valid for 1 hour
+                let now = Date()
+                if calcExpiryTime < now {
+                    ///it's expired so reset to nil
+                    userDefaults.set(nil, forKey: "calcTime")
+                    weightEntry = "2400"
+                    tempEntry = ""
+                    elevationEntry = ""
+                    qnhEntry = ""
+                    wind.windComponent = "calm"
+                }
+            }
         }
         .sheet(item: $activeSheet){
             item in
-           // SheetView(item: item, results: ftTOD)
             sheetView(with: item)
         }
-//        .sheet(isPresented: $showResults) {
-//
-//            ResultsView(ftTOD: $ftTOD)
-//            // Color.green
-//
-//        }
-        // .edgesIgnoringSafeArea(.all)
+
     }//end of body
         @ViewBuilder
         private func sheetView(with item: ActiveSheet) -> some View {
@@ -170,12 +179,10 @@ struct ContentView: View {
                 Color.red
             case .displayResults:
                 ResultsView(ftTOD: $ftTOD)
-               // Color.green
             case .displayWindPicker:
                 Color.blue
             }
         }
-    
 }//end of struct
 
 struct ContentView_Previews: PreviewProvider {
@@ -186,20 +193,4 @@ struct ContentView_Previews: PreviewProvider {
 class CheckCalc: ObservableObject {
     @Published var isValid: Bool = true
 }
-//struct SheetView: View {
-//    var item: ActiveSheet
-//   // @Binding var activeSheet: ActiveSheet?
-//    var results: Double
-//    var body: some View {
-//        switch item {
-//        case .firstSheet:
-//            Color.red
-////        case .displayResults:
-////            ResultsView(ftTOD: 1000.0)//$results)//, activeSheet: activeSheet)
-//        case .displayWindPicker:
-//            Color.green
-//            default:
-//            Color.brown
-//        }
-//    }
-//}
+

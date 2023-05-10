@@ -43,9 +43,7 @@ struct WindPicker: View {
                 Spacer()
                 Button(" OK  "){
                     showPicker = false
-                  //  presentationMode.wrappedValue.dismiss()
                 }
-                //.font(.largeTitle)
                 .font(.custom("Noteworthy Bold", size: 30))
                 .foregroundColor(.white)
                 
@@ -75,20 +73,12 @@ struct CustomPicker : UIViewRepresentable {
         let picker = UIPickerView()
         picker.dataSource = context.coordinator
         picker.delegate = context.coordinator
-  // print("makeUIView ran and selected is \(selected)")
         let selectedRow = pickerRow(selected: selected)
-       // print("makeUIView ran and selectedRow is: \(selectedRow)")
         picker.selectRow(selectedRow, inComponent: 0, animated: true)
-  
         return picker
     }
     
     func updateUIView(_ uiView: UIPickerView, context: UIViewRepresentableContext<CustomPicker>) {
-//        print("updateView ran and selected is: \(selected)")
-//        let picker = UIPickerView()
-//        let selectedRow = pickerRow(selected: selected)
-//        picker.selectRow(selectedRow, inComponent: 0, animated: true)
-        
     }
     class Coordinator : NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
         var parent : CustomPicker
@@ -102,11 +92,8 @@ struct CustomPicker : UIViewRepresentable {
         func numberOfComponents(in pickerView: UIPickerView) -> Int {
             return 1
         }
-//        func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-//            return data[row]
-//        }
         func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-           // let view = UIView()//not sure why need complexity of following mod to view
+ 
             let lightBlue = UIColor(hue: 0.5472, saturation: 0.42, brightness: 0.97, alpha: 1.0)
             let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 150, height: 50))
             
@@ -115,8 +102,7 @@ struct CustomPicker : UIViewRepresentable {
             label.text = components[row]
             label.textColor = .black
             label.textAlignment = .center
-           // label.font = .systemFont(ofSize: 25, weight: .bold)
-                //label.font(custom("Noteworthy Bold", size: 25))
+
             label.font = UIFont(name: "Noteworthy-Bold", size: 25)
             view.backgroundColor = lightBlue
  
@@ -139,8 +125,6 @@ struct CustomPicker : UIViewRepresentable {
             self.parent.selected = components[row]
             print("row \(row) was selected")
         }
-        
     }
 }
 var components = ["9kts HW", "6kts HW", "3kts HW", "calm", "2kts TW", "4kts TW", "6kts TW", "8kts TW" , "10kts TW"]
-//var components = ["one", "two", "three"]
