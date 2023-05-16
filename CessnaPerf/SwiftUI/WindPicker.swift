@@ -19,7 +19,8 @@ import SwiftUI
 struct WindPicker: View {
     @Binding var showPicker: Bool
     @Binding var windComponent: String // = "calm"
- 
+    @Environment(\.dismiss) var dismiss
+    
     init(showPicker: Binding<Bool>, windComponent: Binding<String>){
         self._showPicker = showPicker
         self._windComponent = windComponent
@@ -42,7 +43,8 @@ struct WindPicker: View {
             VStack{
                 Spacer()
                 Button(" OK  "){
-                    showPicker = false
+                    //showPicker = false
+                    dismiss()
                 }
                 .font(.custom("Noteworthy Bold", size: 30))
                 .foregroundColor(.white)

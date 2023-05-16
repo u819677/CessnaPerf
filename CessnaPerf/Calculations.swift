@@ -118,13 +118,16 @@ func correctedPA(elevationEntry: String, qnhEntry: String) -> (Int, Bool) {
         var pa = Double(elevationEntry)!    //need to protect here for pa < 0 as well as  pa > 2000
         let qnhCorrection = ((Double(qnhEntry)!) - 1013.2) * -27.3
         pa = pa + qnhCorrection
-        if pa > 2000.0 || pa < 0.0 {
+        if pa > 2000.0 {
             return (Int(pa), false)
+        } else if pa < 0.0  {
+            pa = 0.0
+            //  print(" pa is \(pa)")
+            return (Int(pa), true)
         } else {
-            print(" pa is \(pa)")
             return (Int(pa), true)
             
- 
+ //NEED TO LOOK AT THIS CORRECTION TO SEE WHY OFTEN CRASHING WITH QNH > 1013
         }
     }
 }

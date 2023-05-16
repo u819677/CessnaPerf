@@ -99,4 +99,31 @@
             \}\
     \}\
 \}\
+//toggle switch \
+
+\f1\b \cf6 import
+\f0\b0 \cf4  SwiftUI\
+\
+
+\f1\b \cf6 struct
+\f0\b0 \cf4  \cf7 ContentView\cf4 : \cf8 View\cf4  \{\
+    \cf8 @State\cf4  
+\f1\b \cf6 private
+\f0\b0 \cf4  
+\f1\b \cf6 var
+\f0\b0 \cf4  \cf11 isOn\cf4  = 
+\f1\b \cf6 false
+\f0\b0 \cf4 \
+\
+    
+\f1\b \cf6 var
+\f0\b0 \cf4  \cf11 body\cf4 : 
+\f1\b \cf6 some
+\f0\b0 \cf4  \cf8 View\cf4  \{\
+        \cf8 Toggle\cf4 (\cf12 "Filter"\cf4 , \cf8 isOn\cf4 : \cf10 $isOn\cf4 )\
+            .\cf9 toggleStyle\cf4 (.\cf9 button\cf4 )\
+            .\cf9 tint\cf4 (.\cf9 mint\cf4 )\
+    \}\
+\}\
+\
 }
