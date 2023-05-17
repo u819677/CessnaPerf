@@ -58,6 +58,7 @@ struct QNHView: View {
                 isQNHValid = true
                 checkCalc.isValid = true
                 //  hadFocus = true
+                print(isQNHValid)
             }
         }
     }
