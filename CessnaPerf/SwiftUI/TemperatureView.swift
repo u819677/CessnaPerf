@@ -20,8 +20,6 @@ struct TemperatureView: View {
             HStack { //}(alignment: .firstTextBaseline) {
                 //Spacer()
                 Text("          Temp:           ")
-                   // .padding(.leading)
-                   // .foregroundColor(.black)
                     .font(.custom("Noteworthy Bold", size: 25))
                 TextField("     ", text: $temperatureEntry)
                 {
@@ -42,12 +40,8 @@ struct TemperatureView: View {
                 .background(isTempValid ? Color.clear : Color.red.opacity(0.7))
                 .border(Color.black, width: 0.5)
                 .font(.custom("Noteworthy Bold", size: 25))
-               // .foregroundColor(.black)
                 Text("°C")
-                    //.padding(.trailing)
                     .font(.custom("Noteworthy Bold", size: 25))
-                   // .foregroundColor(.black)
-              //  Spacer()
             }//end of HStack
             .frame(width: 320, height: 35)
             .background(RoundedRectangle(cornerRadius: 10).fill(Color(lightBlue)))

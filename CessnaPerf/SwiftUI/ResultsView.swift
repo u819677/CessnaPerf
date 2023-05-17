@@ -9,8 +9,10 @@
 import SwiftUI
 
 struct ResultsView: View {
-    @Environment(\.presentationMode) var presentationMode
+    @Binding var showResults: Bool
     @Binding var ftTOD: Double
+    @Binding var ftTOR: Double
+    
    // @Binding var activeSheet: ActiveSheet
     //@State  var trimmedFeet: String = ""
     //@State var trimmedMetres: String = ""
@@ -32,7 +34,9 @@ struct ResultsView: View {
             // TOD = \(trimmedFeet)ft
             //now follows a multi-line string literal, line breaks are required
             Text("""
+                TOR = \(String(format: "%.0f", ftTOR)) ft
                 TOD = \(String(format: "%.0f", ftTOD)) ft
+                
                 
                 TODR (= TOD x 1.25)
                 = \(String(format: "%.0f",(ftTOD * 1.25 / 3.28) )) metres
@@ -45,7 +49,8 @@ struct ResultsView: View {
                 .foregroundColor(.white)
             .padding(30)
             Button(" OK  "){
-                presentationMode.wrappedValue.dismiss()
+               // presentationMode.wrappedValue.dismiss()
+                showResults = false
             }
             //.font(.largeTitle)
             .font(.custom("Noteworthy Bold", size: 30))

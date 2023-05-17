@@ -8,20 +8,19 @@
 import SwiftUI
 
 struct WindView: View {
+    
     let lightBlue = UIColor(hue: 0.5472, saturation: 0.42, brightness: 0.97, alpha: 1.0)
     @ObservedObject var wind: Wind
     @State var showPicker: Bool = false
+    
     var body: some View {
       //  NavigationView{   //doesn't go here! The Navigation is from Content view, so that is where it needs to be!
         HStack{
-            
             //NavigationLink(destination: WindPicker(windComponent: $wind.windComponent)){
-            Text("Wind:     \(wind.windComponent) ")
+            Text("Wind:     \(wind.component) ")
                 .font(.custom("Noteworthy Bold", size: 25))
                 .foregroundColor(.black)
                 .padding()
-            
-            
                 .padding()
             
             Image(systemName: "chevron.right")
@@ -30,27 +29,18 @@ struct WindView: View {
         }
             .frame(width: 320, height: 35)
             .background(RoundedRectangle(cornerRadius: 10).fill(Color(lightBlue)))
-            //}//end HStack
             .onTapGesture {
                 showPicker = true
-                print("component \($wind.windComponent)")
-
             }
                 .sheet(isPresented: $showPicker) {
-                    WindPicker(showPicker: $showPicker, windComponent: $wind.windComponent)
-                    //ResultsView(ftTOD: $ftTOD)
-                    // Color.green
-        
-                }
-                .onAppear() {
-                    print("onAppear")
+                    WindPicker(showPicker: $showPicker, windComponent: $wind.component)
                 }
         }//end of body
     
     }
-//}
+
 class Wind: ObservableObject {
-    @Published var windComponent: String = "calm"// wind.windComponent
+    @Published var component: String = "calm"// wind.windComponent
 }
 
 //struct WindView_Previews: PreviewProvider {

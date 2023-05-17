@@ -7,26 +7,13 @@
 import SwiftUI
 import TabularData
 
-enum ActiveSheet: Identifiable, Equatable {
-    case firstSheet
-    case displayResults//(results)//can't do this, due results is not known here
-    case displayWindPicker
-    var id: String {//this is for the enum's id
-        let mirror = Mirror(reflecting: self)
-        if let label = mirror.children.first?.label {
-            return label
-        } else {
-            return "\(self)"
-        }
-    }
-}
+
 
 struct ContentView: View {
     
+    @State private var showPressAltAlert = false
+    
     @FocusState  var focused: Bool?
-    @State private var activeSheet: ActiveSheet?
-    
-    
     @StateObject var checkCalc: CheckCalc = CheckCalc()
     
     @State var weightEntry: String = "2400"
@@ -39,10 +26,11 @@ struct ContentView: View {
     @State var isQNHValid: Bool = true
     @StateObject var wind: Wind = Wind()
     @State var isGrass: Bool = false
+    
     @State var showResults: Bool = false
     
     @State var ftTOD: Double = 0.0
-    @State var ftROLL: Double = 0.0
+    @State var ftTOR: Double = 0.0
     
     var dataFrame = DataFrame()
     
@@ -54,7 +42,6 @@ struct ContentView: View {
         let fileURL = Bundle.main.url(forResource: "C172Perf", withExtension: "csv")
         do {
             self.dataFrame = try DataFrame(contentsOfCSVFile: fileURL!)
-
             print(TODDataFrame(dataFrame: dataFrame))
             print(TORDataFrame(dataFrame: dataFrame))
         } catch {
@@ -73,42 +60,45 @@ struct ContentView: View {
                     .edgesIgnoringSafeArea(.all)
                     .onTapGesture {
                         focused = nil
-                        print("ran focused = nil")
                     }
-                //.padding(10)
                 VStack{
                     Text("C172P Take Off Performance")
-                    
                         .font(.custom("Noteworthy Bold", size: 26))
                         .foregroundColor(.white)
                         .padding(5)
-                    
-                    
+
                     // MARK: Calculate Button
-                    
                     Button {
+                        if !isWeightValid || !isTempValid || !isElevationValid || !isQNHValid {
+                            print("somethings not valid")
+                            return
+                        }
                         let todDataFrame = TODDataFrame(dataFrame: dataFrame)
                         let torDataFrame = TORDataFrame(dataFrame: dataFrame)
                         
                         let (elevation, validPA) = correctedPA(elevationEntry: elevationEntry, qnhEntry: qnhEntry)
                         let temperature = Int(tempEntry)!
                         let weight = Int(weightEntry)!
+
                         if validPA == false {
-                            print("pa out of range")
-                            return
+                            showPressAltAlert = true
+                           // return
                         }
                         ///firstly calc calm tod then correct for windComponent
                         ftTOD = Double(todFeet(dataFrame: todDataFrame, elevation: elevation, temperature: temperature, weight: weight))
-                        ftTOD = ftTOD * WindComponent(component: wind.windComponent)
-                        ftROLL = Double(torFeet(dataFrame: torDataFrame, elevation: elevation, temperature: temperature, weight: weight))
-                        ftROLL = ftROLL * WindComponent(component: wind.windComponent)
-                        let extraGrassFeet = ftROLL * 0.15
-                        if isGrass {//add 15% for grass runway
+                        ftTOD = ftTOD * WindComponent(component: wind.component)
+                        ftTOR = Double(torFeet(dataFrame: torDataFrame, elevation: elevation, temperature: temperature, weight: weight))
+                        ftTOR = ftTOR * WindComponent(component: wind.component)
+                        
+                        if isGrass {//add 15% of TOR for grass runway
+                            let extraGrassFeet = ftTOR * 0.15
                             ftTOD += extraGrassFeet
+                            ftTOR += extraGrassFeet
                         }
                         userDefaults.set(Date(), forKey: "calcTime")
-                        activeSheet = .displayResults
-                    }label: {
+                        showResults = true
+                        
+                        }label: {
                         Text("  Calculate  ")
                             .foregroundColor(.white)
                             .font(.custom("Noteworthy Bold", size: 25))
@@ -117,7 +107,7 @@ struct ContentView: View {
                                 .stroke(Color.white, lineWidth: 2)
                             )
                             .background(Color.gray)
-                    }//end of Button
+                    }///end of Button
                     
                     Spacer()
                 }
@@ -133,6 +123,7 @@ struct ContentView: View {
                     ElevationView(elevationEntry: $elevationEntry, isElevationValid: $isElevationValid, focused: $focused)
                         .padding(10)
                     QNHView(qnhEntry: $qnhEntry, isQNHValid: $isQNHValid, focused: $focused)
+                        .padding()
                     WindView(wind: wind)
                         .padding(10)
                     SurfaceView(isGrass: $isGrass)
@@ -161,28 +152,18 @@ struct ContentView: View {
                         tempEntry = ""
                         elevationEntry = ""
                         qnhEntry = ""
-                        wind.windComponent = "calm"
+                        wind.component = "calm"
                     }
                 }
             }
-            .sheet(item: $activeSheet){
-                item in
-                sheetView(with: item)
+            .sheet(isPresented: $showResults) {
+                ResultsView(showResults: $showResults, ftTOD: $ftTOD,  ftTOR: $ftTOR)
             }
-       // }
-    }//end of body
-        @ViewBuilder
-        private func sheetView(with item: ActiveSheet) -> some View {
-            switch item {
-            case .firstSheet:
-                Color.red
-            case .displayResults:
-                ResultsView(ftTOD: $ftTOD)
-            case .displayWindPicker:
-                Color.blue
+            .alert("Pressure Alt is above 2000ft", isPresented: $showPressAltAlert) {
+                Button("OK", role: .cancel) { }
             }
-        }
-}//end of struct
+    }///end of body
+}///end of struct
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
