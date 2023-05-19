@@ -1,6 +1,6 @@
 //
 //  TemperatureView.swift
-//  TextFieldDismissal
+//  from TextFieldDismissal
 //
 //  Created by Richard Clark on 19/05/2023.
 //
@@ -47,24 +47,28 @@ struct TemperatureView: View {
     }//end of body
     @ToolbarContentBuilder
     private func toolbarItems() -> some ToolbarContent {
-        ToolbarItemGroup(placement: .keyboard) {
-            Button{
-                tempEntry = ""
-                temperature = nil
-                textFieldHasFocus = nil
-            }
-        label: {Text("Cancel").bold() }
-            Button{
-                isValid = checkValidity(of: tempEntry)
-                if isValid {
-                    temperature = Int(tempEntry)
-                } else {
+        
+        if textFieldHasFocus ?? false {
+            ToolbarItemGroup(placement: .keyboard)
+            {
+                Button{
+                    tempEntry = ""
                     temperature = nil
+                    textFieldHasFocus = nil
                 }
-                textFieldHasFocus = nil
+            label: {Text("Cancel").bold() }
+                Button{
+                    isValid = checkValidity(of: tempEntry)
+                    if isValid {
+                        temperature = Int(tempEntry)
+                    } else {
+                        temperature = nil
+                    }
+                    textFieldHasFocus = nil
+                }
+            label: {Text("Enter").bold() }
             }
-        label: {Text("Enter").bold() }
-        }
+        }//end if
     }
     private func checkValidity(of tempEntry: String) -> Bool {
         if tempEntry.isEmpty {

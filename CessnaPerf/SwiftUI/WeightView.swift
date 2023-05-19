@@ -1,72 +1,91 @@
 //
 //  WeightView.swift
-//  CessnaPerf
+//  from TextFieldDismissal
 //
-//  Created by Richard Clark on 01/05/2023.
-
+//  Created by Richard Clark on 19/05/2023.
+//
 
 import SwiftUI
 
 struct WeightView: View {
-    @EnvironmentObject var checkCalc: CheckCalc
-    @Binding var weightEntry: String
-    @Binding var isWeightValid: Bool    //this extra check is to finesse the appearance of red background in textfield
-    var focused: FocusState<Bool?>.Binding    
+    
+    @State var weightEntry: String = "2400"
+    @State var isValid: Bool = true
+    @FocusState var textFieldHasFocus: Bool?
+    @Binding var weight: Int?
+    
     let lightBlue = UIColor(hue: 0.5472, saturation: 0.42, brightness: 0.97, alpha: 1.0)
     var body: some View {
-        ZStack(alignment: .center){
-            HStack{
-                Text("    Weight:   ")
-                    .font(.custom("Noteworthy Bold", size: 25))
-                TextField("       ", text: $weightEntry)  
-                {
-                    isEditing in //self.isEditing = isEditing
-                    if isEditing == true {
-                        isWeightValid = true
-                    }
-                    if isEditing == false {
-                        if checkTOW(weightEntry) == false {
-                            isWeightValid = false
-                        }
-                    }
-                }.focused(focused, equals: true)
-                .keyboardType(.asciiCapableNumberPad)
-                .font(.custom("Noteworthy Bold", size: 25))
-                .padding()
-               // .position(x: 50, y: 12)//generates a new view
-                .frame(width: 120, height: 28)
-                .background(isWeightValid ? Color.clear : Color.red.opacity(0.7))
-                .border(Color.black, width: 0.5)
-                .font(.custom("Noteworthy Bold", size: 25))
-                Text("lbs")
-                    .font(.custom("Noteworthy Bold", size: 25))
-            }//end HStack
-            .frame(width: 320, height: 35)
-            .background(RoundedRectangle(cornerRadius: 10).fill(Color(lightBlue)))
-            .onTapGesture {
-                weightEntry = ""
-                isWeightValid = true
-                checkCalc.isValid = true
-            }
-        }//end ZStack
-    }
-}
+        HStack {
+            Text("  Weight:     ")
+                .font(.custom("Noteworthy-Bold", size: 25))
+            TextField("", text: $weightEntry)
+                .font(.custom("Noteworthy-Bold", size: 25))
+                .focused($textFieldHasFocus, equals: true)
+                .keyboardType(.numberPad)
+                .toolbar {toolbarItems()}
 
-func checkTOW(_ weightInput: String) -> Bool {
-    if weightInput.isEmpty {
-        return true
-    }
-    if let intTOW = Int(weightInput) {
-        if intTOW >= 2000 && intTOW <= 2400 {
-            return true
-        }else {
-            return false
+                .padding()
+                .position(x: 50, y: 12)
+                .frame(width: 120, height: 28)
+                .border(Color.black, width: 0.5)
+                .background(isValid ? Color.clear : Color.red.opacity(0.7))
+            Text("lbs")
+                .font(.custom("Noteworthy-Bold", size: 25))
+            // .navigationBarHidden(true)//not sure what this does or if needed
+        }//end of HStack
+       
+        .frame(width: 320,height: 35)
+        .background(RoundedRectangle(cornerRadius: 10).fill(Color(lightBlue)))
+        .onTapGesture {
+            weightEntry = ""
+            isValid = true
+            textFieldHasFocus = true
         }
     }
-    return false
+
+    @ToolbarContentBuilder
+    private func toolbarItems() -> some ToolbarContent {
+        if textFieldHasFocus ?? false {  //this is a conditional builder, only avail in iOS16
+            ToolbarItemGroup(placement: .keyboard) {
+                Button{
+                    weightEntry = ""
+                    weight = nil
+                    textFieldHasFocus = nil
+                }
+            label: {Text("Cancel").bold() }
+                Button{
+                    isValid = checkTOW(of: weightEntry)
+                    if isValid {
+                        weight = Int(weightEntry)
+                    } else {
+                        weight = nil
+                    }
+                    textFieldHasFocus = nil
+                }
+            label: {Text("Enter").bold() }
+            }   //end ToolbarItemGroup
+        }   //end if
+    }
+
+    private func checkTOW(of weightEntry: String) -> Bool {
+        if weightEntry.isEmpty {
+            return true
+        }
+        if let intTOW = Int(weightEntry) {
+            if intTOW  >= 2000 && intTOW <= 2400 {
+                return true
+            } else {
+                return false
+            }
+        }
+        return false
+    }//end of checkTOW
 }
+
 //struct WeightView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        WeightView(weightEntry: .constant( "2400"), isWeightValid: .constant(true), focused: <#FocusState<Bool?>.Binding#>, focused: )
+//        WeightView()
 //    }
 //}
+

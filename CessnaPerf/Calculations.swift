@@ -126,8 +126,6 @@ func correctedPA(elevationEntry: String, qnhEntry: String) -> (Int, Bool) {
             return (Int(pa), true)
         } else {
             return (Int(pa), true)
-            
- //NEED TO LOOK AT THIS CORRECTION TO SEE WHY OFTEN CRASHING WITH QNH > 1013
         }
     }
 }

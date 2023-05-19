@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct QNHView: View {
+struct oldQNHView: View {
     @EnvironmentObject var checkCalc: CheckCalc
     @Binding var qnhEntry: String
     @Binding var isQNHValid: Bool

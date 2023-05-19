@@ -11,6 +11,8 @@ import TabularData
 
 struct ContentView: View {
     @State var temperature: Int? // = nil, is that required?
+    @State var weight: Int?
+    @State var elevation: Int?
     
     @State private var showPressAltAlert = false
     
@@ -118,16 +120,18 @@ struct ContentView: View {
                 VStack{
                     
                     Spacer()
-                    WeightView(weightEntry: $weightEntry, isWeightValid: $isWeightValid, focused: $focused)
+                   // oldWeightView(weightEntry: $weightEntry, isWeightValid: $isWeightValid, focused: $focused)
+                    WeightView(weight: $weight)
                         .padding(10)
                     
                    // oldTemperatureView(temperatureEntry: $tempEntry, isTempValid: $isTempValid, focused: $focused)
                     TemperatureView(temperature: $temperature)
                         .padding(10)
                     
-                    ElevationView(elevationEntry: $elevationEntry, isElevationValid: $isElevationValid, focused: $focused)
+                   // oldElevationView(elevationEntry: $elevationEntry, isElevationValid: $isElevationValid, focused: $focused)
+                    ElevationView(elevation: $elevation)
                         .padding(10)
-                    QNHView(qnhEntry: $qnhEntry, isQNHValid: $isQNHValid, focused: $focused)
+                    oldQNHView(qnhEntry: $qnhEntry, isQNHValid: $isQNHValid, focused: $focused)
                         .padding()
                     WindView(wind: wind)
                         .padding(10)
