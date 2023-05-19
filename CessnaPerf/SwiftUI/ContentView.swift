@@ -10,6 +10,7 @@ import TabularData
 
 
 struct ContentView: View {
+    @State var temperature: Int? // = nil, is that required?
     
     @State private var showPressAltAlert = false
     
@@ -77,7 +78,10 @@ struct ContentView: View {
                         let torDataFrame = TORDataFrame(dataFrame: dataFrame)
                         
                         let (elevation, validPA) = correctedPA(elevationEntry: elevationEntry, qnhEntry: qnhEntry)
-                        let temperature = Int(tempEntry)!
+                       // let temperature = Int(tempEntry)!
+                        guard let temperature = temperature else {
+                            return  //so this would disable the calcultion 
+                        }
                         let weight = Int(weightEntry)!
 
                         if validPA == false {
@@ -117,7 +121,8 @@ struct ContentView: View {
                     WeightView(weightEntry: $weightEntry, isWeightValid: $isWeightValid, focused: $focused)
                         .padding(10)
                     
-                    TemperatureView(temperatureEntry: $tempEntry, isTempValid: $isTempValid, focused: $focused)
+                   // oldTemperatureView(temperatureEntry: $tempEntry, isTempValid: $isTempValid, focused: $focused)
+                    TemperatureView(temperature: $temperature)
                         .padding(10)
                     
                     ElevationView(elevationEntry: $elevationEntry, isElevationValid: $isElevationValid, focused: $focused)

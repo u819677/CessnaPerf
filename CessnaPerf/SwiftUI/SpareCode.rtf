@@ -203,11 +203,11 @@
 \pard\pardeftab720\partightenfactor0
 
 \fs36 \cf15 \cb16 \expnd0\expndtw0\kerning0
-\shad\shadx0\shady-20\shadr0\shado0 \shadc0     \cf17 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 @State\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0  
+\shad\shadx0\shady-20\shadr0\shado0 \shadc0     \cf17 \cb16 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 @State\cf15 \cb16 \shad\shadx0\shady-20\shadr0\shado0 \shadc0  
 \f1\b \cf18 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 private
 \f0\b0 \cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0  
 \f1\b \cf18 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 var
-\f0\b0 \cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0  showingAlert = \cf19 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 false\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 \
+\f0\b0 \cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0  showingAlert = \cf19 \cb16 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 false\cf15 \cb16 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 \
 \
     
 \f1\b \cf18 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 var
@@ -215,7 +215,7 @@
 \f1\b \cf18 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 some
 \f0\b0 \cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0  \cf20 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 View\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0  \{\
         \cf20 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 Button\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 (\cf21 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 "Show Alert"\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 ) \{\
-            showingAlert = \cf19 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 true\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 \
+            showingAlert = \cf19 \cb16 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 true\cf15 \cb16 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 \
         \}\
         .\cf22 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 alert\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 (\cf21 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 "Important message"\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 , isPresented: $showingAlert) \{\
             \cf20 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 Button\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 (\cf21 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 "OK"\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 , role: .cancel) \{ \}\
@@ -224,4 +224,51 @@
 \fs24 \cf4 \cb3 \kerning1\expnd0\expndtw0 \shad0 \
 \pard\tx593\pardeftab593\partightenfactor0
 \cf4 \
+\
+\
+from Stack Overflow, found this fab mod for a textfield to show Cancel and Enter buttons\
+
+\f1\b \cf6 struct
+\f0\b0 \cf4  \cf7 ContentView\cf4 : \cf8 View\cf4  \{\
+    \cf8 @State\cf4  
+\f1\b \cf6 var
+\f0\b0 \cf4  \cf11 name\cf4  = \cf12 ""\cf4 \
+    \cf8 @FocusState\cf4  
+\f1\b \cf6 var
+\f0\b0 \cf4  \cf11 nameIsFocussed\cf4 : \cf8 Bool\cf4 \
+    \
+    
+\f1\b \cf6 var
+\f0\b0 \cf4  \cf11 body\cf4 : 
+\f1\b \cf6 some
+\f0\b0 \cf4  \cf8 View\cf4  \{\
+        \cf8 VStack\cf4  \{\
+            \cf8 NavigationView\cf4  \{\
+                \cf8 TextField\cf4 (\cf12 "enter stuff"\cf4 , \cf8 text\cf4 : \cf10 $name\cf4 )\
+                    .\cf9 keyboardType\cf4 (.\cf9 numberPad\cf4 )\
+                    .\cf9 frame\cf4 (\cf9 height\cf4 : \cf13 30\cf4 , \cf9 alignment\cf4 : .\cf9 leading\cf4 )\
+                    .\cf9 toolbar\cf4 () \{\
+                        \cf8 ToolbarItemGroup\cf4 (\cf9 placement\cf4 : .\cf9 keyboard\cf4 ) \{\
+                            \cf8 Button\cf4 \{ \cf10 nameIsFocussed\cf4  = 
+\f1\b \cf6 false
+\f0\b0 \cf4 \}\
+                        \cf9 label\cf4 : \{\cf8 Text\cf4 (\cf12 "Cancel"\cf4 ).\cf9 bold\cf4 ()\
+                            \
+                        \}\
+                            \cf8 Button\cf4 \{ \cf10 nameIsFocussed\cf4  = 
+\f1\b \cf6 false
+\f0\b0 \cf4 ; \cf9 print\cf4 (\cf12 "return"\cf4 )\}\
+                        \cf9 label\cf4 : \{\cf8 Text\cf4 (\cf12 "Return"\cf4 ).\cf9 bold\cf4 ()\
+                            \
+                        \}\
+                        \}\
+                    \}\cf2 //.background(Color.red)\cf4 \
+                    .\cf9 navigationBarHidden\cf4 (
+\f1\b \cf6 true
+\f0\b0 \cf4 )\cf2 //not sure what this does\cf4 \
+            \}\
+        \}\
+        \cf2 // .padding()\cf4 \
+    \}\
+\}\
 }
