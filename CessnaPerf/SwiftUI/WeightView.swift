@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct WeightView: View {
-    
+    @Environment(\.scenePhase) var scenePhase
     @State var weightEntry: String = ""//2400"
     @State var isValid: Bool = true
     @FocusState var textFieldHasFocus: Bool? {
@@ -22,7 +22,7 @@ struct WeightView: View {
 
     }
     @Binding var weight: Int? //= 2400
-    
+    let userDefaults = UserDefaults.standard
     let lightBlue = UIColor(hue: 0.5472, saturation: 0.42, brightness: 0.97, alpha: 1.0)
     var body: some View {
         HStack {
@@ -47,7 +47,7 @@ struct WeightView: View {
             Text("lbs")
                 .font(.custom("Noteworthy-Bold", size: 25))
             // .navigationBarHidden(true)//not sure what this does or if needed
-        }//end of HStack
+        }  //end of HStack
        
         .frame(width: 320,height: 35)
         .background(RoundedRectangle(cornerRadius: 10).fill(Color(lightBlue)))
@@ -56,11 +56,15 @@ struct WeightView: View {
             isValid = true
             weight = nil
             textFieldHasFocus = true
-//            if textFieldHasFocus != nil {
-//                textFieldHasFocus = true
-//            }
         }
-    }
+        .onChange(of: scenePhase) { _ in
+            guard let calcTime = userDefaults.object(forKey: "calcTime") as! Date?
+            else {
+                return  ///because calc has not been done yet so there's no calcTime
+            }
+            print(String(describing: calcTime))
+        }
+    }  //end of body
 
     @ToolbarContentBuilder
     private func toolbarItems() -> some ToolbarContent {

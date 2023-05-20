@@ -13,6 +13,7 @@ struct CessnaPerfApp: App {
         WindowGroup {
             //WindPicker(windComponent: .constant("testing"))
             ContentView()
+           // PDFUIView()
             //SurfaceView(isTarmac: .constant(true))
         }
     }
