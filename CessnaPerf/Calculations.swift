@@ -6,14 +6,14 @@
 //
 import TabularData
 
-func todFeet(dataFrame: DataFrame, elevation: Int, temperature: Int, weight: Int) -> Int {
-    let (lowerElevationRow2400, lowerTemperatureColumn) = lowerElevationAndTemperatureBoundaryIndicees(elevation: elevation, temperature: temperature)
-    let lowerElevationRow2200 = lowerElevationRow2400 + 4
-    let lowerElevationRow2000 = lowerElevationRow2200 + 4
+func todFeet(dataFrame: DataFrame, pressureAltitude: Int, temperature: Int, weight: Int) -> Int {
+    let (lowerAltitude2400WeightRowIndex, lowerTemperatureColumn) = pressureAltitudeAndTemperatureLowerBoundaryIndicees(pressureAltitude: pressureAltitude, temperature: temperature)
+    let lowerAltitude2200WeightRowIndex = lowerAltitude2400WeightRowIndex + 4
+    let lowerAltitude2000WeightRowIndex = lowerAltitude2200WeightRowIndex + 4
     
-    let tod2400 = feetActualElevationActualTemperature(dataFrame: dataFrame, elevation: elevation, lowerElevationRow: lowerElevationRow2400, temperature: temperature, lowerTemperatureColumn: lowerTemperatureColumn)
-    let tod2200 = feetActualElevationActualTemperature(dataFrame: dataFrame, elevation: elevation, lowerElevationRow: lowerElevationRow2200, temperature: temperature, lowerTemperatureColumn: lowerTemperatureColumn)
-    let tod2000 = feetActualElevationActualTemperature(dataFrame: dataFrame, elevation: elevation, lowerElevationRow: lowerElevationRow2000, temperature: temperature, lowerTemperatureColumn: lowerTemperatureColumn)
+    let tod2400 = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, lowerElevationRow: lowerAltitude2400WeightRowIndex, temperature: temperature, lowerTemperatureColumn: lowerTemperatureColumn)
+    let tod2200 = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, lowerElevationRow: lowerAltitude2200WeightRowIndex, temperature: temperature, lowerTemperatureColumn: lowerTemperatureColumn)
+    let tod2000 = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, lowerElevationRow: lowerAltitude2000WeightRowIndex, temperature: temperature, lowerTemperatureColumn: lowerTemperatureColumn)
     
     let tod = todForActualWeight(weight: weight, tod2400: tod2400, tod2200: tod2200, tod2000: tod2000)
     return tod
@@ -21,50 +21,50 @@ func todFeet(dataFrame: DataFrame, elevation: Int, temperature: Int, weight: Int
 
 
 func torFeet(dataFrame: DataFrame, elevation: Int, temperature: Int, weight: Int) -> Int {
-    let (lowerElevationRow2400, lowerTemperatureColumn) = lowerElevationAndTemperatureBoundaryIndicees(elevation: elevation, temperature: temperature)
+    let (lowerElevationRow2400, lowerTemperatureColumn) = pressureAltitudeAndTemperatureLowerBoundaryIndicees(pressureAltitude: elevation, temperature: temperature)
     let lowerElevationRow2200 = lowerElevationRow2400 + 4
     let lowerElevationRow2000 = lowerElevationRow2200 + 4
     
-    let tor2400 = feetActualElevationActualTemperature(dataFrame: dataFrame, elevation: elevation, lowerElevationRow: lowerElevationRow2400, temperature: temperature, lowerTemperatureColumn: lowerTemperatureColumn)
-    let tor2200 = feetActualElevationActualTemperature(dataFrame: dataFrame, elevation: elevation, lowerElevationRow: lowerElevationRow2200, temperature: temperature, lowerTemperatureColumn: lowerTemperatureColumn)
-    let tor2000 = feetActualElevationActualTemperature(dataFrame: dataFrame, elevation: elevation, lowerElevationRow: lowerElevationRow2000, temperature: temperature, lowerTemperatureColumn: lowerTemperatureColumn)
+    let tor2400 = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: elevation, lowerElevationRow: lowerElevationRow2400, temperature: temperature, lowerTemperatureColumn: lowerTemperatureColumn)
+    let tor2200 = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: elevation, lowerElevationRow: lowerElevationRow2200, temperature: temperature, lowerTemperatureColumn: lowerTemperatureColumn)
+    let tor2000 = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: elevation, lowerElevationRow: lowerElevationRow2000, temperature: temperature, lowerTemperatureColumn: lowerTemperatureColumn)
     
     let tor = torForActualWeight(weight: weight, tor2400: tor2400, tor2200: tor2200, tor2000: tor2000)
     return tor
 }
 
 
-func lowerElevationAndTemperatureBoundaryIndicees(elevation: Int, temperature: Int) -> (Int, Int) {
-    var lowerElevationRow: Int = 0
-    var lowerTemperatureColumn: Int = 0
-    switch elevation {
+func pressureAltitudeAndTemperatureLowerBoundaryIndicees(pressureAltitude: Int, temperature: Int) -> (Int, Int) {
+    var lowerPressureAltitudeRowIndex: Int = 0
+    var lowerTemperatureColumnIndex: Int = 0
+    switch pressureAltitude {
     case 0...999:
-        lowerElevationRow = 0
+        lowerPressureAltitudeRowIndex = 0
     case 1000...1999:
-        lowerElevationRow = 1
+        lowerPressureAltitudeRowIndex = 1
     case 2000:
-        lowerElevationRow = 2
+        lowerPressureAltitudeRowIndex = 2
     default:
         print("elevation out of range")
     }
     switch temperature {
     case 0...9:
-        lowerTemperatureColumn = 2
+        lowerTemperatureColumnIndex = 2
     case 10...19:
-        lowerTemperatureColumn = 3
+        lowerTemperatureColumnIndex = 3
     case 20...29:
-        lowerTemperatureColumn = 4
+        lowerTemperatureColumnIndex = 4
     case 30...39:
-        lowerTemperatureColumn = 5
+        lowerTemperatureColumnIndex = 5
     case 40:
-        lowerTemperatureColumn = 6
+        lowerTemperatureColumnIndex = 6
     default:
         print("temperature out of range")
     }
-    return (lowerElevationRow,lowerTemperatureColumn)
+    return (lowerPressureAltitudeRowIndex,lowerTemperatureColumnIndex)
 }
 
-func feetActualElevationActualTemperature(dataFrame: DataFrame, elevation: Int, lowerElevationRow: Int, temperature: Int, lowerTemperatureColumn: Int) ->
+func feetActualPressureAltitudeActualTemperature(dataFrame: DataFrame, pressureAltitude: Int, lowerElevationRow: Int, temperature: Int, lowerTemperatureColumn: Int) ->
 Int {
     let lowerElevationLowerTemperatureDist = dataFrame.rows[lowerElevationRow][lowerTemperatureColumn] as! Int
     let lowerElevationHigherTemperatureDist = dataFrame.rows[lowerElevationRow][lowerTemperatureColumn + 1] as! Int
@@ -74,7 +74,7 @@ Int {
     let higherElevationHigherTemperatureDist = dataFrame.rows[lowerElevationRow + 1][lowerTemperatureColumn + 1] as! Int
     let higherElevationActualTemperatureDist = higherElevationLowerTemperatureDist + (higherElevationHigherTemperatureDist - higherElevationLowerTemperatureDist) * (temperature % 10) / 10
     
-    let todActualElevationActualTemperature = lowerElevationActualTemperatureDist + (higherElevationActualTemperatureDist - lowerElevationActualTemperatureDist) * (elevation % 1000) / 1000
+    let todActualElevationActualTemperature = lowerElevationActualTemperatureDist + (higherElevationActualTemperatureDist - lowerElevationActualTemperatureDist) * (pressureAltitude % 1000) / 1000
     
     return todActualElevationActualTemperature
 }

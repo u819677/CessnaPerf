@@ -52,12 +52,6 @@ struct ContentView: View {
                     Text("C172P Take Off Performance")
                         .font(.custom("Noteworthy Bold", size: 26))
                         .foregroundColor(.white)
-                        .padding(5)
-Spacer()
-                    Spacer()
-                    Spacer()
-                    Spacer()
-                    Spacer()
                     Spacer()
                     
                     // MARK: Calculate Button
@@ -79,7 +73,7 @@ Spacer()
                         }
 
                         ///firstly calc calm tod then correct for windComponent
-                        ftTOD = Double(todFeet(dataFrame: todDataFrame, elevation: elevation!, temperature: temperature, weight: weight))
+                        ftTOD = Double(todFeet(dataFrame: todDataFrame, pressureAltitude: elevation!, temperature: temperature, weight: weight))
                         ftTOD = ftTOD * WindComponent(component: wind.component)
                         ftTOR = Double(torFeet(dataFrame: torDataFrame, elevation: elevation!, temperature: temperature, weight: weight))
                         ftTOR = ftTOR * WindComponent(component: wind.component)
@@ -103,8 +97,7 @@ Spacer()
                             )
                             .background(Color.gray)
                     }///end of Button
-                    
-                    Spacer()
+                    .padding(80)
                 }
                 VStack{
                     Spacer()
