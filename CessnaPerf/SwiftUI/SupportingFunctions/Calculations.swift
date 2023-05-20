@@ -6,7 +6,7 @@
 //
 import TabularData
 
-func todFeet(dataFrame: DataFrame, pressureAltitude: Int, temperature: Int, weight: Int) -> Int {
+func feetTOD(dataFrame: DataFrame, pressureAltitude: Int, temperature: Int, weight: Int) -> Int {
     let (rowIndexLowerAltitude2400lbs, lowerTemperatureColumn) = pressureAltitudeAndTemperatureLowerBoundaryIndicees(pressureAltitude: pressureAltitude, temperature: temperature)
     let rowIndexLowerAltitude2200lbs = rowIndexLowerAltitude2400lbs + 4
     let rowIndexLowerAltitude2000lbs = rowIndexLowerAltitude2200lbs + 4
@@ -20,7 +20,7 @@ func todFeet(dataFrame: DataFrame, pressureAltitude: Int, temperature: Int, weig
 }
 
 
-func torFeet(dataFrame: DataFrame, pressureAltitude: Int, temperature: Int, weight: Int) -> Int {
+func feetTOR(dataFrame: DataFrame, pressureAltitude: Int, temperature: Int, weight: Int) -> Int {
     let (rowIndexLowerAltitude2400lbs, columnIndexLowerTemperature) = pressureAltitudeAndTemperatureLowerBoundaryIndicees(pressureAltitude: pressureAltitude, temperature: temperature)
     let rowIndexLowerAltitude2200lbs = rowIndexLowerAltitude2400lbs + 4
     let rowIndexLowerAltitude2000lbs = rowIndexLowerAltitude2200lbs + 4
@@ -129,7 +129,7 @@ func OldcorrectedPA(elevationEntry: String, qnhEntry: String) -> (Int, Bool) {
     }
 }
 
-func correctedAltitude(for elevation: Int, and qnh: Int) -> Int? {
+func correctedAltitude(for elevation: Int, and qnh: Int) -> Int {
     //MARK:- calculate pa
     if qnh == 1013 {
         return elevation // ?? nil
@@ -137,9 +137,10 @@ func correctedAltitude(for elevation: Int, and qnh: Int) -> Int? {
         let qnhCorrection = (Double(qnh) - 1013.2) * -27.3
         var pressureAltitude = Double(elevation) + qnhCorrection// ?? 0)    //need to protect here for pa < 0 as well as  pa > 2000
        // pa = pa + qnhCorrection
-        if pressureAltitude > 2000.0 {
-            return nil
-        } else if pressureAltitude < 0.0  {
+//        if pressureAltitude > 2000.0 {
+//            return nil
+       // } else
+    if pressureAltitude < 0.0  {
             pressureAltitude = 0.0
             return (Int(pressureAltitude))
         } else {

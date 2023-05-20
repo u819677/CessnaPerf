@@ -17,7 +17,7 @@ struct WindView: View {
       //  NavigationView{   //doesn't go here! The Navigation is from Content view, so that is where it needs to be!
         HStack{
             //NavigationLink(destination: WindPicker(windComponent: $wind.windComponent)){
-            Text("Wind:     \(wind.component) ")
+            Text("Wind:        \(wind.component) ")
                 .font(.custom("Noteworthy Bold", size: 25))
                 .foregroundColor(.black)
                 .padding()

@@ -39,7 +39,6 @@ struct ContentView: View {
         } catch {
             print("url loading failed")
         }
-     
     }
     
     var body: some View {
@@ -54,34 +53,23 @@ struct ContentView: View {
                         .foregroundColor(.white)
                     Spacer()
                     
-                    // MARK: Calculate Button
+                    // MARK: Calculate
                     Button {
-
                         let todDataFrame = TODDataFrame(dataFrame: dataFrame)
                         let torDataFrame = TORDataFrame(dataFrame: dataFrame)
 
-//                        if elevation == nil {
-//                            return
-//                        }
-                        guard let elevation = elevation else {
-                            return
-                        }
-                        guard let qnh = qnh else {
-                            return
-                        }
-                        let pressureAltitude = correctedAltitude(for: elevation, and: qnh)
-                       // elevation = correctedPA(elevation: elevation, qnh: qnh)
-                        guard let temperature = temperature else {
-                            return  //so this would disable the calcultion
-                        }
-                        guard let weight = weight else {
+                        guard let weight = weight, let temperature = temperature, let elevation = elevation, let qnh = qnh  else {
                             return
                         }
 
-                        ///firstly calc calm tod then correct for windComponent
-                        ftTOD = Double(todFeet(dataFrame: todDataFrame, pressureAltitude: elevation, temperature: temperature, weight: weight))
+                        let pressureAltitude = correctedAltitude(for: elevation, and: qnh)
+                        if pressureAltitude > 2000 {
+                            showPressAltAlert = true
+                        }
+                        ///firstly calc calm TOD then correct for windComponent
+                        ftTOD = Double(feetTOD(dataFrame: todDataFrame, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
                         ftTOD = ftTOD * WindComponent(component: wind.component)
-                        ftTOR = Double(torFeet(dataFrame: torDataFrame, pressureAltitude: elevation, temperature: temperature, weight: weight))
+                        ftTOR = Double(feetTOR(dataFrame: torDataFrame, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
                         ftTOR = ftTOR * WindComponent(component: wind.component)
 
                         if isGrass {//add 15% of TOR for grass runway
@@ -91,7 +79,6 @@ struct ContentView: View {
                         }
                         userDefaults.set(Date(), forKey: "calcTime")
                         showResults = true
-
                         }
                     label: {
                         Text("  Calculate  ")
@@ -120,53 +107,6 @@ struct ContentView: View {
                     SurfaceView(isGrass: $isGrass)
                         .padding(10)
                     Spacer()
-                    //Spacer()
-//                    Button {
-//
-//                        let todDataFrame = TODDataFrame(dataFrame: dataFrame)
-//                        let torDataFrame = TORDataFrame(dataFrame: dataFrame)
-//
-//                        if elevation == nil {
-//                            return
-//                        }
-//
-//                        elevation = correctedPA(elevation: elevation, qnh: qnh)
-//                        guard let temperature = temperature else {
-//                            return  //so this would disable the calcultion
-//                        }
-//                        guard let weight = weight else {
-//                            return
-//                        }
-//
-//                        ///firstly calc calm tod then correct for windComponent
-//                        ftTOD = Double(todFeet(dataFrame: todDataFrame, elevation: elevation!, temperature: temperature, weight: weight))
-//                        ftTOD = ftTOD * WindComponent(component: wind.component)
-//                        ftTOR = Double(torFeet(dataFrame: torDataFrame, elevation: elevation!, temperature: temperature, weight: weight))
-//                        ftTOR = ftTOR * WindComponent(component: wind.component)
-//
-//                        if isGrass {//add 15% of TOR for grass runway
-//                            let extraGrassFeet = ftTOR * 0.15
-//                            ftTOD += extraGrassFeet
-//                            ftTOR += extraGrassFeet
-//                        }
-//                        userDefaults.set(Date(), forKey: "calcTime")
-//                        showResults = true
-//
-//                        }
-//                    label: {
-//                        Text("  Calculate  ")
-//                                .foregroundColor(.white).bold()
-//                            .font(.custom("Noteworthy Bold", size: 25))
-//                            .padding(5)
-//                           // .background(Color.gray)
-//                            .overlay(RoundedRectangle(cornerRadius: 5)
-//                                .stroke(Color.white, lineWidth: 4).bold()
-//                                //.background(Color.gray)
-//                            )
-//                           // .background(Color.gray)
-//                    }///end of Button
-                    ///
-                    //Spacer()
                 }
             }
             .onChange(of: scenePhase) { newPhase in
@@ -192,7 +132,7 @@ struct ContentView: View {
             .sheet(isPresented: $showResults) {
                 ResultsView(showResults: $showResults, ftTOD: $ftTOD,  ftTOR: $ftTOR)
             }
-            .alert("Pressure Alt is above 2000ft", isPresented: $showPressAltAlert) {
+            .alert("Pressure Altitude is above 2000ft, see POH for data", isPresented: $showPressAltAlert) {
                 Button("OK", role: .cancel) { }
             }
     }///end of body

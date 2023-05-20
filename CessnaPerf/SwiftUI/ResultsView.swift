@@ -12,7 +12,7 @@ struct ResultsView: View {
     @Binding var showResults: Bool
     @Binding var ftTOD: Double
     @Binding var ftTOR: Double
-    
+    let lightBlue = UIColor(hue: 0.5472, saturation: 0.42, brightness: 0.97, alpha: 1.0)
    // @Binding var activeSheet: ActiveSheet
     //@State  var trimmedFeet: String = ""
     //@State var trimmedMetres: String = ""
@@ -36,17 +36,21 @@ struct ResultsView: View {
             Text("""
                 TOR = \(String(format: "%.0f", ftTOR)) ft
                 TOD = \(String(format: "%.0f", ftTOD)) ft
-                
-                
-                TODR (= TOD x 1.25)
-                = \(String(format: "%.0f",(ftTOD * 1.25 / 3.28) )) metres
                 """)
-              //  = \(trimmedMetres)m
+            .foregroundColor(.white)
+            .font(.custom("Noteworthy-Bold", size: 25))
+                Text("""
+                TODR (= TOD x 1.25)
+                       = \(String(format: "%.0f",(ftTOD * 1.25 / 3.28) )) metres
+                """)
+                .padding(10)
+                .background(RoundedRectangle(cornerRadius: 10).fill(Color(lightBlue)))
+               // .background(lightBlue)
                 
            
                 
-                .font(.custom("Noteworthy Bold", size: 25))
-                .foregroundColor(.white)
+                .font(.custom("Noteworthy-Bold", size: 25))
+                .foregroundColor(.black)
             .padding(30)
             Button(" OK  "){
                // presentationMode.wrappedValue.dismiss()
@@ -58,7 +62,7 @@ struct ResultsView: View {
             .padding(5)
             .overlay(RoundedRectangle(cornerRadius: 5)
               
-                .stroke(Color.white, lineWidth: 2)
+                .stroke(Color.white, lineWidth: 3)
                      )
            // .shadow(radius: 5)
         }.frame(width: 320, height: 400, alignment: .center)
@@ -68,7 +72,7 @@ struct ResultsView: View {
 
 struct ResultsView_Previews: PreviewProvider {
     static var previews: some View {
-       // ResultsView(ftTOD: .constant(0000.0))
-        Color.red
+        ResultsView(showResults: .constant(true), ftTOD: .constant(2000), ftTOR: .constant(2000))
+        //Color.red
     }
 }
