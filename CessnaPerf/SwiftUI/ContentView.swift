@@ -61,7 +61,6 @@ struct ContentView: View {
                         guard let weight = weight, let temperature = temperature, let elevation = elevation, let qnh = qnh  else {
                             return
                         }
-
                         let pressureAltitude = correctedAltitude(for: elevation, and: qnh)
                         if pressureAltitude > 2000 {
                             showPressAltAlert = true
@@ -91,8 +90,8 @@ struct ContentView: View {
                             .background(Color.gray)
                     }///end of Button
                     .padding(80)
-                }
-                VStack{
+                }//end of second layer VStack
+                VStack{//this layer is on top of the image and then the Calculate button
                     Spacer()
                     WeightView(weight: $weight)
                         .padding(10)
@@ -107,8 +106,8 @@ struct ContentView: View {
                     SurfaceView(isGrass: $isGrass)
                         .padding(10)
                     Spacer()
-                }
-            }
+                }//end of top layer VStack
+            }//end of ZStack
             .onChange(of: scenePhase) { newPhase in
                 print("scenePhase changed")
                 if newPhase == .active {
@@ -132,7 +131,7 @@ struct ContentView: View {
             .sheet(isPresented: $showResults) {
                 ResultsView(showResults: $showResults, ftTOD: $ftTOD,  ftTOR: $ftTOR)
             }
-            .alert("Pressure Altitude is above 2000ft, see POH for data", isPresented: $showPressAltAlert) {
+            .alert("Pressure Altitude is above 2000ft, use POH data", isPresented: $showPressAltAlert) {
                 Button("OK", role: .cancel) { }
             }
     }///end of body
