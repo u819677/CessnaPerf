@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		230DF5482A0025DC009218CD /* WindView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230DF5472A0025DC009218CD /* WindView.swift */; };
-		230DF5642A00FBC6009218CD /* SupportingFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230DF5632A00FBC6009218CD /* SupportingFunctions.swift */; };
+		230DF5642A00FBC6009218CD /* Functions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 230DF5632A00FBC6009218CD /* Functions.swift */; };
 		233EFBAA2A1799EB00DC589B /* TemperatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233EFBA92A1799EB00DC589B /* TemperatureView.swift */; };
 		233EFBAE2A17DB3700DC589B /* WeightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233EFBAD2A17DB3700DC589B /* WeightView.swift */; };
 		233EFBB02A17E9C300DC589B /* ElevationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233EFBAF2A17E9C300DC589B /* ElevationView.swift */; };
@@ -32,7 +32,7 @@
 
 /* Begin PBXFileReference section */
 		230DF5472A0025DC009218CD /* WindView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindView.swift; sourceTree = "<group>"; };
-		230DF5632A00FBC6009218CD /* SupportingFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportingFunctions.swift; sourceTree = "<group>"; };
+		230DF5632A00FBC6009218CD /* Functions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Functions.swift; sourceTree = "<group>"; };
 		233EFBA92A1799EB00DC589B /* TemperatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureView.swift; sourceTree = "<group>"; };
 		233EFBAD2A17DB3700DC589B /* WeightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightView.swift; sourceTree = "<group>"; };
 		233EFBAF2A17E9C300DC589B /* ElevationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationView.swift; sourceTree = "<group>"; };
@@ -67,6 +67,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		233EFBD72A1902ED00DC589B /* SupportingFunctions */ = {
+			isa = PBXGroup;
+			children = (
+				230DF5632A00FBC6009218CD /* Functions.swift */,
+				236E895C29FFC1E40011B767 /* Calculations.swift */,
+			);
+			path = SupportingFunctions;
+			sourceTree = "<group>";
+		};
 		236E893429FFAE170011B767 = {
 			isa = PBXGroup;
 			children = (
@@ -89,8 +98,12 @@
 			children = (
 				236E894029FFAE170011B767 /* CessnaPerfApp.swift */,
 				236E895929FFB5F10011B767 /* SwiftUI */,
+				233EFBB92A18B61000DC589B /* oldWeightView.rtf */,
+				233EFBB52A18B5A800DC589B /* oldElevationView.rtf */,
+				233EFBB72A18B5E700DC589B /* oldTemperatureView.rtf */,
+				233EFBB32A18B4C900DC589B /* oldQNHView.rtf */,
+				23E299A12A0BCFB10036E691 /* SpareCode.rtf */,
 				236E894429FFAE190011B767 /* Assets.xcassets */,
-				236E895C29FFC1E40011B767 /* Calculations.swift */,
 				236E894E29FFAEEF0011B767 /* Info.plist */,
 				236E894629FFAE190011B767 /* Preview Content */,
 				236E895129FFB0D10011B767 /* Notes.rtf */,
@@ -113,17 +126,12 @@
 				236E895A29FFB6F40011B767 /* ResultsView.swift */,
 				236E89662A0015C00011B767 /* WindPicker.swift */,
 				230DF5472A0025DC009218CD /* WindView.swift */,
-				230DF5632A00FBC6009218CD /* SupportingFunctions.swift */,
 				23E299852A0A7FD60036E691 /* SurfaceView.swift */,
-				23E299A12A0BCFB10036E691 /* SpareCode.rtf */,
 				233EFBA92A1799EB00DC589B /* TemperatureView.swift */,
 				233EFBAD2A17DB3700DC589B /* WeightView.swift */,
 				233EFBAF2A17E9C300DC589B /* ElevationView.swift */,
 				233EFBB12A17EC8700DC589B /* QNHView.swift */,
-				233EFBB32A18B4C900DC589B /* oldQNHView.rtf */,
-				233EFBB52A18B5A800DC589B /* oldElevationView.rtf */,
-				233EFBB72A18B5E700DC589B /* oldTemperatureView.rtf */,
-				233EFBB92A18B61000DC589B /* oldWeightView.rtf */,
+				233EFBD72A1902ED00DC589B /* SupportingFunctions */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -206,7 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				230DF5482A0025DC009218CD /* WindView.swift in Sources */,
-				230DF5642A00FBC6009218CD /* SupportingFunctions.swift in Sources */,
+				230DF5642A00FBC6009218CD /* Functions.swift in Sources */,
 				236E895B29FFB6F40011B767 /* ResultsView.swift in Sources */,
 				233EFBB02A17E9C300DC589B /* ElevationView.swift in Sources */,
 				233EFBAE2A17DB3700DC589B /* WeightView.swift in Sources */,

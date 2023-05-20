@@ -60,11 +60,17 @@ struct ContentView: View {
                         let todDataFrame = TODDataFrame(dataFrame: dataFrame)
                         let torDataFrame = TORDataFrame(dataFrame: dataFrame)
 
-                        if elevation == nil {
+//                        if elevation == nil {
+//                            return
+//                        }
+                        guard let elevation = elevation else {
                             return
                         }
-
-                        elevation = correctedPA(elevation: elevation, qnh: qnh)
+                        guard let qnh = qnh else {
+                            return
+                        }
+                        let pressureAltitude = correctedAltitude(for: elevation, and: qnh)
+                       // elevation = correctedPA(elevation: elevation, qnh: qnh)
                         guard let temperature = temperature else {
                             return  //so this would disable the calcultion
                         }
@@ -73,9 +79,9 @@ struct ContentView: View {
                         }
 
                         ///firstly calc calm tod then correct for windComponent
-                        ftTOD = Double(todFeet(dataFrame: todDataFrame, pressureAltitude: elevation!, temperature: temperature, weight: weight))
+                        ftTOD = Double(todFeet(dataFrame: todDataFrame, pressureAltitude: elevation, temperature: temperature, weight: weight))
                         ftTOD = ftTOD * WindComponent(component: wind.component)
-                        ftTOR = Double(torFeet(dataFrame: torDataFrame, elevation: elevation!, temperature: temperature, weight: weight))
+                        ftTOR = Double(torFeet(dataFrame: torDataFrame, pressureAltitude: elevation, temperature: temperature, weight: weight))
                         ftTOR = ftTOR * WindComponent(component: wind.component)
 
                         if isGrass {//add 15% of TOR for grass runway

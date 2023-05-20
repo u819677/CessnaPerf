@@ -1,5 +1,5 @@
 //
-//  SupportingFunctions.swift
+//  Functions.swift
 //  CessnaPerf
 //
 //  Created by Richard Clark on 02/05/2023.
@@ -58,10 +58,10 @@ func WindComponent(component: String) -> Double {
     }
 }
 func TODDataFrame(dataFrame: DataFrame) -> DataFrame {
-    let todData = dataFrame.selecting(columnNames: "weight", "elevation", "TOD0", "TOD10", "TOD20", "TOD30", "TOD40", "TOD40.1" )
+    let todData = dataFrame.selecting(columnNames: "weight", "pa", "TOD0", "TOD10", "TOD20", "TOD30", "TOD40", "TOD40.1" )
     return todData
 }
 func TORDataFrame(dataFrame: DataFrame) -> DataFrame {
-    let torData = dataFrame.selecting(columnNames: "weight", "elevation", "TOR0", "TOR10", "TOR20", "TOR30", "TOR40", "TOR40.1" )
+    let torData = dataFrame.selecting(columnNames: "weight", "pa", "TOR0", "TOR10", "TOR20", "TOR30", "TOR40", "TOR40.1" )
     return torData
 }
