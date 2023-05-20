@@ -273,5 +273,28 @@ from Stack Overflow, found this fab mod for a textfield to show Cancel and Enter
     \}\
 \}\
 \
- \cf2 //  DispatchQueue.main.asyncAfter(deadline: .now() + 0.1)\{\cf4 \
-}
+ \cf2 //  DispatchQueue.main.asyncAfter(deadline: .now() + 0.1)\{\
+\
+\pard\tx593\pardeftab593\partightenfactor0
+\cf4     \
+    \cf2 //@FocusState  var focused: Bool?\cf4 \
+    \cf2 //@StateObject var checkCalc: CheckCalc = CheckCalc()\cf4 \
+    \
+    \cf2 //@State var weightEntry: String = "2400"\cf4 \
+   \cf2 // @State var isWeightValid: Bool = true\cf4 \
+    \cf2 //@State var tempEntry: String = "    "\cf4 \
+    \cf2 //@State var isTempValid: Bool = true\cf4 \
+    \cf2 //@State var elevationEntry: String = "   "\cf4 \
+    \cf2 //@State var isElevationValid: Bool = true\cf4 \
+    \cf2 //@State var qnhEntry: String = "    "\cf4 \
+    \cf2 //@State var isQNHValid: Bool = true\
+\
+//class CheckCalc: ObservableObject \{\cf4 \
+\cf2 //    @Published var isValid: Bool = true\cf4 \
+\cf2 //\}\cf4 \
+                    \cf2 //oldQNHView(qnhEntry: $qnhEntry, isQNHValid: $isQNHValid, focused: $focused)\
+\cf4                     \
+                   \cf2 // oldElevationView(elevationEntry: $elevationEntry, isElevationValid: $isElevationValid, focused: $focused)\
+\cf4                     \
+                   \cf2 // oldTemperatureView(temperatureEntry: $tempEntry, isTempValid: $isTempValid, focused: $focused)\
+\cf4                    \cf2 // oldWeightView(weightEntry: $weightEntry, isWeightValid: $isWeightValid, focused: $focused)}

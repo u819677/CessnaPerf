@@ -53,10 +53,11 @@ struct SurfaceToggle: ToggleStyle {
                             .shadow(radius: 1, x:0, y: 1)
                             .padding(1.5)
                             .offset(x: configuration.isOn ? 10 : -10))
-                    .animation(.easeInOut, value: 0.5)
+                    .animation(.easeInOut, value: 1.0)
             }
         }            .frame(width: 320, height: 35)
             .background(isGrass ? Image("grass").resizable() : Image("tarmac").resizable())
+            .animation(.easeInOut, value: 0.5)
             .background(RoundedRectangle(cornerRadius: 10))
             .cornerRadius(10)
             .clipped()

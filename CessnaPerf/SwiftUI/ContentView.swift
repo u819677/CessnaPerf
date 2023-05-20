@@ -16,18 +16,7 @@ struct ContentView: View {
     @State var qnh: Int?
     
     @State private var showPressAltAlert = false
-    
-    //@FocusState  var focused: Bool?
-    //@StateObject var checkCalc: CheckCalc = CheckCalc()
-    
-    //@State var weightEntry: String = "2400"
-   // @State var isWeightValid: Bool = true
-    //@State var tempEntry: String = "    "
-    //@State var isTempValid: Bool = true
-    //@State var elevationEntry: String = "   "
-    //@State var isElevationValid: Bool = true
-    //@State var qnhEntry: String = "    "
-    //@State var isQNHValid: Bool = true
+
     @StateObject var wind: Wind = Wind()
     @State var isGrass: Bool = false
     
@@ -40,7 +29,6 @@ struct ContentView: View {
     
     @Environment(\.scenePhase) var scenePhase
     let userDefaults = UserDefaults.standard
-    
     
     init() {
         let fileURL = Bundle.main.url(forResource: "C172Perf", withExtension: "csv")
@@ -55,22 +43,23 @@ struct ContentView: View {
     }
     
     var body: some View {
-        //  ScrollView {
-       // NavigationStack {
             ZStack{
                 Image("GApanel")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .edgesIgnoringSafeArea(.all)
-//                    .onTapGesture {
-//                        focused = nil
-//                    }
                 VStack{
                     Text("C172P Take Off Performance")
                         .font(.custom("Noteworthy Bold", size: 26))
                         .foregroundColor(.white)
                         .padding(5)
-
+Spacer()
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    Spacer()
+                    
                     // MARK: Calculate Button
                     Button {
 
@@ -83,7 +72,7 @@ struct ContentView: View {
 
                         elevation = correctedPA(elevation: elevation, qnh: qnh)
                         guard let temperature = temperature else {
-                            return  //so this would disable the calcultion 
+                            return  //so this would disable the calcultion
                         }
                         guard let weight = weight else {
                             return
@@ -94,7 +83,7 @@ struct ContentView: View {
                         ftTOD = ftTOD * WindComponent(component: wind.component)
                         ftTOR = Double(torFeet(dataFrame: torDataFrame, elevation: elevation!, temperature: temperature, weight: weight))
                         ftTOR = ftTOR * WindComponent(component: wind.component)
-                        
+
                         if isGrass {//add 15% of TOR for grass runway
                             let extraGrassFeet = ftTOR * 0.15
                             ftTOD += extraGrassFeet
@@ -102,14 +91,15 @@ struct ContentView: View {
                         }
                         userDefaults.set(Date(), forKey: "calcTime")
                         showResults = true
-                        
-                        }label: {
+
+                        }
+                    label: {
                         Text("  Calculate  ")
-                            .foregroundColor(.white)
+                                .foregroundColor(.white).bold()
                             .font(.custom("Noteworthy Bold", size: 25))
                             .padding(5)
                             .overlay(RoundedRectangle(cornerRadius: 5)
-                                .stroke(Color.white, lineWidth: 2)
+                                .stroke(Color.white, lineWidth: 4).bold()
                             )
                             .background(Color.gray)
                     }///end of Button
@@ -117,20 +107,13 @@ struct ContentView: View {
                     Spacer()
                 }
                 VStack{
-                    
                     Spacer()
-                   // oldWeightView(weightEntry: $weightEntry, isWeightValid: $isWeightValid, focused: $focused)
                     WeightView(weight: $weight)
                         .padding(10)
-                    
-                   // oldTemperatureView(temperatureEntry: $tempEntry, isTempValid: $isTempValid, focused: $focused)
                     TemperatureView(temperature: $temperature)
                         .padding(10)
-                    
-                   // oldElevationView(elevationEntry: $elevationEntry, isElevationValid: $isElevationValid, focused: $focused)
                     ElevationView(elevation: $elevation)
                         .padding(10)
-                    //oldQNHView(qnhEntry: $qnhEntry, isQNHValid: $isQNHValid, focused: $focused)
                     QNHView(qnh: $qnh)
                         .padding()
                     WindView(wind: wind)
@@ -138,16 +121,58 @@ struct ContentView: View {
                     SurfaceView(isGrass: $isGrass)
                         .padding(10)
                     Spacer()
-                    Spacer()
-                    
+                    //Spacer()
+//                    Button {
+//
+//                        let todDataFrame = TODDataFrame(dataFrame: dataFrame)
+//                        let torDataFrame = TORDataFrame(dataFrame: dataFrame)
+//
+//                        if elevation == nil {
+//                            return
+//                        }
+//
+//                        elevation = correctedPA(elevation: elevation, qnh: qnh)
+//                        guard let temperature = temperature else {
+//                            return  //so this would disable the calcultion
+//                        }
+//                        guard let weight = weight else {
+//                            return
+//                        }
+//
+//                        ///firstly calc calm tod then correct for windComponent
+//                        ftTOD = Double(todFeet(dataFrame: todDataFrame, elevation: elevation!, temperature: temperature, weight: weight))
+//                        ftTOD = ftTOD * WindComponent(component: wind.component)
+//                        ftTOR = Double(torFeet(dataFrame: torDataFrame, elevation: elevation!, temperature: temperature, weight: weight))
+//                        ftTOR = ftTOR * WindComponent(component: wind.component)
+//
+//                        if isGrass {//add 15% of TOR for grass runway
+//                            let extraGrassFeet = ftTOR * 0.15
+//                            ftTOD += extraGrassFeet
+//                            ftTOR += extraGrassFeet
+//                        }
+//                        userDefaults.set(Date(), forKey: "calcTime")
+//                        showResults = true
+//
+//                        }
+//                    label: {
+//                        Text("  Calculate  ")
+//                                .foregroundColor(.white).bold()
+//                            .font(.custom("Noteworthy Bold", size: 25))
+//                            .padding(5)
+//                           // .background(Color.gray)
+//                            .overlay(RoundedRectangle(cornerRadius: 5)
+//                                .stroke(Color.white, lineWidth: 4).bold()
+//                                //.background(Color.gray)
+//                            )
+//                           // .background(Color.gray)
+//                    }///end of Button
+                    ///
+                    //Spacer()
                 }
-              
-               // .environmentObject(checkCalc)
             }
             .onChange(of: scenePhase) { newPhase in
                 print("scenePhase changed")
                 if newPhase == .active {
-                    
                     guard let calcTime = userDefaults.object(forKey: "calcTime") as! Date?
                     else {
                         return  ///because calc has not been done yet so there's no calcTime
@@ -158,12 +183,8 @@ struct ContentView: View {
                         ///it's expired so reset values to nil
                         userDefaults.set(nil, forKey: "calcTime")
                         weight = nil
-                        //weightEntry = "2400"
                         temperature = nil
-                        //tempEntry = ""
-                        //elevationEntry = ""
                         elevation = nil
-                        //qnhEntry = ""
                         qnh = nil
                         wind.component = "calm"
                     }
@@ -183,7 +204,5 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-//class CheckCalc: ObservableObject {
-//    @Published var isValid: Bool = true
-//}
+
 
