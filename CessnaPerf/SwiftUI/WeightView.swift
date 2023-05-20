@@ -88,7 +88,7 @@ struct WeightView: View {
 
     private func checkTOW(of weightEntry: String) -> Bool {
         if weightEntry.isEmpty {
-            return true
+            return false
         }
         if let intTOW = Int(weightEntry) {
             if intTOW  >= 2000 && intTOW <= 2400 {

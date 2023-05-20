@@ -10,7 +10,7 @@ import SwiftUI
 
 
 struct oldElevationView: View {
-    @EnvironmentObject var checkCalc: CheckCalc
+    //@EnvironmentObject var checkCalc: CheckCalc
     @Binding var elevationEntry: String
     @Binding var isElevationValid: Bool
     var focused: FocusState<Bool?>.Binding

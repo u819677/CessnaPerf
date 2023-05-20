@@ -18,16 +18,16 @@ struct ContentView: View {
     @State private var showPressAltAlert = false
     
     //@FocusState  var focused: Bool?
-    @StateObject var checkCalc: CheckCalc = CheckCalc()
+    //@StateObject var checkCalc: CheckCalc = CheckCalc()
     
-    @State var weightEntry: String = "2400"
-    @State var isWeightValid: Bool = true
-    @State var tempEntry: String = "    "
-    @State var isTempValid: Bool = true
-    @State var elevationEntry: String = "   "
-    @State var isElevationValid: Bool = true
-    @State var qnhEntry: String = "    "
-    @State var isQNHValid: Bool = true
+    //@State var weightEntry: String = "2400"
+   // @State var isWeightValid: Bool = true
+    //@State var tempEntry: String = "    "
+    //@State var isTempValid: Bool = true
+    //@State var elevationEntry: String = "   "
+    //@State var isElevationValid: Bool = true
+    //@State var qnhEntry: String = "    "
+    //@State var isQNHValid: Bool = true
     @StateObject var wind: Wind = Wind()
     @State var isGrass: Bool = false
     
@@ -58,7 +58,7 @@ struct ContentView: View {
         //  ScrollView {
        // NavigationStack {
             ZStack{
-                Image("C172Panel")
+                Image("GApanel")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .edgesIgnoringSafeArea(.all)
@@ -80,11 +80,11 @@ struct ContentView: View {
                         if elevation == nil {
                             return
                         }
+
                         elevation = correctedPA(elevation: elevation, qnh: qnh)
                         guard let temperature = temperature else {
                             return  //so this would disable the calcultion 
                         }
-                       // let weight = Int(weightEntry)!
                         guard let weight = weight else {
                             return
                         }
@@ -142,7 +142,7 @@ struct ContentView: View {
                     
                 }
               
-                .environmentObject(checkCalc)
+               // .environmentObject(checkCalc)
             }
             .onChange(of: scenePhase) { newPhase in
                 print("scenePhase changed")
@@ -155,12 +155,16 @@ struct ContentView: View {
                     let calcExpiryTime = calcTime.addingTimeInterval(3600)///calc is valid for 1 hour
                     let now = Date()
                     if calcExpiryTime < now {
-                        ///it's expired so reset to nil
+                        ///it's expired so reset values to nil
                         userDefaults.set(nil, forKey: "calcTime")
-                        weightEntry = "2400"
-                        tempEntry = ""
-                        elevationEntry = ""
-                        qnhEntry = ""
+                        weight = nil
+                        //weightEntry = "2400"
+                        temperature = nil
+                        //tempEntry = ""
+                        //elevationEntry = ""
+                        elevation = nil
+                        //qnhEntry = ""
+                        qnh = nil
                         wind.component = "calm"
                     }
                 }
@@ -179,7 +183,7 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-class CheckCalc: ObservableObject {
-    @Published var isValid: Bool = true
-}
+//class CheckCalc: ObservableObject {
+//    @Published var isValid: Bool = true
+//}
 
