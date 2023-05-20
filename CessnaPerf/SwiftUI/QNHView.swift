@@ -46,7 +46,7 @@ struct QNHView: View {
             qnhEntry = ""
             isValid = true
             qnh = nil
-           // textFieldHasFocus = true
+            textFieldHasFocus = true
         }
     }
 

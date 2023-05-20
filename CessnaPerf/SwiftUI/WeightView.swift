@@ -55,6 +55,7 @@ struct WeightView: View {
             weightEntry = ""
             isValid = true
             weight = nil
+            textFieldHasFocus = true
 //            if textFieldHasFocus != nil {
 //                textFieldHasFocus = true
 //            }

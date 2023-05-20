@@ -48,7 +48,7 @@ struct TemperatureView: View {
                     tempEntry = ""
                     isValid = true
                     temperature = nil
-                   // textFieldHasFocus = true //don't think required
+                    textFieldHasFocus = true 
                 }
                 .toolbar{toolbarItems()}
     }//end of body
