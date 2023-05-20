@@ -110,7 +110,7 @@ func torForActualWeight(weight: Int, tor2400: Int, tor2200: Int, tor2000: Int) -
 }
 
 
-func correctedPA(elevationEntry: String, qnhEntry: String) -> (Int, Bool) {
+func OldcorrectedPA(elevationEntry: String, qnhEntry: String) -> (Int, Bool) {
     //MARK:- calculate pa
     if qnhEntry == "1013" {
         return (Int(elevationEntry)!, true)
@@ -130,3 +130,21 @@ func correctedPA(elevationEntry: String, qnhEntry: String) -> (Int, Bool) {
     }
 }
 
+func correctedPA(elevation: Int?, qnh: Int?) -> Int? {
+    //MARK:- calculate pa
+    if qnh == 1013 {
+        return elevation ?? nil
+    } else {
+        var pa = Double(elevation ?? 0)    //need to protect here for pa < 0 as well as  pa > 2000
+        let qnhCorrection = (Double(qnh ?? 0) - 1013.2) * -27.3
+        pa = pa + qnhCorrection
+        if pa > 2000.0 {
+            return nil
+        } else if pa < 0.0  {
+            pa = 0.0
+            return (Int(pa))
+        } else {
+            return (Int(pa))
+        }
+    }
+}

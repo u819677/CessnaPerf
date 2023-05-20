@@ -8,7 +8,7 @@ import SwiftUI
 
 struct ElevationView: View {
     
-    @State var elevationEntry: String = "2400"
+    @State var elevationEntry: String = ""
     @State var isValid: Bool = true
     @FocusState var textFieldHasFocus: Bool?
     @Binding var elevation: Int?
@@ -21,6 +21,11 @@ struct ElevationView: View {
             TextField("", text: $elevationEntry)
                 .font(.custom("Noteworthy-Bold", size: 25))
                 .focused($textFieldHasFocus, equals: true)
+                .onChange(of: textFieldHasFocus) { _ in
+                        if elevation == nil {
+                            elevationEntry = ""
+                    }
+                }
                 .keyboardType(.numberPad)
                 .toolbar {toolbarItems()}
 
@@ -40,6 +45,7 @@ struct ElevationView: View {
             elevationEntry = ""
             isValid = true
             textFieldHasFocus = true
+            elevation = nil
         }
     }
 

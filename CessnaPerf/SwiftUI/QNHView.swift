@@ -1,50 +1,41 @@
 //
-//  WeightView.swift
-//  from TextFieldDismissal
+//  QNHView.swift
+//  CessnaPerf
 //
 //  Created by Richard Clark on 19/05/2023.
 //
 
 import SwiftUI
 
-struct WeightView: View {
+struct QNHView: View {
     
-    @State var weightEntry: String = ""//2400"
+    @State var qnhEntry: String = ""
     @State var isValid: Bool = true
-    @FocusState var textFieldHasFocus: Bool? {
-        didSet {
-            print("focus was set")//seems to trigger when focus actively is set back to nil, not when focus is lost
-        }
-          
-            //weightEntry = ""
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-//                textFieldHasFocus = true
-
-    }
-    @Binding var weight: Int? //= 2400
+    @FocusState var textFieldHasFocus: Bool?
+    @Binding var qnh: Int?
     
     let lightBlue = UIColor(hue: 0.5472, saturation: 0.42, brightness: 0.97, alpha: 1.0)
     var body: some View {
         HStack {
-            Text("  Weight:     ")
+            Text("  QNH:     ")
                 .font(.custom("Noteworthy-Bold", size: 25))
-            TextField("", text: $weightEntry)
+            TextField("", text: $qnhEntry)
                 .font(.custom("Noteworthy-Bold", size: 25))
                 .focused($textFieldHasFocus, equals: true)
                 .onChange(of: textFieldHasFocus) { _ in
-                        if weight == nil {
-                            weightEntry = ""
+                        if qnh == nil {
+                            qnhEntry = ""
                     }
                 }
                 .keyboardType(.numberPad)
                 .toolbar {toolbarItems()}
-                
+
                 .padding()
                 .position(x: 50, y: 12)
                 .frame(width: 120, height: 28)
                 .border(Color.black, width: 0.5)
                 .background(isValid ? Color.clear : Color.red.opacity(0.7))
-            Text("lbs")
+            Text("hPa")
                 .font(.custom("Noteworthy-Bold", size: 25))
             // .navigationBarHidden(true)//not sure what this does or if needed
         }//end of HStack
@@ -52,12 +43,10 @@ struct WeightView: View {
         .frame(width: 320,height: 35)
         .background(RoundedRectangle(cornerRadius: 10).fill(Color(lightBlue)))
         .onTapGesture {
-            weightEntry = ""
+            qnhEntry = ""
             isValid = true
-            weight = nil
-//            if textFieldHasFocus != nil {
-//                textFieldHasFocus = true
-//            }
+            qnh = nil
+           // textFieldHasFocus = true
         }
     }
 
@@ -66,18 +55,17 @@ struct WeightView: View {
         if textFieldHasFocus ?? false {  //this is a conditional builder, only avail in iOS16
             ToolbarItemGroup(placement: .keyboard) {
                 Button{
-                    weightEntry = ""
-                    weight = nil
+                    qnhEntry = ""
+                    qnh = nil
                     textFieldHasFocus = nil
                 }
             label: {Text("Cancel").bold() }
                 Button{
-                    print(String(describing: weight))
-                    isValid = checkTOW(of: weightEntry)
+                    isValid = checkQNH(of: qnhEntry)
                     if isValid {
-                        weight = Int(weightEntry)
+                        qnh = Int(qnhEntry)
                     } else {
-                        weight = nil
+                        qnh = nil
                     }
                     textFieldHasFocus = nil
                 }
@@ -86,19 +74,19 @@ struct WeightView: View {
         }   //end if
     }
 
-    private func checkTOW(of weightEntry: String) -> Bool {
-        if weightEntry.isEmpty {
+    func checkQNH(of qnhInput: String) -> Bool {
+        if qnhInput.isEmpty {
             return true
         }
-        if let intTOW = Int(weightEntry) {
-            if intTOW  >= 2000 && intTOW <= 2400 {
+        if let intQNH = Int(qnhInput) {
+            if intQNH >= 950 && intQNH <= 1050 {
                 return true
-            } else {
+            }else {
                 return false
             }
         }
         return false
-    }//end of checkTOW
+    }
 }
 
 //struct WeightView_Previews: PreviewProvider {
@@ -106,4 +94,5 @@ struct WeightView: View {
 //        WeightView()
 //    }
 //}
+
 

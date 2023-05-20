@@ -136,6 +136,7 @@
  \cf9 @Environment\cf4 (\\.\cf10 presentationMode\cf4 ) 
 \f1\b \cf6 var
 \f0\b0 \cf4  \cf11 presentationMode\
+\pard\tx593\pardeftab593\partightenfactor0
 \cf4    \cf8 @State\cf4  
 \f1\b \cf6 private
 \f0\b0 \cf4  
@@ -143,7 +144,6 @@
 \f0\b0 \cf4  \cf11 activeSheet\cf4 : \cf14 ActiveSheet\cf4 ?\
                 \cf2 // activeSheet = .displayResults\
 //            .sheet(item: $activeSheet)\{\cf4 \
-\pard\tx593\pardeftab593\partightenfactor0
 \cf2 //                item in\cf4 \
 \cf2 //                sheetView(with: item)\cf4 \
 \cf2 //            \}\
@@ -203,11 +203,11 @@
 \pard\pardeftab720\partightenfactor0
 
 \fs36 \cf15 \cb16 \expnd0\expndtw0\kerning0
-\shad\shadx0\shady-20\shadr0\shado0 \shadc0     \cf17 \cb16 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 @State\cf15 \cb16 \shad\shadx0\shady-20\shadr0\shado0 \shadc0  
+\shad\shadx0\shady-20\shadr0\shado0 \shadc0     \cf17 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 @State\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0  
 \f1\b \cf18 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 private
 \f0\b0 \cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0  
 \f1\b \cf18 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 var
-\f0\b0 \cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0  showingAlert = \cf19 \cb16 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 false\cf15 \cb16 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 \
+\f0\b0 \cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0  showingAlert = \cf19 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 false\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 \
 \
     
 \f1\b \cf18 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 var
@@ -215,7 +215,7 @@
 \f1\b \cf18 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 some
 \f0\b0 \cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0  \cf20 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 View\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0  \{\
         \cf20 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 Button\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 (\cf21 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 "Show Alert"\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 ) \{\
-            showingAlert = \cf19 \cb16 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 true\cf15 \cb16 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 \
+            showingAlert = \cf19 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 true\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 \
         \}\
         .\cf22 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 alert\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 (\cf21 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 "Important message"\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 , isPresented: $showingAlert) \{\
             \cf20 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 Button\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 (\cf21 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 "OK"\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 , role: .cancel) \{ \}\
@@ -227,6 +227,7 @@
 \
 \
 from Stack Overflow, found this fab mod for a textfield to show Cancel and Enter buttons\
+\pard\tx593\pardeftab593\partightenfactor0
 
 \f1\b \cf6 struct
 \f0\b0 \cf4  \cf7 ContentView\cf4 : \cf8 View\cf4  \{\
@@ -271,4 +272,6 @@ from Stack Overflow, found this fab mod for a textfield to show Cancel and Enter
         \cf2 // .padding()\cf4 \
     \}\
 \}\
+\
+ \cf2 //  DispatchQueue.main.asyncAfter(deadline: .now() + 0.1)\{\cf4 \
 }

@@ -12,6 +12,7 @@
 		233EFBAA2A1799EB00DC589B /* TemperatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233EFBA92A1799EB00DC589B /* TemperatureView.swift */; };
 		233EFBAE2A17DB3700DC589B /* WeightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233EFBAD2A17DB3700DC589B /* WeightView.swift */; };
 		233EFBB02A17E9C300DC589B /* ElevationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233EFBAF2A17E9C300DC589B /* ElevationView.swift */; };
+		233EFBB22A17EC8700DC589B /* QNHView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233EFBB12A17EC8700DC589B /* QNHView.swift */; };
 		236E894129FFAE170011B767 /* CessnaPerfApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236E894029FFAE170011B767 /* CessnaPerfApp.swift */; };
 		236E894329FFAE170011B767 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236E894229FFAE170011B767 /* ContentView.swift */; };
 		236E894529FFAE190011B767 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 236E894429FFAE190011B767 /* Assets.xcassets */; };
@@ -35,6 +36,7 @@
 		233EFBA92A1799EB00DC589B /* TemperatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureView.swift; sourceTree = "<group>"; };
 		233EFBAD2A17DB3700DC589B /* WeightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightView.swift; sourceTree = "<group>"; };
 		233EFBAF2A17E9C300DC589B /* ElevationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationView.swift; sourceTree = "<group>"; };
+		233EFBB12A17EC8700DC589B /* QNHView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QNHView.swift; sourceTree = "<group>"; };
 		236E893D29FFAE170011B767 /* CessnaPerf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CessnaPerf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		236E894029FFAE170011B767 /* CessnaPerfApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CessnaPerfApp.swift; sourceTree = "<group>"; };
 		236E894229FFAE170011B767 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 				233EFBA92A1799EB00DC589B /* TemperatureView.swift */,
 				233EFBAD2A17DB3700DC589B /* WeightView.swift */,
 				233EFBAF2A17E9C300DC589B /* ElevationView.swift */,
+				233EFBB12A17EC8700DC589B /* QNHView.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -208,6 +211,7 @@
 				236E895F29FFD53B0011B767 /* oldQNHView.swift in Sources */,
 				236E895629FFB2F00011B767 /* oldElevationView.swift in Sources */,
 				236E895429FFB2960011B767 /* oldWeightView.swift in Sources */,
+				233EFBB22A17EC8700DC589B /* QNHView.swift in Sources */,
 				236E89672A0015C00011B767 /* WindPicker.swift in Sources */,
 				236E894329FFAE170011B767 /* ContentView.swift in Sources */,
 				233EFBAA2A1799EB00DC589B /* TemperatureView.swift in Sources */,

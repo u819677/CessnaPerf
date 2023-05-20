@@ -11,12 +11,13 @@ import TabularData
 
 struct ContentView: View {
     @State var temperature: Int? // = nil, is that required?
-    @State var weight: Int?
+    @State var weight: Int? //= 2400
     @State var elevation: Int?
+    @State var qnh: Int?
     
     @State private var showPressAltAlert = false
     
-    @FocusState  var focused: Bool?
+    //@FocusState  var focused: Bool?
     @StateObject var checkCalc: CheckCalc = CheckCalc()
     
     @State var weightEntry: String = "2400"
@@ -61,9 +62,9 @@ struct ContentView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .edgesIgnoringSafeArea(.all)
-                    .onTapGesture {
-                        focused = nil
-                    }
+//                    .onTapGesture {
+//                        focused = nil
+//                    }
                 VStack{
                     Text("C172P Take Off Performance")
                         .font(.custom("Noteworthy Bold", size: 26))
@@ -72,28 +73,26 @@ struct ContentView: View {
 
                     // MARK: Calculate Button
                     Button {
-                        if !isWeightValid || !isTempValid || !isElevationValid || !isQNHValid {
-                            print("somethings not valid")
-                            return
-                        }
+
                         let todDataFrame = TODDataFrame(dataFrame: dataFrame)
                         let torDataFrame = TORDataFrame(dataFrame: dataFrame)
-                        
-                        let (elevation, validPA) = correctedPA(elevationEntry: elevationEntry, qnhEntry: qnhEntry)
-                       // let temperature = Int(tempEntry)!
+
+                        if elevation == nil {
+                            return
+                        }
+                        elevation = correctedPA(elevation: elevation, qnh: qnh)
                         guard let temperature = temperature else {
                             return  //so this would disable the calcultion 
                         }
-                        let weight = Int(weightEntry)!
-
-                        if validPA == false {
-                            showPressAltAlert = true
-                           // return
+                       // let weight = Int(weightEntry)!
+                        guard let weight = weight else {
+                            return
                         }
+
                         ///firstly calc calm tod then correct for windComponent
-                        ftTOD = Double(todFeet(dataFrame: todDataFrame, elevation: elevation, temperature: temperature, weight: weight))
+                        ftTOD = Double(todFeet(dataFrame: todDataFrame, elevation: elevation!, temperature: temperature, weight: weight))
                         ftTOD = ftTOD * WindComponent(component: wind.component)
-                        ftTOR = Double(torFeet(dataFrame: torDataFrame, elevation: elevation, temperature: temperature, weight: weight))
+                        ftTOR = Double(torFeet(dataFrame: torDataFrame, elevation: elevation!, temperature: temperature, weight: weight))
                         ftTOR = ftTOR * WindComponent(component: wind.component)
                         
                         if isGrass {//add 15% of TOR for grass runway
@@ -131,7 +130,8 @@ struct ContentView: View {
                    // oldElevationView(elevationEntry: $elevationEntry, isElevationValid: $isElevationValid, focused: $focused)
                     ElevationView(elevation: $elevation)
                         .padding(10)
-                    oldQNHView(qnhEntry: $qnhEntry, isQNHValid: $isQNHValid, focused: $focused)
+                    //oldQNHView(qnhEntry: $qnhEntry, isQNHValid: $isQNHValid, focused: $focused)
+                    QNHView(qnh: $qnh)
                         .padding()
                     WindView(wind: wind)
                         .padding(10)

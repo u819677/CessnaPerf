@@ -26,7 +26,13 @@ struct TemperatureView: View {
                     Text("         Temp:            ")
                     TextField("", text: $tempEntry)
                         .focused($textFieldHasFocus, equals: true)
+                        .onChange(of: textFieldHasFocus) { _ in
+                                if temperature == nil {
+                                    tempEntry = ""
+                            }
+                        }
                         .keyboardType(.numberPad)
+                    
                         .padding()
                         .position(x: 50, y: 12)
                         .frame(width: 80, height: 28)
@@ -41,7 +47,8 @@ struct TemperatureView: View {
                 .onTapGesture {
                     tempEntry = ""
                     isValid = true
-                    textFieldHasFocus = true
+                    temperature = nil
+                   // textFieldHasFocus = true //don't think required
                 }
                 .toolbar{toolbarItems()}
     }//end of body
