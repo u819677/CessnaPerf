@@ -76,7 +76,42 @@ struct ContentView: View {
                             ftTOD += extraGrassFeet
                             ftTOR += extraGrassFeet
                         }
-                        userDefaults.set(Date(), forKey: "calcTime")
+                        
+                        //userDefaults.set(calcExpiryTime, forKey: "calcExpiryTime")
+                        //var calcExpiryTime = Date()
+                        guard let calcTime = userDefaults.object(forKey: "calcTime") as! Date? else {
+                           let calcTime = Date()
+                            userDefaults.set(calcTime, forKey: "calcTime")
+                            showResults = true
+                            return
+                        }
+                        ///there's already a calcTime but poss no need to update it if it was done very recently
+                       // if let calcTime = userDefaults.object(forKey: "calcTime") as! Date? {
+                            let elapsedTimeSinceCalc = calcTime.timeIntervalSinceNow
+                            print("elapsedTimeSinceCalc is \(elapsedTimeSinceCalc)")
+                      //  let logicTest = elapsedTimeSinceCalc > -10
+                       // print("logicTest is \(logicTest)")
+                        if elapsedTimeSinceCalc < -30 {
+                            let newCalcTime = Date()
+                            userDefaults.set(newCalcTime, forKey: "calcTime")
+                        }
+//                                print("elapsedTimeSinceCalc is \(elapsedTimeSinceCalc)")
+//                               // userDefaults.set(calcTime, forKey: "calcTime")
+//                            }
+                            //only do all this if there's already an expiry time
+                       // let calcTime = Date()
+                       // let expiryTime = calculationTime.addingTimeInterval(20)
+                        
+                        
+                           // print("there's an expiry time")
+                            
+                           // let timeToExpiry = expiryTime.timeIntervalSinceNow
+                          // print("timetoExpiry is \(timeToExpiry)")
+                     //   }
+                        
+                       // calcExpiryTime = calcExpiryTime.addingTimeInterval(10)
+                       // userDefaults.set(calcExpiryTime, forKey: "calcExpiryTime")///maybe put a condition here to only set new calcTime if any previous one is more than 5mins old
+                       // print("now there's a new expiry time")
                         showResults = true
                         }
                     label: {
@@ -111,21 +146,24 @@ struct ContentView: View {
             .onChange(of: scenePhase) { newPhase in
                 print("scenePhase changed")
                 if newPhase == .active {
-                    guard let calcTime = userDefaults.object(forKey: "calcTime") as! Date?
-                    else {
-                        return  ///because calc has not been done yet so there's no calcTime
-                    }
-                    let calcExpiryTime = calcTime.addingTimeInterval(3600)///calc is valid for 1 hour
-                    let now = Date()
-                    if calcExpiryTime < now {
-                        ///it's expired so reset values to nil
-                        userDefaults.set(nil, forKey: "calcTime")
-                        weight = nil
-                        temperature = nil
-                        elevation = nil
-                        qnh = nil
-                        wind.component = "calm"
-                    }
+                    //print("calcTime is \()")
+                        guard let calcTime = userDefaults.object(forKey: "calcTime") as! Date?
+                        else {
+                            return ///because calc has not been done yet so there's no calcTime. Even if fields are populated that's ok, they've not been used for a calculation yet.
+                        }
+                    print("calcTime is \(calcTime)")
+                    ///calcTime is valid but if it's expired then need to do a reset
+                    if calcTime.timeIntervalSinceNow < -30 {
+                            ///it's expired so reset values to nil
+                            userDefaults.set(nil, forKey: "calcTime")
+                            weight = nil
+                            temperature = nil
+                            elevation = nil
+                            qnh = nil
+                            wind.component = "calm"
+                        } else {
+                            print("it's not expired yet")
+                        }
                 }
             }
             .sheet(isPresented: $showResults) {

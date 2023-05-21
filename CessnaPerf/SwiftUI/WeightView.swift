@@ -58,11 +58,12 @@ struct WeightView: View {
             textFieldHasFocus = true
         }
         .onChange(of: scenePhase) { _ in
+            print("scenePhase changed in WeightView")
             guard let calcTime = userDefaults.object(forKey: "calcTime") as! Date?
             else {
                 return  ///because calc has not been done yet so there's no calcTime
             }
-            print(String(describing: calcTime))
+            print("calcTime in WeightView is \(String(describing: calcTime))")
         }
     }  //end of body
 
