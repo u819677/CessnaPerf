@@ -96,7 +96,6 @@ struct CustomPicker : UIViewRepresentable {
         }
         func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
  
-            let lightBlue = UIColor(hue: 0.5472, saturation: 0.42, brightness: 0.97, alpha: 1.0)
             let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 150, height: 50))
             
             let label = UILabel(frame: CGRect(x:0, y:0, width: view.bounds.width, height: view.bounds.height))
@@ -106,7 +105,7 @@ struct CustomPicker : UIViewRepresentable {
             label.textAlignment = .center
 
             label.font = UIFont(name: "Noteworthy-Bold", size: 25)
-            view.backgroundColor = lightBlue
+            view.backgroundColor = UIColor(Color(lightBlue))
  
             view.addSubview(label)
             

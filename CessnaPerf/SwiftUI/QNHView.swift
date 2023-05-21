@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct QNHView: View {
+    @Environment(\.scenePhase) var scenePhase
+    var userDefaults = UserDefaults.standard
     
     @State var qnhEntry: String = ""
     @State var isValid: Bool = true
     @FocusState var textFieldHasFocus: Bool?
     @Binding var qnh: Int?
     
-    let lightBlue = UIColor(hue: 0.5472, saturation: 0.42, brightness: 0.97, alpha: 1.0)
     var body: some View {
         HStack {
             Text("  QNH:     ")
@@ -29,7 +30,6 @@ struct QNHView: View {
                 }
                 .keyboardType(.numberPad)
                 .toolbar {toolbarItems()}
-
                 .padding()
                 .position(x: 50, y: 12)
                 .frame(width: 120, height: 28)
@@ -47,6 +47,13 @@ struct QNHView: View {
             isValid = true
             qnh = nil
             textFieldHasFocus = true
+        }
+        .onChange(of: scenePhase) { _ in
+            guard let calcTime = userDefaults.object(forKey: "calcTime") as! Date? else { return }
+                ///because calc has not been done yet so there's no calcTime
+            if calcTime.timeIntervalSinceNow < -3600 {
+                qnhEntry = ""
+            }
         }
     }
 

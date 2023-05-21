@@ -13,7 +13,9 @@ struct ElevationView: View {
     @FocusState var textFieldHasFocus: Bool?
     @Binding var elevation: Int?
     
-    let lightBlue = UIColor(hue: 0.5472, saturation: 0.42, brightness: 0.97, alpha: 1.0)
+    @Environment(\.scenePhase) var scenePhase
+    let userDefaults = UserDefaults.standard
+    
     var body: some View {
         HStack {
             Text("  Elevation:     ")
@@ -46,6 +48,13 @@ struct ElevationView: View {
             isValid = true
             textFieldHasFocus = true
             elevation = nil
+        }
+        .onChange(of: scenePhase) { _ in
+            guard let calcTime = userDefaults.object(forKey: "calcTime") as! Date?  else { return }
+                ///because calc has not been done yet so there's no calcTime
+            if calcTime.timeIntervalSinceNow < -3600 {
+                elevationEntry = ""
+                }
         }
     }
 

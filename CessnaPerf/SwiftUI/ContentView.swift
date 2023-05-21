@@ -58,13 +58,12 @@ struct ContentView: View {
                         let todDataFrame = TODDataFrame(dataFrame: dataFrame)
                         let torDataFrame = TORDataFrame(dataFrame: dataFrame)
 
-                        guard let weight = weight, let temperature = temperature, let elevation = elevation, let qnh = qnh  else {
-                            return
-                        }
+                        guard let weight = weight, let temperature = temperature, let elevation = elevation, let qnh = qnh  else { return }
+           
                         let pressureAltitude = correctedAltitude(for: elevation, and: qnh)
-                        if pressureAltitude > 2000 {
-                            showPressAltAlert = true
-                        }
+                        if pressureAltitude > 2000 { showPressAltAlert = true }
+                            
+                     
                         ///firstly calc calm TOD then correct for windComponent
                         ftTOD = Double(feetTOD(dataFrame: todDataFrame, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
                         ftTOD = ftTOD * WindComponent(component: wind.component)
@@ -76,42 +75,19 @@ struct ContentView: View {
                             ftTOD += extraGrassFeet
                             ftTOR += extraGrassFeet
                         }
-                        
-                        //userDefaults.set(calcExpiryTime, forKey: "calcExpiryTime")
-                        //var calcExpiryTime = Date()
+
                         guard let calcTime = userDefaults.object(forKey: "calcTime") as! Date? else {
                            let calcTime = Date()
                             userDefaults.set(calcTime, forKey: "calcTime")
                             showResults = true
                             return
                         }
-                        ///there's already a calcTime but poss no need to update it if it was done very recently
-                       // if let calcTime = userDefaults.object(forKey: "calcTime") as! Date? {
+                        ///there's already a calcTime but no need to update it if it was done very recently, and better not to update it due other work that UserDefaults do in background
                             let elapsedTimeSinceCalc = calcTime.timeIntervalSinceNow
-                            print("elapsedTimeSinceCalc is \(elapsedTimeSinceCalc)")
-                      //  let logicTest = elapsedTimeSinceCalc > -10
-                       // print("logicTest is \(logicTest)")
-                        if elapsedTimeSinceCalc < -30 {
+                        if elapsedTimeSinceCalc < -100 {    ///100s min time between calcTime updates should be ok.
                             let newCalcTime = Date()
                             userDefaults.set(newCalcTime, forKey: "calcTime")
                         }
-//                                print("elapsedTimeSinceCalc is \(elapsedTimeSinceCalc)")
-//                               // userDefaults.set(calcTime, forKey: "calcTime")
-//                            }
-                            //only do all this if there's already an expiry time
-                       // let calcTime = Date()
-                       // let expiryTime = calculationTime.addingTimeInterval(20)
-                        
-                        
-                           // print("there's an expiry time")
-                            
-                           // let timeToExpiry = expiryTime.timeIntervalSinceNow
-                          // print("timetoExpiry is \(timeToExpiry)")
-                     //   }
-                        
-                       // calcExpiryTime = calcExpiryTime.addingTimeInterval(10)
-                       // userDefaults.set(calcExpiryTime, forKey: "calcExpiryTime")///maybe put a condition here to only set new calcTime if any previous one is more than 5mins old
-                       // print("now there's a new expiry time")
                         showResults = true
                         }
                     label: {
@@ -144,26 +120,20 @@ struct ContentView: View {
                 }//end of top layer VStack
             }//end of ZStack
             .onChange(of: scenePhase) { newPhase in
-                print("scenePhase changed")
+                print("scenePhase in ContentView changed")
                 if newPhase == .active {
-                    //print("calcTime is \()")
-                        guard let calcTime = userDefaults.object(forKey: "calcTime") as! Date?
-                        else {
-                            return ///because calc has not been done yet so there's no calcTime. Even if fields are populated that's ok, they've not been used for a calculation yet.
-                        }
-                    print("calcTime is \(calcTime)")
-                    ///calcTime is valid but if it's expired then need to do a reset
-                    if calcTime.timeIntervalSinceNow < -30 {
-                            ///it's expired so reset values to nil
-                            userDefaults.set(nil, forKey: "calcTime")
-                            weight = nil
-                            temperature = nil
-                            elevation = nil
-                            qnh = nil
-                            wind.component = "calm"
-                        } else {
-                            print("it's not expired yet")
-                        }
+                    guard let calcTime = userDefaults.object(forKey: "calcTime") as! Date? else { return}
+                    ///above guard returns if there's no calcTime because calc has not been done yet. Even if fields are populated that's ok, they've not been used for a calculation yet.
+                    ///now check for a valid calcTime but need to check if it's expired:
+                    if calcTime.timeIntervalSinceNow < -3600 {
+                        ///it's expired so reset values to nil
+                        userDefaults.set(nil, forKey: "calcTime")
+                        weight = nil
+                        temperature = nil
+                        elevation = nil
+                        qnh = nil
+                        wind.component = "calm"
+                    }
                 }
             }
             .sheet(isPresented: $showResults) {

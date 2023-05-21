@@ -9,21 +9,13 @@ import SwiftUI
 
 struct WeightView: View {
     @Environment(\.scenePhase) var scenePhase
+    let userDefaults = UserDefaults.standard
+    
     @State var weightEntry: String = ""//2400"
     @State var isValid: Bool = true
-    @FocusState var textFieldHasFocus: Bool? {
-        didSet {
-            print("focus was set")//seems to trigger when focus actively is set back to nil, not when focus is lost
-        }
-          
-            //weightEntry = ""
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-//                textFieldHasFocus = true
-
-    }
+    @FocusState var textFieldHasFocus: Bool?
     @Binding var weight: Int? //= 2400
-    let userDefaults = UserDefaults.standard
-    let lightBlue = UIColor(hue: 0.5472, saturation: 0.42, brightness: 0.97, alpha: 1.0)
+    
     var body: some View {
         HStack {
             Text("  Weight:     ")
@@ -32,13 +24,13 @@ struct WeightView: View {
                 .font(.custom("Noteworthy-Bold", size: 25))
                 .focused($textFieldHasFocus, equals: true)
                 .onChange(of: textFieldHasFocus) { _ in
-                        if weight == nil {
-                            weightEntry = ""
+                    if weight == nil {
+                        weightEntry = ""
                     }
                 }
                 .keyboardType(.numberPad)
                 .toolbar {toolbarItems()}
-                
+            
                 .padding()
                 .position(x: 50, y: 12)
                 .frame(width: 120, height: 28)
@@ -58,12 +50,11 @@ struct WeightView: View {
             textFieldHasFocus = true
         }
         .onChange(of: scenePhase) { _ in
-            print("scenePhase changed in WeightView")
-            guard let calcTime = userDefaults.object(forKey: "calcTime") as! Date?
-            else {
-                return  ///because calc has not been done yet so there's no calcTime
+            guard let calcTime = userDefaults.object(forKey: "calcTime") as! Date? else { return }
+            ///because calc has not been done yet so there's no calcTime
+            if calcTime.timeIntervalSinceNow < -3600 {
+                weightEntry = ""
             }
-            print("calcTime in WeightView is \(String(describing: calcTime))")
         }
     }  //end of body
 

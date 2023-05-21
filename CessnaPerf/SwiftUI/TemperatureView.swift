@@ -9,14 +9,15 @@ import SwiftUI
 
 struct TemperatureView: View {
     
+    @Environment(\.scenePhase) var scenePhase
+    let userDefaults = UserDefaults.standard
+    
     @State var tempEntry: String = ""
     @State var isValid: Bool = true
     @FocusState var textFieldHasFocus: Bool?
     @Binding var temperature: Int?
     
-    
-    // var focused: FocusState<Bool?>.Binding
-    let lightBlue = UIColor(hue: 0.5472, saturation: 0.42, brightness: 0.97, alpha: 1.0)
+
     init(temperature: Binding<Int?> ) {// {, focused: FocusState<Bool?>.Binding) {//some clever init syntax here for FocusState
         UIToolbar.appearance().barTintColor = UIColor.lightGray
         self._temperature = temperature
@@ -32,7 +33,6 @@ struct TemperatureView: View {
                             }
                         }
                         .keyboardType(.numberPad)
-                    
                         .padding()
                         .position(x: 50, y: 12)
                         .frame(width: 80, height: 28)
@@ -51,6 +51,13 @@ struct TemperatureView: View {
                     textFieldHasFocus = true 
                 }
                 .toolbar{toolbarItems()}
+                .onChange(of: scenePhase) { _ in
+                    guard let calcTime = userDefaults.object(forKey: "calcTime") as! Date? else { return }
+                    //because calc has not been done yet
+                    if calcTime.timeIntervalSinceNow < -3600  {
+                        tempEntry = ""
+                    }
+                }
     }//end of body
     @ToolbarContentBuilder
     private func toolbarItems() -> some ToolbarContent {
@@ -78,17 +85,13 @@ struct TemperatureView: View {
         }//end if
     }
     private func checkValidity(of tempEntry: String) -> Bool {
-        if tempEntry.isEmpty {
-            return false
-        }
-        if let intTemp = Int(tempEntry) {
+        if tempEntry.isEmpty { return false }
+        if let intTemp = Int(tempEntry) {   //checks that the string be made into an Int
             if intTemp >= 0 && intTemp <= 40 {
                 return true
-            } else {
-                return false
-            }
+            } else { return false } //entry out of permitted range
         }
-        return false
+        return false        //the default case to keep compiler happy
     }
 }//end of struct
 

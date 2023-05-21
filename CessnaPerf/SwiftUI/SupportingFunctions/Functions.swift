@@ -7,6 +7,7 @@
 
 import Foundation
 import TabularData
+import SwiftUI
 
 func pickerRow(selected: String) -> Int {
     switch selected {
@@ -32,8 +33,9 @@ func pickerRow(selected: String) -> Int {
         return 99
     }
 }
-//["9kt HW", "6kts HW", "3kts HW", "calm", "2kts TW", "4kts TW", "6kts TW", "8kts TW" , "10kts TW"]
+
 func WindComponent(component: String) -> Double {
+    //these are the multipliers for the wind components
     switch component {
     case "calm":
         return 1.0
@@ -65,3 +67,5 @@ func TORDataFrame(dataFrame: DataFrame) -> DataFrame {
     let torData = dataFrame.selecting(columnNames: "weight", "pa", "TOR0", "TOR10", "TOR20", "TOR30", "TOR40", "TOR40.1" )
     return torData
 }
+
+let lightBlue = UIColor(hue: 0.5472, saturation: 0.42, brightness: 0.97, alpha: 1.0)
