@@ -10,8 +10,8 @@ import TabularData
 
 
 struct ContentView: View {
-    @State var temperature: Int? // = nil, is that required?
-    @State var weight: Int? //= 2400
+    @State var temperature: Int? 
+    @State var weight: Int?
     @State var elevation: Int?
     @State var qnh: Int?
     
@@ -47,6 +47,7 @@ struct ContentView: View {
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .edgesIgnoringSafeArea(.all)
+                    .ignoresSafeArea(.keyboard)
                 VStack{
                     Text("C172P Take Off Performance")
                         .font(.custom("Noteworthy Bold", size: 26))
@@ -102,6 +103,7 @@ struct ContentView: View {
                     }///end of Button
                     .padding(80)
                 }//end of second layer VStack
+                .ignoresSafeArea(.keyboard)//stops Calculate button moving up behind keyboard
                 VStack{//this layer is on top of the image and then the Calculate button
                     Spacer()
                     WeightView(weight: $weight)
