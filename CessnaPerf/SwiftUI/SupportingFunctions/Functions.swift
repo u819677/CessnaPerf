@@ -68,4 +68,4 @@ func TORDataFrame(dataFrame: DataFrame) -> DataFrame {
     return torData
 }
 
-let lightBlue = UIColor(hue: 0.5472, saturation: 0.42, brightness: 0.97, alpha: 1.0)
+let skyBlue = UIColor(hue: 0.5472, saturation: 0.42, brightness: 0.97, alpha: 1.0)

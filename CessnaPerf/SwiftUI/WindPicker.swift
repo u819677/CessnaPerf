@@ -105,7 +105,7 @@ struct CustomPicker : UIViewRepresentable {
             label.textAlignment = .center
 
             label.font = UIFont(name: "Noteworthy-Bold", size: 25)
-            view.backgroundColor = UIColor(Color(lightBlue))
+            view.backgroundColor = UIColor(Color(skyBlue))
  
             view.addSubview(label)
             

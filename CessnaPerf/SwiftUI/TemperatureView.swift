@@ -43,7 +43,7 @@ struct TemperatureView: View {
                 }//end of HStack
                 .font(.custom("Noteworthy-Bold", size: 25))
                 .frame(width: 320,height: 35)
-                .background(RoundedRectangle(cornerRadius: 10).fill(Color(lightBlue)))
+                .background(RoundedRectangle(cornerRadius: 10).fill(Color(skyBlue)))
                 .onTapGesture {
                     tempEntry = ""
                     isValid = true

@@ -35,7 +35,7 @@ struct ResultsView: View {
                 """)
                 .padding(10)
                 .frame(width: 300)
-                .background(RoundedRectangle(cornerRadius: 10).fill(Color(lightBlue)))
+                .background(RoundedRectangle(cornerRadius: 10).fill(Color(skyBlue)))
                 .font(.custom("Noteworthy-Bold", size: 25))
                 .foregroundColor(.black)
                 .padding(30)

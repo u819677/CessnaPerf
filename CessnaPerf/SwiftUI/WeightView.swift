@@ -42,7 +42,7 @@ struct WeightView: View {
         }  //end of HStack
        
         .frame(width: 320,height: 35)
-        .background(RoundedRectangle(cornerRadius: 10).fill(Color(lightBlue)))
+        .background(RoundedRectangle(cornerRadius: 10).fill(Color(skyBlue)))
         .onTapGesture {
             weightEntry = ""
             isValid = true
