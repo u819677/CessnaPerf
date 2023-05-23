@@ -30,6 +30,7 @@
 		23E299822A0250750036E691 /* C172Perf.csv in Resources */ = {isa = PBXBuildFile; fileRef = 23E299812A0250750036E691 /* C172Perf.csv */; };
 		23E299862A0A7FD60036E691 /* SurfaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E299852A0A7FD60036E691 /* SurfaceView.swift */; };
 		23E299A22A0BCFB10036E691 /* SpareCode.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 23E299A12A0BCFB10036E691 /* SpareCode.rtf */; };
+		23F9FFC42A1D31CC00D55FDF /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9FFC32A1D31CC00D55FDF /* SideMenuView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +59,7 @@
 		23E299812A0250750036E691 /* C172Perf.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = C172Perf.csv; sourceTree = "<group>"; };
 		23E299852A0A7FD60036E691 /* SurfaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfaceView.swift; sourceTree = "<group>"; };
 		23E299A12A0BCFB10036E691 /* SpareCode.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = SpareCode.rtf; sourceTree = "<group>"; };
+		23F9FFC32A1D31CC00D55FDF /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +147,7 @@
 				233EFBAF2A17E9C300DC589B /* ElevationView.swift */,
 				233EFBB12A17EC8700DC589B /* QNHView.swift */,
 				233C110E2A195D1800151961 /* FileView.swift */,
+				23F9FFC32A1D31CC00D55FDF /* SideMenuView.swift */,
 				233EFBD72A1902ED00DC589B /* SupportingFunctions */,
 			);
 			path = SwiftUI;
@@ -236,6 +239,7 @@
 				233EFBAE2A17DB3700DC589B /* WeightView.swift in Sources */,
 				23E299862A0A7FD60036E691 /* SurfaceView.swift in Sources */,
 				233EFBB22A17EC8700DC589B /* QNHView.swift in Sources */,
+				23F9FFC42A1D31CC00D55FDF /* SideMenuView.swift in Sources */,
 				236E89672A0015C00011B767 /* WindPicker.swift in Sources */,
 				236E894329FFAE170011B767 /* ContentView.swift in Sources */,
 				233EFBAA2A1799EB00DC589B /* TemperatureView.swift in Sources */,
