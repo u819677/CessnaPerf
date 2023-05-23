@@ -27,13 +27,22 @@ struct PDFKitView: UIViewRepresentable {
     }
 }
 struct PDFUIView: View {
+    @Binding var showPDFUIView: Bool
     let pdfDoc: PDFDocument
-    init() {
+    init(showPDFUIView: Binding<Bool>) {
         let url = Bundle.main.url(forResource: "C172Perf", withExtension: "pdf")!
         pdfDoc = PDFDocument(url: url)!
+        self._showPDFUIView = showPDFUIView
     }
     var body: some View {
-        PDFKitView(showing: pdfDoc)
+        VStack{
+            PDFKitView(showing: pdfDoc)
+            Spacer()
+            Button("OK") {
+                showPDFUIView = false
+            }
+            .padding(50)
+        }
     }
 }
 //struct FileView_Previews: PreviewProvider {

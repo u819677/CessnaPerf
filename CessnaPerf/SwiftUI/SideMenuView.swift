@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct SideMenuView: View {
-    @State var showDataView: Bool = false
+    @State var showPDFUIView: Bool = false
     @Binding var showSideMenuView: Bool
     var body: some View {
         VStack {
@@ -23,7 +23,7 @@ struct SideMenuView: View {
                 .frame(width: 100, height: 2)
                 .background(Color.black)
             
-            Button {showDataView =  true
+            Button {showPDFUIView =  true
                 showSideMenuView = false
             }
         label: {
@@ -47,9 +47,9 @@ struct SideMenuView: View {
         .background(Color(skyBlue))
         .edgesIgnoringSafeArea(.bottom)
         //.ignoresSafeArea(.all)
-        .sheet(isPresented: $showDataView) {
+        .sheet(isPresented: $showPDFUIView) {
 //            WindPicker(showPicker: $showPicker, windComponent: $wind.component)
-            //PDFUIView(showPDFUIView: $showDataView)  //showDataView: $showDataView)
+            PDFUIView(showPDFUIView: $showPDFUIView)  //showDataView: $showDataView)
         }
     }
 }

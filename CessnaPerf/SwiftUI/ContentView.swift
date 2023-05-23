@@ -50,7 +50,6 @@ struct ContentView: View {
                     .aspectRatio(contentMode: .fill)
                     .edgesIgnoringSafeArea(.all)
                     .ignoresSafeArea(.keyboard)
-                
                 VStack{
                     Text("C172P Take Off Performance")
                         .font(.custom("Noteworthy Bold", size: 26))
@@ -105,9 +104,10 @@ struct ContentView: View {
                         .background(Color.gray)
                 }///end of Button
                 .opacity(showSideMenuView ? 0.0 : 1.0)
+                .animation(.easeInOut, value: showSideMenuView)
                 .padding(80)
                 }//end of second layer VStack
-                .ignoresSafeArea(.keyboard)//stops Calculate button moving up behind keyboard
+                .ignoresSafeArea(.keyboard)//this stops Calculate button moving up behind keyboard
                 VStack{//this layer is on top of the image and then the Calculate button
                     Spacer()
                     WeightView(weight: $weight)
@@ -179,12 +179,9 @@ struct ContentView: View {
             .alert("Pressure Altitude is above 2000ft, use POH data", isPresented: $showPressAltAlert) {
                 Button("OK", role: .cancel) { }
             }
-            
-            
-            
         }//end NavView
         
-        .ignoresSafeArea()
+      //  .ignoresSafeArea()
     }///end of body
 }///end of struct
 
