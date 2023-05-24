@@ -15,12 +15,10 @@ struct SideMenuView: View {
         VStack {
             Text("Source data used in this app:")
                 .font(.title2)
-                //.font(.custom("Noteworthy-Bold", size: 24))
-           // font(.custom(<#T##name: String##String#>, f ixedSize: <#T##CGFloat#>))
                 .foregroundColor(.black)
-                .frame(width: 150)
+               // .frame(width: 150)
             Divider()
-                .frame(width: 100, height: 2)
+               // .frame(width: 100, height: 2)
                 .background(Color.black)
             
             Button {showPDFUIView =  true
@@ -30,10 +28,10 @@ struct SideMenuView: View {
                 Text("C172P    \(Image(systemName: "chevron.forward"))")
                     .foregroundColor(.black)
                 .font(.title2)
-                .frame(width: 120)
+                //.frame(width: 120)
             }
             Divider()
-                .frame(width: 100, height: 2)
+                //.frame(width: 100, height: 2)
                 .background(Color.black)
           //  Text (
 //                .padding(.horizontal, 16)
@@ -43,7 +41,7 @@ struct SideMenuView: View {
             Spacer()
         }
         
-        .padding(32)
+       // .padding(32)
         .background(Color(skyBlue))
         .edgesIgnoringSafeArea(.bottom)
         //.ignoresSafeArea(.all)
@@ -51,6 +49,8 @@ struct SideMenuView: View {
 //            WindPicker(showPicker: $showPicker, windComponent: $wind.component)
             PDFUIView(showPDFUIView: $showPDFUIView)  //showDataView: $showDataView)
         }
+        
+        .frame(width: UIScreen.main.bounds.width/2)
     }
 }
 

@@ -47,15 +47,19 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             ZStack{
-                Image("GApanel")
+                Image("GApanel2")
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .edgesIgnoringSafeArea(.all)
                     .ignoresSafeArea(.keyboard)
+                   // .frame(width: 400, height: 700)
+                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height-50)
                 VStack{
+                    //Spacer()
                     Text(showSideMenuView ? "" : "C172P Take Off Performance")
                         .font(.custom("Noteworthy Bold", size: 26))
                         .foregroundColor(.white)
+                        .padding(.top)
                     Spacer()
                     
                     // MARK: Calculate button logic
@@ -136,9 +140,10 @@ struct ContentView: View {
                 GeometryReader { _ in
                     HStack {
                         SideMenuView(showSideMenuView: $showSideMenuView)
-                        Spacer()
+                        //Spacer()
                     }//.background(Image("GApanel"))
-                    .offset(x: showSideMenuView ? -140: -UIScreen.main.bounds.width)
+                    //.offset(x: showSideMenuView ? -140: -UIScreen.main.bounds.width)
+                    .offset(x:showSideMenuView ? 0.0 : -UIScreen.main.bounds.width )
                     .animation(.easeInOut(duration: 0.4), value: showSideMenuView)
                 }
                 //MARK: toolbar
@@ -162,7 +167,7 @@ struct ContentView: View {
                         }
                     }
                 }//end of .toolbar
-                .frame(width: 100)
+                //.frame(width: 100)
             }//end of ZStack
             //MARK: userDefaults update
             .onChange(of: scenePhase) { newPhase in
