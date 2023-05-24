@@ -13,6 +13,7 @@ struct SideMenuView: View {
     @Binding var showSideMenuView: Bool
     var body: some View {
         VStack {
+            Spacer()
             Text("Source data used in this app:")
                 .font(.title2)
                 .foregroundColor(.black)
@@ -38,6 +39,7 @@ struct SideMenuView: View {
 //
 //            Link(destination: URL(string: "https//apple.com")!){Text("Apple")}
 //                .foregroundColor(.white)
+            Spacer()
             Spacer()
         }
         

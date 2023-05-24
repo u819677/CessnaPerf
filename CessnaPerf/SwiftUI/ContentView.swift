@@ -194,7 +194,7 @@ struct ContentView: View {
                 Button("OK", role: .cancel) { }
             }
         }//end NavView
-        
+        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)//this is needed to lock the whole ZStack although still needs the -50 for height of image
       //  .ignoresSafeArea()
     }///end of body
 }///end of struct
