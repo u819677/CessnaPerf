@@ -10,6 +10,7 @@ import TabularData
 
 
 struct ContentView: View {
+    // MARK: Properties
     @State var temperature: Int?
     @State var weight: Int?
     @State var elevation: Int?
@@ -42,6 +43,7 @@ struct ContentView: View {
         }
     }
     
+    //MARK: body
     var body: some View {
         NavigationView {
             ZStack{
@@ -51,12 +53,12 @@ struct ContentView: View {
                     .edgesIgnoringSafeArea(.all)
                     .ignoresSafeArea(.keyboard)
                 VStack{
-                    Text("C172P Take Off Performance")
+                    Text(showSideMenuView ? "" : "C172P Take Off Performance")
                         .font(.custom("Noteworthy Bold", size: 26))
                         .foregroundColor(.white)
                     Spacer()
                     
-                    // MARK: Calculate
+                    // MARK: Calculate button logic
                     Button {
                         let todDataFrame = TODDataFrame(dataFrame: dataFrame)
                         let torDataFrame = TORDataFrame(dataFrame: dataFrame)
@@ -93,6 +95,7 @@ struct ContentView: View {
                         }
                         showResults = true
                     }
+                    //MARK: Calculate button View
                 label: {
                     Text("  Calculate  ")
                         .foregroundColor(.white).bold()
@@ -104,10 +107,11 @@ struct ContentView: View {
                         .background(Color.gray)
                 }///end of Button
                 .opacity(showSideMenuView ? 0.0 : 1.0)
-                .animation(.easeInOut, value: showSideMenuView)
+                //.animation(.easeInOut, value: showSideMenuView)
                 .padding(80)
                 }//end of second layer VStack
                 .ignoresSafeArea(.keyboard)//this stops Calculate button moving up behind keyboard
+                //MARK: textFields
                 VStack{//this layer is on top of the image and then the Calculate button
                     Spacer()
                     WeightView(weight: $weight)
@@ -125,10 +129,10 @@ struct ContentView: View {
                     Spacer()
                 }
                 .opacity(showSideMenuView ? 0.0 : 1.0)//end of top layer VStack
-                .animation(.easeInOut, value: showSideMenuView)
+               // .animation(.easeInOut, value: showSideMenuView)
                 Color.black.opacity(showSideMenuView ? 0.5 : 0.0).ignoresSafeArea()
                     .onTapGesture { showSideMenuView = false }
-                
+                //MARK: Geometry Reader
                 GeometryReader { _ in
                     HStack {
                         SideMenuView(showSideMenuView: $showSideMenuView)
@@ -137,25 +141,30 @@ struct ContentView: View {
                     .offset(x: showSideMenuView ? -140: -UIScreen.main.bounds.width)
                     .animation(.easeInOut(duration: 0.4), value: showSideMenuView)
                 }
+                //MARK: toolbar
                 .toolbar {
-                    ToolbarItemGroup(placement: .bottomBar) {
-                        HStack{
-                            Image(systemName: "")//can't use Spacer() for some reason
-                            Spacer()
-                            Button{ showSideMenuView = true }
-                        label: {
-                            Image(systemName: "ellipsis") //Image(systemName: "text.justify")
-                                .frame(width: 40, height: 40)
-                                .foregroundColor(.black)
-                                .background(Color(skyBlue))
-                                .mask(Circle())
-                                .opacity(showSideMenuView ? 0.0 : 0.8)
-                        }
+                    if showSideMenuView == false {
+                        ToolbarItemGroup(placement: .bottomBar) {
+                            HStack{
+                                Image(systemName: "")//can't use Spacer() for some reason
+                                Spacer()
+                                Button{ showSideMenuView = true }
+                            label: {
+                                Image(systemName: "ellipsis") //Image(systemName: "text.justify")
+                                    .frame(width: 40, height: 40)
+                                    .foregroundColor(.black)
+                                    .background(Color(skyBlue))
+                                    .mask(Circle())
+                                //.opacity(showSideMenuView ? 0.0 : 0.8)
+                                
+                            }
+                            }
                         }
                     }
-                }.frame(width: 100)
+                }//end of .toolbar
+                .frame(width: 100)
             }//end of ZStack
-            
+            //MARK: userDefaults update
             .onChange(of: scenePhase) { newPhase in
                 print("scenePhase in ContentView changed")
                 if newPhase == .active {
