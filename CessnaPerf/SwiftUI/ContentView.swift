@@ -52,10 +52,9 @@ struct ContentView: View {
                     .aspectRatio(contentMode: .fill)
                     .edgesIgnoringSafeArea(.all)
                     .ignoresSafeArea(.keyboard)
-                   // .frame(width: 400, height: 700)
                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height-50)
+
                 VStack{
-                    //Spacer()
                     Text(showSideMenuView ? "" : "C172P Take Off Performance")
                         .font(.custom("Noteworthy Bold", size: 26))
                         .foregroundColor(.white)
@@ -111,11 +110,10 @@ struct ContentView: View {
                         .background(Color.gray)
                 }///end of Button
                 .opacity(showSideMenuView ? 0.0 : 1.0)
-                //.animation(.easeInOut, value: showSideMenuView)
                 .padding(80)
                 }//end of second layer VStack
                 .ignoresSafeArea(.keyboard)//this stops Calculate button moving up behind keyboard
-                //MARK: textFields
+                //MARK: textFields layer
                 VStack{//this layer is on top of the image and then the Calculate button
                     Spacer()
                     WeightView(weight: $weight)
@@ -133,19 +131,18 @@ struct ContentView: View {
                     Spacer()
                 }
                 .opacity(showSideMenuView ? 0.0 : 1.0)//end of top layer VStack
-               // .animation(.easeInOut, value: showSideMenuView)
-                Color.black.opacity(showSideMenuView ? 0.5 : 0.0).ignoresSafeArea()
-                    .onTapGesture { showSideMenuView = false }
-                //MARK: Geometry Reader
-                GeometryReader { _ in
-                    HStack {
-                        SideMenuView(showSideMenuView: $showSideMenuView)
-                        //Spacer()
-                    }//.background(Image("GApanel"))
-                    //.offset(x: showSideMenuView ? -140: -UIScreen.main.bounds.width)
-                    .offset(x:showSideMenuView ? 0.0 : -UIScreen.main.bounds.width )
+                Color.black
+                    .opacity(showSideMenuView ? 0.5 : 0.0)
+                    .onTapGesture {
+                        showSideMenuView = false
+                    }
+
+           //MARK: SideView layer
+          
+                    SideMenuView(showSideMenuView: $showSideMenuView)
+                    .offset(x:showSideMenuView ? -UIScreen.main.bounds.width/4 : -UIScreen.main.bounds.width )
                     .animation(.easeInOut(duration: 0.4), value: showSideMenuView)
-                }
+  
                 //MARK: toolbar
                 .toolbar {
                     if showSideMenuView == false {
@@ -167,7 +164,6 @@ struct ContentView: View {
                         }
                     }
                 }//end of .toolbar
-                //.frame(width: 100)
             }//end of ZStack
             //MARK: userDefaults update
             .onChange(of: scenePhase) { newPhase in
@@ -194,7 +190,7 @@ struct ContentView: View {
                 Button("OK", role: .cancel) { }
             }
         }//end NavView
-        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)//this is needed to lock the whole ZStack although still needs the -50 for height of image
+        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)///this is prob needed to lock the whole ZStack although still needs the -50 for height of image
       //  .ignoresSafeArea()
     }///end of body
 }///end of struct

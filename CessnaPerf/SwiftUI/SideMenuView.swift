@@ -14,7 +14,7 @@ struct SideMenuView: View {
     var body: some View {
         VStack {
             Spacer()
-            Text("Source data used in this app:")
+            Text("Source data:")
                 .font(.title2)
                 .foregroundColor(.black)
                // .frame(width: 150)

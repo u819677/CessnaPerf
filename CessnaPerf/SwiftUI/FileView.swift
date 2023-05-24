@@ -41,7 +41,10 @@ struct PDFUIView: View {
             Button("OK") {
                 showPDFUIView = false
             }
-            .padding(50)
+            .padding(30)
+            .overlay(RoundedRectangle(cornerRadius: 15)
+                .stroke(Color(skyBlue), lineWidth: 3)
+            )
         }
     }
 }
