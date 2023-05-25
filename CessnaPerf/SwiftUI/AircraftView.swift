@@ -12,7 +12,7 @@ import SwiftUI
 
 struct AircraftView: View {
 
-  //  @ObservedObject var aircraft: Aircraft
+   @ObservedObject var aircraft: Aircraft
     @State var showAircraftPicker: Bool = false
     
     var body: some View {
@@ -33,7 +33,8 @@ struct AircraftView: View {
                 showAircraftPicker = true
             }
                 .sheet(isPresented: $showAircraftPicker) {
-
+                    AircraftPickerView(type: $aircraft.type , showAircraftPicker: $showAircraftPicker)
+     
                 }
         }//end of body
     
@@ -46,6 +47,6 @@ class Aircraft: ObservableObject {
 
 struct AircraftView_Previews: PreviewProvider {
     static var previews: some View {
-        AircraftView()
+        AircraftView(aircraft: Aircraft())
     }
 }
