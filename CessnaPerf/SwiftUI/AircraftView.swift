@@ -1,20 +1,23 @@
 //
-//  WindView.swift
+//  AircraftView.swift
 //  CessnaPerf
 //
-//  Created by Richard Clark on 01/05/2023.
+//  Created by Richard Clark on 25/05/2023.
 //
 
 import SwiftUI
 
-struct WindView: View {
 
-    @ObservedObject var wind: Wind
-    @State var showPicker: Bool = false
+import SwiftUI
+
+struct AircraftView: View {
+
+  //  @ObservedObject var aircraft: Aircraft
+    @State var showAircraftPicker: Bool = false
     
     var body: some View {
         HStack{
-            Text("Wind:        \(wind.component) ")
+            Text("Aircraft: ")//      \(aircraft.type) ")
                 .font(.custom("Noteworthy Bold", size: 25))
                 .foregroundColor(.black)
                 .padding()
@@ -27,21 +30,22 @@ struct WindView: View {
             .frame(width: 320, height: 35)
             .background(RoundedRectangle(cornerRadius: 10).fill(Color(skyBlue)))
             .onTapGesture {
-                showPicker = true
+                showAircraftPicker = true
             }
-                .sheet(isPresented: $showPicker) {
-                    WindPicker(showPicker: $showPicker, windComponent: $wind.component)
+                .sheet(isPresented: $showAircraftPicker) {
+
                 }
         }//end of body
     
     }
 
-class Wind: ObservableObject {
-    @Published var component: String = "calm"// wind.windComponent
+class Aircraft: ObservableObject {
+    @Published var type: String = "calm"// wind.windComponent
 }
 
-struct WindView_Previews: PreviewProvider {
+
+struct AircraftView_Previews: PreviewProvider {
     static var previews: some View {
-        WindView(wind: Wind())
+        AircraftView()
     }
 }

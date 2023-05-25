@@ -45,6 +45,10 @@ struct PDFUIView: View {
             .overlay(RoundedRectangle(cornerRadius: 15)
                 .stroke(Color(skyBlue), lineWidth: 3)
             )
+            .contentShape(Rectangle())
+            .onTapGesture {
+                showPDFUIView = false
+            }
         }
     }
 }
