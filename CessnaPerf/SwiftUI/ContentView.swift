@@ -15,6 +15,7 @@ struct ContentView: View {
     @State var weight: Int?
     @State var elevation: Int?
     @State var qnh: Int?
+    @State var newWind: String = "calm"
     
     @State private var showPressAltAlert = false
     
@@ -74,7 +75,10 @@ struct ContentView: View {
                         
                         ///firstly calc calm TOD then correct for windComponent
                         ftTOD = Double(feetTOD(dataFrame: todDataFrame, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
-                        ftTOD = ftTOD * WindComponent(component: wind.component)
+                        
+                        //ftTOD = ftTOD * WindComponent(component: wind.component)
+                        ftTOD = ftTOD * WindComponent(component: newWind)
+                        
                         ftTOR = Double(feetTOR(dataFrame: torDataFrame, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
                         ftTOR = ftTOR * WindComponent(component: wind.component)
                         
@@ -125,7 +129,7 @@ struct ContentView: View {
                             .padding(10)
                         QNHView(qnh: $qnh)
                             .padding(10)
-                        WindView(wind: wind)
+                        WindView(wind: wind, newWindViewWind: $newWind)
                             .padding(10)
                         SurfaceView(isGrass: $isGrass)
                             .padding(10)

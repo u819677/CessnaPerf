@@ -11,10 +11,12 @@ struct WindView: View {
 
     @ObservedObject var wind: Wind
     @State var showPicker: Bool = false
+    @Binding var newWindViewWind: String
     
     var body: some View {
         HStack{
-            Text("Wind:        \(wind.component) ")
+            //Text("Wind:        \(wind.component) ")
+            Text("Wind:     \(newWindViewWind)")
                 .font(.custom("Noteworthy Bold", size: 25))
                 .foregroundColor(.black)
                 .padding()
@@ -30,7 +32,7 @@ struct WindView: View {
                 showPicker = true
             }
                 .sheet(isPresented: $showPicker) {
-                    WindPicker(showPicker: $showPicker, windComponent: $wind.component)
+                    WindPicker(showPicker: $showPicker, windComponent: $wind.component, newWindPickerWind: $newWindViewWind)
                 }
         }//end of body
     
@@ -40,8 +42,8 @@ class Wind: ObservableObject {
     @Published var component: String = "calm"// wind.windComponent
 }
 
-struct WindView_Previews: PreviewProvider {
-    static var previews: some View {
-        WindView(wind: Wind())
-    }
-}
+//struct WindView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        WindView(wind: Wind())
+//    }
+//}

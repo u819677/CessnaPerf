@@ -21,9 +21,12 @@ struct WindPicker: View {
     @Binding var windComponent: String // = "calm"
     @Environment(\.dismiss) var dismiss
     
-    init(showPicker: Binding<Bool>, windComponent: Binding<String>){
+    @Binding var newWindPickerWind: String
+    
+    init(showPicker: Binding<Bool>, windComponent: Binding<String>, newWindPickerWind: Binding<String>){
         self._showPicker = showPicker
         self._windComponent = windComponent
+        self._newWindPickerWind = newWindPickerWind
     
     }
    
@@ -39,7 +42,8 @@ struct WindPicker: View {
                 .edgesIgnoringSafeArea(.all)
                 .offset(x: -100, y: 0)
              
-        CustomPicker(selected: self.$windComponent)
+       // CustomPicker(selected: self.$windComponent)
+           CustomPicker(selected: $newWindPickerWind)
             VStack{
                 Spacer()
                 Button(" OK  "){
@@ -79,7 +83,7 @@ struct CustomPicker : UIViewRepresentable {
         picker.dataSource = context.coordinator
         picker.delegate = context.coordinator
         let selectedRow = pickerRow(selected: selected)
-        picker.selectRow(selectedRow, inComponent: 0, animated: true)
+        picker.selectRow(selectedRow, inComponent: 0, animated: true)///this keeps the picker matched to the selection
         return picker
     }
     
@@ -99,9 +103,8 @@ struct CustomPicker : UIViewRepresentable {
             return 1
         }
         func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
- 
+            ///this is the picker view, within which are the subviews of each element, they are set later
             let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width - 150, height: 50))
-            
             let label = UILabel(frame: CGRect(x:0, y:0, width: view.bounds.width, height: view.bounds.height))
             
             label.text = components[row]
@@ -120,6 +123,7 @@ struct CustomPicker : UIViewRepresentable {
             view.layer.borderColor = UIColor.black.cgColor
             return view
         }
+        ///this sets the dimensions of the elements in the picker
         func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
             return UIScreen.main.bounds.width - 100
         }
