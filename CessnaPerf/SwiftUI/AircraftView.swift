@@ -41,7 +41,7 @@ struct AircraftView: View {
     }
 
 class Aircraft: ObservableObject {
-    @Published var type: String = "calm"// wind.windComponent
+    @Published var type: String = "C172P"// 
 }
 
 

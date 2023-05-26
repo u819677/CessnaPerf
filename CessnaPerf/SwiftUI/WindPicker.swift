@@ -64,10 +64,13 @@ struct WindPicker_Previews: PreviewProvider {
         CustomPicker(selected: .constant("testing"))
     }
 }
+
+
 struct CustomPicker : UIViewRepresentable {
     @Binding var selected : String
+    
+    
     func makeCoordinator() -> CustomPicker.Coordinator {
-        
         return CustomPicker.Coordinator(parent1: self)
     }
     
@@ -82,14 +85,15 @@ struct CustomPicker : UIViewRepresentable {
     
     func updateUIView(_ uiView: UIPickerView, context: UIViewRepresentableContext<CustomPicker>) {
     }
+    
     class Coordinator : NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
         var parent : CustomPicker
         init(parent1 : CustomPicker) {
             parent = parent1
         }
+        
         func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
             return components.count
-            
         }
         func numberOfComponents(in pickerView: UIPickerView) -> Int {
             return 1

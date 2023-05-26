@@ -114,22 +114,24 @@ struct ContentView: View {
                 }//end of second layer VStack
                 .ignoresSafeArea(.keyboard)//this stops Calculate button moving up behind keyboard
                 //MARK: textFields layer
-                VStack{//this layer is on top of the image and then the Calculate button
-                    Spacer()
-                    WeightView(weight: $weight)
-                        .padding(10)
-                    TemperatureView(temperature: $temperature)
-                        .padding(10)
-                    ElevationView(elevation: $elevation)
-                        .padding(10)
-                    QNHView(qnh: $qnh)
-                        .padding()
-                    WindView(wind: wind)
-                        .padding(10)
-                    SurfaceView(isGrass: $isGrass)
-                        .padding(10)
-                    Spacer()
-                }
+               // ScrollView{
+                    VStack{//this layer is on top of the image and then the Calculate button
+                        Spacer()
+                        WeightView(weight: $weight)
+                            .padding(10)
+                        TemperatureView(temperature: $temperature)
+                            .padding(10)
+                        ElevationView(elevation: $elevation)
+                            .padding(10)
+                        QNHView(qnh: $qnh)
+                            .padding(10)
+                        WindView(wind: wind)
+                            .padding(10)
+                        SurfaceView(isGrass: $isGrass)
+                            .padding(10)
+                        Spacer()
+                    }.padding(.top, 50)///need something like this to prevent top textField go out of view when keyboard
+              //  }
                 .opacity(showSideMenuView ? 0.0 : 1.0)//end of top layer VStack
                 Color.black
                     .opacity(showSideMenuView ? 0.5 : 0.0)

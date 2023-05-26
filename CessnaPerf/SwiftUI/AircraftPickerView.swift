@@ -26,7 +26,7 @@ struct AircraftPickerView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .edgesIgnoringSafeArea(.all)
-          //  AircraftPicker(selected: self.)
+            //AircraftPicker(selected: $aircraft.type)
             VStack {
                 Spacer()
                 Button(" OK ") {
