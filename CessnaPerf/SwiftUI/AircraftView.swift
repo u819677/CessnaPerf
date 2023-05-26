@@ -12,8 +12,8 @@ import SwiftUI
 
 struct AircraftView: View {
 
-   @ObservedObject var aircraft: Aircraft
-    @State var showAircraftPicker: Bool = false
+  
+    @Binding var aircraft: String
     
     var body: some View {
         HStack{
@@ -30,15 +30,10 @@ struct AircraftView: View {
             .frame(width: 320, height: 35)
             .background(RoundedRectangle(cornerRadius: 10).fill(Color(skyBlue)))
             .onTapGesture {
-                showAircraftPicker = true
             }
-                .sheet(isPresented: $showAircraftPicker) {
-                    AircraftPickerView(type: $aircraft.type , showAircraftPicker: $showAircraftPicker)
-     
-                }
+               }
         }//end of body
     
-    }
 
 class Aircraft: ObservableObject {
     @Published var type: String = "C172P"// 
@@ -47,6 +42,6 @@ class Aircraft: ObservableObject {
 
 struct AircraftView_Previews: PreviewProvider {
     static var previews: some View {
-        AircraftView(aircraft: Aircraft())
+        AircraftView(aircraft: .constant("Aircraft"))
     }
 }

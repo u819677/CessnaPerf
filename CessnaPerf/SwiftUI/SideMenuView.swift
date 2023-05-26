@@ -48,7 +48,6 @@ struct SideMenuView: View {
 
 struct SideMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        SideMenuView()//showSideMenuView: .constant(true))
+        SideMenuView()
     }
 }
-//let skyBlue = UIColor(hue: 0.5472, saturation: 0.42, brightness: 0.97, alpha: 1.0)
