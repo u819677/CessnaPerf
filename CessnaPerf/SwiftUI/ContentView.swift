@@ -17,9 +17,9 @@ struct ContentView: View {
     @State var qnh: Int?
     @State var newWind: String = "calm"
     
+    @State var showSideMenuView: Bool = false
     @State private var showPressAltAlert = false
     
-    @StateObject var wind: Wind = Wind()
     @State var isGrass: Bool = false
     
     @State var showResults: Bool = false
@@ -32,7 +32,8 @@ struct ContentView: View {
     @Environment(\.scenePhase) var scenePhase
     let userDefaults = UserDefaults.standard
     
-    @State var showSideMenuView: Bool = false
+   
+    
     init() {
         let fileURL = Bundle.main.url(forResource: "C172Perf", withExtension: "csv")
         do {
@@ -75,12 +76,10 @@ struct ContentView: View {
                         
                         ///firstly calc calm TOD then correct for windComponent
                         ftTOD = Double(feetTOD(dataFrame: todDataFrame, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
-                        
-                        //ftTOD = ftTOD * WindComponent(component: wind.component)
                         ftTOD = ftTOD * WindComponent(component: newWind)
                         
                         ftTOR = Double(feetTOR(dataFrame: torDataFrame, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
-                        ftTOR = ftTOR * WindComponent(component: wind.component)
+                        ftTOR = ftTOR * WindComponent(component: newWind)
                         
                         if isGrass {//add 15% of TOR for grass runway
                             let extraGrassFeet = ftTOR * 0.15
@@ -129,7 +128,7 @@ struct ContentView: View {
                             .padding(10)
                         QNHView(qnh: $qnh)
                             .padding(10)
-                        WindView(wind: wind, newWindViewWind: $newWind)
+                        WindView(newWindViewWind: $newWind)
                             .padding(10)
                         SurfaceView(isGrass: $isGrass)
                             .padding(10)
@@ -185,7 +184,8 @@ struct ContentView: View {
                         temperature = nil
                         elevation = nil
                         qnh = nil
-                        wind.component = "calm"
+                      //  wind.component = "calm"
+                        newWind = "calm"
                     }
                 }
             }

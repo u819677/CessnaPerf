@@ -13,26 +13,21 @@
 //
 
 import SwiftUI
-//import UIKit
-//import Foundation
 
 struct WindPicker: View {
     @Binding var showPicker: Bool
-    @Binding var windComponent: String // = "calm"
+
     @Environment(\.dismiss) var dismiss
     
     @Binding var newWindPickerWind: String
     
-    init(showPicker: Binding<Bool>, windComponent: Binding<String>, newWindPickerWind: Binding<String>){
+
+        init(showPicker: Binding<Bool>, newWindPickerWind: Binding<String>){
         self._showPicker = showPicker
-        self._windComponent = windComponent
         self._newWindPickerWind = newWindPickerWind
-    
     }
    
-    
-    
-   // @State var selected = "two"
+
     var body: some View {
         ZStack {
      
@@ -41,8 +36,7 @@ struct WindPicker: View {
                 .aspectRatio(contentMode: .fill)
                 .edgesIgnoringSafeArea(.all)
                 .offset(x: -100, y: 0)
-             
-       // CustomPicker(selected: self.$windComponent)
+
            CustomPicker(selected: $newWindPickerWind)
             VStack{
                 Spacer()
