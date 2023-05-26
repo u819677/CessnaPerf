@@ -34,7 +34,7 @@ func pickerRow(selected: String) -> Int {
     }
 }
 
-func WindComponent(component: String) -> Double {
+func Factor( for component: String) -> Double {
     //these are the multipliers for the wind components
     switch component {
     case "calm":

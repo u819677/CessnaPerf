@@ -76,10 +76,10 @@ struct ContentView: View {
                         
                         ///firstly calc calm TOD then correct for windComponent
                         ftTOD = Double(feetTOD(dataFrame: todDataFrame, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
-                        ftTOD = ftTOD * WindComponent(component: wind)
+                        ftTOD = ftTOD * Factor(for: wind)
                         
                         ftTOR = Double(feetTOR(dataFrame: torDataFrame, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
-                        ftTOR = ftTOR * WindComponent(component: wind)
+                        ftTOR = ftTOR * Factor(for: wind)
                         
                         if isGrass {//add 15% of TOR for grass runway
                             let extraGrassFeet = ftTOR * 0.15
@@ -184,7 +184,6 @@ struct ContentView: View {
                         temperature = nil
                         elevation = nil
                         qnh = nil
-                      //  wind.component = "calm"
                         wind = "calm"
                     }
                 }
