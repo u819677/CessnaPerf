@@ -8,7 +8,7 @@
 import SwiftUI
 import PDFKit
 
-struct PDFKitView: UIViewRepresentable {
+struct uiKitPDFView: UIViewRepresentable {
     let pdfDocument: PDFDocument
     
     init(showing pdfDoc: PDFDocument){
@@ -19,27 +19,25 @@ struct PDFKitView: UIViewRepresentable {
         pdfView.document = pdfDocument
        // pdfView.autoScales = false//true
         pdfView.minScaleFactor = 1.5
-        
         return pdfView
     }
     func updateUIView(_ pdfView: PDFView, context: Context) {
         pdfView.document = pdfDocument
     }
 }
-struct PDFUIView: View {
-    @Binding var showPDFUIView: Bool
+struct FileView: View {
+    @Environment(\.dismiss) var dismiss
     let pdfDoc: PDFDocument
-    init(showPDFUIView: Binding<Bool>) {
+    init() {
         let url = Bundle.main.url(forResource: "C172Perf", withExtension: "pdf")!
         pdfDoc = PDFDocument(url: url)!
-        self._showPDFUIView = showPDFUIView
     }
     var body: some View {
         VStack{
-            PDFKitView(showing: pdfDoc)
+            uiKitPDFView(showing: pdfDoc)
             Spacer()
             Button("OK") {
-                showPDFUIView = false
+              dismiss()
             }
             .padding(30)
             .overlay(RoundedRectangle(cornerRadius: 15)
@@ -47,7 +45,7 @@ struct PDFUIView: View {
             )
             .contentShape(Rectangle())
             .onTapGesture {
-                showPDFUIView = false
+               dismiss()
             }
         }
     }

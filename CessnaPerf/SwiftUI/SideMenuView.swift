@@ -9,36 +9,27 @@
 import SwiftUI
 
 struct SideMenuView: View {
-    @State var showPDFUIView: Bool = false
-    @Binding var showSideMenuView: Bool
+    @Environment(\.dismiss) var dismiss
+    @State var showFileView: Bool = false
+ 
     var body: some View {
         VStack {
             Spacer()
             Text("Source data:")
                 .font(.title2)
                 .foregroundColor(.black)
-               // .frame(width: 150)
             Divider()
-               // .frame(width: 100, height: 2)
                 .background(Color.black)
-            
-            Button {showPDFUIView =  true
-                showSideMenuView = false
+            Button {showFileView =  true
+                dismiss()
             }
         label: {
                 Text("C172P    \(Image(systemName: "chevron.forward"))")
                     .foregroundColor(.black)
                 .font(.title2)
-                //.frame(width: 120)
             }
             Divider()
-                //.frame(width: 100, height: 2)
                 .background(Color.black)
-          //  Text (
-//                .padding(.horizontal, 16)
-//
-//            Link(destination: URL(string: "https//apple.com")!){Text("Apple")}
-//                .foregroundColor(.white)
             Spacer()
             Spacer()
         }
@@ -47,9 +38,8 @@ struct SideMenuView: View {
         .background(Color(skyBlue))
         .edgesIgnoringSafeArea(.bottom)
         //.ignoresSafeArea(.all)
-        .sheet(isPresented: $showPDFUIView) {
-//            WindPicker(showPicker: $showPicker, windComponent: $wind.component)
-            PDFUIView(showPDFUIView: $showPDFUIView)  //showDataView: $showDataView)
+        .sheet(isPresented: $showFileView) {
+            FileView()
         }
         
         .frame(width: UIScreen.main.bounds.width/2)
@@ -58,7 +48,7 @@ struct SideMenuView: View {
 
 struct SideMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        SideMenuView(showSideMenuView: .constant(true))
+        SideMenuView()//showSideMenuView: .constant(true))
     }
 }
 //let skyBlue = UIColor(hue: 0.5472, saturation: 0.42, brightness: 0.97, alpha: 1.0)

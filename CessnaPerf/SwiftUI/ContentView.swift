@@ -144,7 +144,7 @@ struct ContentView: View {
 
            //MARK: SideView layer
           
-                    SideMenuView(showSideMenuView: $showSideMenuView)
+                    SideMenuView()
                     .offset(x:showSideMenuView ? -UIScreen.main.bounds.width/4 : -UIScreen.main.bounds.width )
                     .animation(.easeInOut(duration: 0.4), value: showSideMenuView)
   
