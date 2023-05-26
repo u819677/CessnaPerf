@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct SideMenuView: View {
-    @Environment(\.dismiss) var dismiss
+   
     @State var showFileView: Bool = false
  
     var body: some View {
@@ -22,8 +22,7 @@ struct SideMenuView: View {
                 .foregroundColor(.black)
             Divider()
                 .background(Color.black)
-            Button { //showFileView =  true
-                dismiss()
+            Button {//C152 File will go here
             }
         label: {
             Text("C152    \(Image(systemName: "chevron.forward"))")
@@ -33,7 +32,7 @@ struct SideMenuView: View {
             Divider()
                 .background(Color.black)
             Button {
-                dismiss()
+                showFileView =  true
             }
         label: {
             Text("C172P    \(Image(systemName: "chevron.forward"))")
@@ -42,8 +41,7 @@ struct SideMenuView: View {
         }
             Divider()
                 .background(Color.black)
-            Button { //showFileView =  true
-                dismiss()
+            Button {//C182 File will go here
             }
         label: {
             Text("C182    \(Image(systemName: "chevron.forward"))")
