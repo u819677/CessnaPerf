@@ -5,12 +5,6 @@
 //  Created by Richard Clark on 01/05/2023.
 //
 
-//
-//  UIPicker.swift
-//  PickerTesting
-//
-//  Created by Richard Clark on 01/05/2023.
-//
 
 import SwiftUI
 
@@ -19,12 +13,12 @@ struct WindPicker: View {
 
     @Environment(\.dismiss) var dismiss
     
-    @Binding var newWindPickerWind: String
+    @Binding var wind: String
     
 
-        init(showPicker: Binding<Bool>, newWindPickerWind: Binding<String>){
+        init(showPicker: Binding<Bool>, wind: Binding<String>){
         self._showPicker = showPicker
-        self._newWindPickerWind = newWindPickerWind
+        self._wind = wind
     }
    
 
@@ -37,7 +31,7 @@ struct WindPicker: View {
                 .edgesIgnoringSafeArea(.all)
                 .offset(x: -100, y: 0)
 
-           CustomPicker(selected: $newWindPickerWind)
+           CustomPicker(wind: $wind)
             VStack{
                 Spacer()
                 Button(" OK  "){
@@ -59,24 +53,24 @@ struct WindPicker: View {
 
 struct WindPicker_Previews: PreviewProvider {
     static var previews: some View {
-        CustomPicker(selected: .constant("testing"))
+        CustomPicker(wind: .constant("testing"))
     }
 }
 
 
 struct CustomPicker : UIViewRepresentable {
-    @Binding var selected : String
+    @Binding var wind : String
     
     
     func makeCoordinator() -> CustomPicker.Coordinator {
-        return CustomPicker.Coordinator(parent1: self)
+        return CustomPicker.Coordinator(self)
     }
     
     func makeUIView(context: UIViewRepresentableContext<CustomPicker>) -> UIPickerView {
         let picker = UIPickerView()
         picker.dataSource = context.coordinator
         picker.delegate = context.coordinator
-        let selectedRow = pickerRow(selected: selected)
+        let selectedRow = pickerRow(selected: wind)
         picker.selectRow(selectedRow, inComponent: 0, animated: true)///this keeps the picker matched to the selection
         return picker
     }
@@ -86,8 +80,8 @@ struct CustomPicker : UIViewRepresentable {
     
     class Coordinator : NSObject, UIPickerViewDelegate, UIPickerViewDataSource {
         var parent : CustomPicker
-        init(parent1 : CustomPicker) {
-            parent = parent1
+        init(_ customPicker : CustomPicker) {/// underscore allows just self to be used above when creating the Coordinator
+            self.parent = customPicker
         }
         
         func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -125,7 +119,7 @@ struct CustomPicker : UIViewRepresentable {
             return 50
         }
         func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-            self.parent.selected = components[row]
+            self.parent.wind = components[row]
             print("row \(row) was selected")
         }
     }

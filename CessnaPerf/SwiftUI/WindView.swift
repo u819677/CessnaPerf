@@ -11,11 +11,11 @@ struct WindView: View {
 
   //  @ObservedObject var wind: Wind
     @State var showPicker: Bool = false
-    @Binding var newWindViewWind: String
+    @Binding var wind: String
     
     var body: some View {
         HStack{
-            Text("Wind:     \(newWindViewWind)")
+            Text("Wind:     \(wind)")
                 .font(.custom("Noteworthy Bold", size: 25))
                 .foregroundColor(.black)
                 .padding()
@@ -31,7 +31,7 @@ struct WindView: View {
                 showPicker = true
             }
                 .sheet(isPresented: $showPicker) {
-                    WindPicker(showPicker: $showPicker, newWindPickerWind: $newWindViewWind)
+                    WindPicker(showPicker: $showPicker, wind: $wind)
                 }
         }//end of body
     
