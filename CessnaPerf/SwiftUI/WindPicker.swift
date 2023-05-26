@@ -9,19 +9,10 @@
 import SwiftUI
 
 struct WindPicker: View {
-    @Binding var showPicker: Bool
-
     @Environment(\.dismiss) var dismiss
     
     @Binding var wind: String
-    
-
-        init(showPicker: Binding<Bool>, wind: Binding<String>){
-        self._showPicker = showPicker
-        self._wind = wind
-    }
-   
-
+     
     var body: some View {
         ZStack {
      
@@ -35,7 +26,6 @@ struct WindPicker: View {
             VStack{
                 Spacer()
                 Button(" OK  "){
-                    //showPicker = false
                     dismiss()
                 }
                 .font(.custom("Noteworthy Bold", size: 30))
@@ -57,7 +47,7 @@ struct WindPicker_Previews: PreviewProvider {
     }
 }
 
-
+///here's the picker being created from uikit. For some reason don't need import UIKit above...
 struct CustomPicker : UIViewRepresentable {
     @Binding var wind : String
     

@@ -9,9 +9,8 @@ import SwiftUI
 
 struct WindView: View {
 
-  //  @ObservedObject var wind: Wind
-    @State var showPicker: Bool = false
-    @Binding var wind: String
+    @State var showWindPicker: Bool = false
+    @Binding var wind: String///binding goes back to wind that's initially created in Content View
     
     var body: some View {
         HStack{
@@ -28,17 +27,17 @@ struct WindView: View {
             .frame(width: 320, height: 35)
             .background(RoundedRectangle(cornerRadius: 10).fill(Color(skyBlue)))
             .onTapGesture {
-                showPicker = true
+                showWindPicker = true
             }
-                .sheet(isPresented: $showPicker) {
-                    WindPicker(showPicker: $showPicker, wind: $wind)
+                .sheet(isPresented: $showWindPicker) {
+                    WindPicker(wind: $wind)
                 }
         }//end of body
     
     }
 
-//struct WindView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        WindView(wind: Wind())
-//    }
-//}
+struct WindView_Previews: PreviewProvider {
+    static var previews: some View {
+        WindView(wind: .constant("testWind"))
+    }
+}

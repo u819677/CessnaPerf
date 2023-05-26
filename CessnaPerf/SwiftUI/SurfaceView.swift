@@ -8,10 +8,9 @@
 import SwiftUI
 
 struct SurfaceView: View {
-    @Binding var isGrass: Bool // = false
-    let lightBlue = UIColor(hue: 0.5472, saturation: 0.42, brightness: 0.97, alpha: 1.0)
+    @Binding var isGrass: Bool
+   
     var body: some View {
-        
         Toggle("", isOn: $isGrass)
             .toggleStyle(
                 SurfaceToggle(isGrass: $isGrass,
@@ -26,7 +25,7 @@ struct SurfaceView_Previews: PreviewProvider {
 }
 struct SurfaceToggle: ToggleStyle {
     @Binding var isGrass: Bool
-    let lightBlue = UIColor(hue: 0.5472, saturation: 0.42, brightness: 0.97, alpha: 1.0)
+
     var thumbColor: Color
     
     func makeBody(configuration: Configuration) -> some View {

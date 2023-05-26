@@ -189,7 +189,7 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $showResults) {
-                ResultsView(showResults: $showResults, ftTOD: $ftTOD,  ftTOR: $ftTOR)
+                ResultsView(ftTOD: $ftTOD,  ftTOR: $ftTOR)
             }
             .alert("Pressure Altitude is above 2000ft, use POH data", isPresented: $showPressAltAlert) {
                 Button("OK", role: .cancel) { }

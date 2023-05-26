@@ -9,7 +9,8 @@
 import SwiftUI
 
 struct ResultsView: View {
-    @Binding var showResults: Bool
+    @Environment(\.dismiss) var dismiss
+ 
     @Binding var ftTOD: Double
     @Binding var ftTOR: Double
 
@@ -40,7 +41,7 @@ struct ResultsView: View {
                 .foregroundColor(.black)
                 .padding(30)
             Button(" OK  "){
-                showResults = false // dismiss the sheet
+                dismiss()
             }
             .font(.custom("Noteworthy Bold", size: 30))
             .foregroundColor(.white)
@@ -56,6 +57,6 @@ struct ResultsView: View {
 
 struct ResultsView_Previews: PreviewProvider {
     static var previews: some View {
-        ResultsView(showResults: .constant(true), ftTOD: .constant(2000), ftTOR: .constant(2000))
+        ResultsView( ftTOD: .constant(2000), ftTOR: .constant(2000))
     }
 }
