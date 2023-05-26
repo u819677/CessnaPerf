@@ -16,7 +16,7 @@ struct RadioButtonView: View {
                             Button{aircraft = 0} label: {
                                 Circle()
                                     .radioButtonStyle()
-                                    .foregroundColor(aircraft == 0 ? Color.black : Color.white)
+                                    .foregroundColor(aircraft == 0 ? Color.black : Color(skyBlue))
                             }
                             Text("C152")
                                 .font(.title2)
@@ -25,7 +25,7 @@ struct RadioButtonView: View {
                             Button{aircraft = 1} label: {
                                 Circle()
                                     .radioButtonStyle()
-                                    .foregroundColor(aircraft == 1 ? Color.black : Color.white)
+                                    .foregroundColor(aircraft == 1 ? Color.black : Color(skyBlue))
                             }
                             Text("C172")
                                 .font(.title2)
@@ -35,7 +35,7 @@ struct RadioButtonView: View {
                             Button{aircraft = 2} label: {
                                 Circle()
                                     .radioButtonStyle()
-                                    .foregroundColor(aircraft == 2 ? Color.black : Color.white)
+                                    .foregroundColor(aircraft == 2 ? Color.black : Color(skyBlue))
                             }
                             Text("C182")
                                 .font(.title2)
