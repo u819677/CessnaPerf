@@ -11,7 +11,7 @@ import SwiftUI
 struct SideMenuView: View {
     @Binding var showSideMenuView: Bool
     @State var showFileView: Bool = false
- 
+    @Binding var aircraft: String
     var body: some View {
         VStack {
             Spacer()
@@ -55,7 +55,7 @@ struct SideMenuView: View {
         }
          Spacer()
            // Spacer()
-            RadioButtonView()
+            RadioButtonView(aircraft: $aircraft)
                 .padding()
            // Spacer()
         }
@@ -75,6 +75,6 @@ struct SideMenuView: View {
 
 struct SideMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        SideMenuView(showSideMenuView: .constant(true))
+        SideMenuView(showSideMenuView: .constant(true), aircraft: .constant("C172"))
     }
 }

@@ -21,11 +21,11 @@ struct ContentView: View {
         didSet {
             if showSideMenuView == false {
                 print("showSideMenuViewBool has just become false")
-                guard let type = userDefaults.object(forKey: "aircraftType") as! String? else { return }
-                aircraftType = type
-                print("aircraftType is now \(aircraftType)")
+                ///save the type after selection but also when leaving the sideMenuView
+                userDefaults.set(aircraft, forKey: "aircraftType")
+                print("aircraftType set in ContentView properties is now \(aircraft)")
             }
-            
+
         }
     }
     @State private var showPressAltAlert = false
@@ -37,21 +37,24 @@ struct ContentView: View {
     @State var ftTOD: Double = 0.0
     @State var ftTOR: Double = 0.0
     
-    var dataFrame = DataFrame()
+    var dataFrameC172 = DataFrame()
     var dataFrameC182 = DataFrame()
     
     @Environment(\.scenePhase) var scenePhase
     let userDefaults = UserDefaults.standard
-    @State var aircraftType: String = "C172"
    
+    @State var aircraft: String = "C172"
     
+
     init() {
+        
+   // }
         let fileURL = Bundle.main.url(forResource: "C172Perf", withExtension: "csv")
         let fileURLCessna182 = Bundle.main.url(forResource: "C182Perf", withExtension: "csv")
         do {
-            self.dataFrame = try DataFrame(contentsOfCSVFile: fileURL!)
-            print(TODDataFrame(dataFrame: dataFrame))
-            print(TORDataFrame(dataFrame: dataFrame))
+            self.dataFrameC172 = try DataFrame(contentsOfCSVFile: fileURL!)
+            print(TODDataFrame(dataFrame: dataFrameC172))
+            print(TORDataFrame(dataFrame: dataFrameC172))
         } catch {
             print("C172 url loading failed")
         }
@@ -62,13 +65,20 @@ struct ContentView: View {
         }catch {
             print("C182 url loading failed")
         }
+        
+       // aircraft = "C172"
        print("ContentView init ran")
         guard let type = userDefaults.object(forKey: "aircraftType") as! String? else {
+           // aircraft = "C172"
             userDefaults.set("C172", forKey: "aircraftType")
             return }
+        aircraft = type
+
         print("userDefaults has saved aircraftType \(type)")
-        
+
     }
+
+    
     
     //MARK: body
     var body: some View {
@@ -82,7 +92,7 @@ struct ContentView: View {
                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height-50)
 
                 VStack{
-                    Text(showSideMenuView ? "" : "C172P Take Off Performance")
+                    Text(showSideMenuView ? "" : "\(aircraft) Take Off Performance")
                         .font(.custom("Noteworthy Bold", size: 26))
                         .foregroundColor(.white)
                         .padding(.top)
@@ -90,22 +100,34 @@ struct ContentView: View {
                     
                     // MARK: Calculate button logic
                     Button {
-                        let todDataFrame = TODDataFrame(dataFrame: dataFrame)
-                        let torDataFrame = TORDataFrame(dataFrame: dataFrame)
-                        
+                        let todDataFrameC172 = TODDataFrame(dataFrame: dataFrameC172)
+                        let torDataFrameC172 = TORDataFrame(dataFrame: dataFrameC172)
+                        let todDataFrameC182 = TODDataFrame(dataFrame: dataFrameC182)
+                        let torDataFrameC182 = TORDataFrame(dataFrame: dataFrameC182)
                         guard let weight = weight, let temperature = temperature, let elevation = elevation, let qnh = qnh  else { return }
                         
                         let pressureAltitude = correctedAltitude(for: elevation, and: qnh)
                         if pressureAltitude > 2000 { showPressAltAlert = true }
                         
-                        
-                        ///firstly calc calm TOD then correct for windComponent
-                        ftTOD = Double(feetTOD(dataFrame: todDataFrame, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
-                        ftTOD = ftTOD * Factor(for: wind)
-                        
-                        ftTOR = Double(feetTOR(dataFrame: torDataFrame, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
-                        ftTOR = ftTOR * Factor(for: wind)
-                        
+                        if aircraft == "C172" {
+                            ///firstly calc calm TOD then correct for windComponent
+                            ftTOD = Double(feetTOD(dataFrame: todDataFrameC172, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
+                            ftTOD = ftTOD * Factor(for: wind)
+                            ///firstly calc calm TOR then correct for windComponent
+                            ftTOR = Double(feetTOR(dataFrame: torDataFrameC172, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
+                            ftTOR = ftTOR * Factor(for: wind)
+                            
+                        } else if aircraft == "C182" {
+                            ///firstly calc calm TOD then correct for windComponent
+                            ftTOD = Double(feetTOD(dataFrame: todDataFrameC182, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
+                            ftTOD = ftTOD * Factor(for: wind)
+                            ///firstly calc calm TOR then correct for windComponent
+                            ftTOR = Double(feetTOR(dataFrame: torDataFrameC182, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
+                            ftTOR = ftTOR * Factor(for: wind)
+                        } else  {
+                            ftTOD = 0.01
+                            ftTOR = 0.01
+                        }
                         if isGrass {//add 15% of TOR for grass runway
                             let extraGrassFeet = ftTOR * 0.15
                             ftTOD += extraGrassFeet
@@ -118,7 +140,7 @@ struct ContentView: View {
                             showResults = true
                             return
                         }
-                        ///there's already a calcTime but no need to update it if it was done very recently, and better not to update it due other work that UserDefaults do in background
+                        ///there's already a calcTime but no need to update it if it was done very recently, and actually it's better not to update it due other work that UserDefaults do in background
                         let elapsedTimeSinceCalc = calcTime.timeIntervalSinceNow
                         if elapsedTimeSinceCalc < -100 {    ///100s min time between calcTime updates should be ok.
                             let newCalcTime = Date()
@@ -169,7 +191,7 @@ struct ContentView: View {
 
            //MARK: SideView layer
           
-                SideMenuView(showSideMenuView: $showSideMenuView)
+                SideMenuView(showSideMenuView: $showSideMenuView, aircraft: $aircraft)
                     .offset(x:showSideMenuView ? -UIScreen.main.bounds.width/4 : -UIScreen.main.bounds.width )
                     .animation(.easeInOut(duration: 0.4), value: showSideMenuView)
   
@@ -186,9 +208,7 @@ struct ContentView: View {
                                     .frame(width: 40, height: 40)
                                     .foregroundColor(.black)
                                     .background(Color(skyBlue))
-                                    .mask(Circle())
-                                //.opacity(showSideMenuView ? 0.0 : 0.8)
-                                
+                                    .mask(Circle())                                
                             }
                             }
                         }
@@ -214,7 +234,7 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $showResults) {
-                ResultsView(ftTOD: $ftTOD,  ftTOR: $ftTOR)
+                ResultsView(ftTOD: $ftTOD,  ftTOR: $ftTOR, aircraft: $aircraft)
             }
             .alert("Pressure Altitude is above 2000ft, use POH data", isPresented: $showPressAltAlert) {
                 Button("OK", role: .cancel) { }

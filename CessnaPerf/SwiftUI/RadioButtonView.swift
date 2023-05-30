@@ -8,14 +8,15 @@ import SwiftUI
 
 struct RadioButtonView: View {
     let userDefaults = UserDefaults.standard
-    init(){
-        print("RadioButtonView init() ran")
-        guard var savedType = userDefaults.object(forKey: "aircraftType") as! String? else {
-            aircraft = "C172"
-            return }
-        aircraft = savedType
-            }
-    @State var aircraft: String //= 1 //{
+//    init(){
+//        print("RadioButtonView init() ran")
+//        guard let savedType = userDefaults.object(forKey: "aircraftType") as! String? else {
+//            aircraft = "C172"/// this shouldn't be necessary due set already in ContentView.
+//            return }
+//        aircraft = savedType
+//            }
+    @Binding var aircraft: String //= 1 //{
+    
 //        didSet {
 //            print("didSet in RadioButtonView ran")
 //            if aircraft == 0 {
@@ -41,7 +42,7 @@ struct RadioButtonView: View {
                         Text("Select aircraft:")
                         HStack{
                             Button{aircraft = "C152"
-                                userDefaults.set("C152", forKey: "aircraftType")
+                               // userDefaults.set("C152", forKey: "aircraftType")
                             } label: {
                                 Circle()
                                     .radioButtonStyle()
@@ -52,7 +53,7 @@ struct RadioButtonView: View {
                         }
                         HStack{
                             Button{aircraft = "C172"
-                                userDefaults.set("C172", forKey: "aircraftType")
+                              //  userDefaults.set("C172", forKey: "aircraftType")
                             } label: {
                                 Circle()
                                     .radioButtonStyle()
@@ -64,7 +65,7 @@ struct RadioButtonView: View {
                         }
                         HStack{
                             Button{aircraft = "C182"
-                                userDefaults.set("C182", forKey: "aircraftType")
+                               // userDefaults.set("C182", forKey: "aircraftType")
                             } label: {
                                 Circle()
                                     .radioButtonStyle()
@@ -82,7 +83,7 @@ struct RadioButtonView: View {
 }//end struct
 struct RadioButtonView_Previews: PreviewProvider {
     static var previews: some View {
-        RadioButtonView()
+        RadioButtonView(aircraft: .constant("aircraft"))
     }
 }
 struct Title: ViewModifier {

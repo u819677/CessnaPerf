@@ -13,7 +13,7 @@ struct ResultsView: View {
  
     @Binding var ftTOD: Double
     @Binding var ftTOR: Double
-
+    @Binding var aircraft: String
     var body: some View {
         ZStack{
             Image("airfield")
@@ -25,6 +25,7 @@ struct ResultsView: View {
 
             //this is a multi-line string literal, line breaks are required
             Text("""
+                Aircraft type: \(aircraft)
                 TOR = \(String(format: "%.0f", ftTOR)) ft
                 TOD = \(String(format: "%.0f", ftTOD)) ft
                 """)
@@ -33,6 +34,7 @@ struct ResultsView: View {
                 Text("""
                 TODR ( = TOD x 1.25)
                        = \(String(format: "%.0f",(ftTOD * 1.25 / 3.28) )) metres
+                
                 """)
                 .padding(10)
                 .frame(width: 300)
@@ -57,6 +59,6 @@ struct ResultsView: View {
 
 struct ResultsView_Previews: PreviewProvider {
     static var previews: some View {
-        ResultsView( ftTOD: .constant(2000), ftTOR: .constant(2000))
+        ResultsView( ftTOD: .constant(2000), ftTOR: .constant(2000), aircraft: .constant("C152"))
     }
 }
