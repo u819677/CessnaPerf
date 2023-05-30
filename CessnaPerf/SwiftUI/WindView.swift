@@ -14,10 +14,10 @@ struct WindView: View {
     
     var body: some View {
         HStack{
-            Text("Wind:     \(wind)")
+            Text("Wind:          \(wind)")
                 .font(.custom("Noteworthy Bold", size: 25))
                 .foregroundColor(.black)
-                .padding()
+               // .padding()
                 .padding()
             
             Image(systemName: "chevron.right")
@@ -38,6 +38,6 @@ struct WindView: View {
 
 struct WindView_Previews: PreviewProvider {
     static var previews: some View {
-        WindView(wind: .constant("testWind"))
+        WindView(wind: .constant("calm"))
     }
 }

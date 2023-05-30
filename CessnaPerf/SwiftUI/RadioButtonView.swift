@@ -7,35 +7,68 @@
 import SwiftUI
 
 struct RadioButtonView: View {
-        @State var aircraft: Int = 0
+    let userDefaults = UserDefaults.standard
+    init(){
+        print("RadioButtonView init() ran")
+        guard var savedType = userDefaults.object(forKey: "aircraftType") as! String? else {
+            aircraft = "C172"
+            return }
+        aircraft = savedType
+            }
+    @State var aircraft: String //= 1 //{
+//        didSet {
+//            print("didSet in RadioButtonView ran")
+//            if aircraft == 0 {
+//
+//            }
+//            if aircraft == 1 {
+//
+//            }
+//            if aircraft == 2 {
+//
+//            }
+//        }
+    //}
+//    init() {
+//        guard let type = userDefaults.object(forKey: "aircraftType") as! String? else {
+//            aircraft = 1
+//            return}
+//
+//    }
             var body: some View {
                 VStack(spacing: 20) {
                     VStack{
                         Text("Select aircraft:")
                         HStack{
-                            Button{aircraft = 0} label: {
+                            Button{aircraft = "C152"
+                                userDefaults.set("C152", forKey: "aircraftType")
+                            } label: {
                                 Circle()
                                     .radioButtonStyle()
-                                    .foregroundColor(aircraft == 0 ? Color.black : Color(skyBlue))
+                                    .foregroundColor(aircraft == "C152" ? Color.black : Color(skyBlue))
                             }
                             Text("C152")
                                 .font(.title2)
                         }
                         HStack{
-                            Button{aircraft = 1} label: {
+                            Button{aircraft = "C172"
+                                userDefaults.set("C172", forKey: "aircraftType")
+                            } label: {
                                 Circle()
                                     .radioButtonStyle()
-                                    .foregroundColor(aircraft == 1 ? Color.black : Color(skyBlue))
+                                    .foregroundColor(aircraft == "C172" ? Color.black : Color(skyBlue))
                             }
                             Text("C172")
                                 .font(.title2)
                             
                         }
                         HStack{
-                            Button{aircraft = 2} label: {
+                            Button{aircraft = "C182"
+                                userDefaults.set("C182", forKey: "aircraftType")
+                            } label: {
                                 Circle()
                                     .radioButtonStyle()
-                                    .foregroundColor(aircraft == 2 ? Color.black : Color(skyBlue))
+                                    .foregroundColor(aircraft == "C182" ? Color.black : Color(skyBlue))
                             }
                             Text("C182")
                                 .font(.title2)

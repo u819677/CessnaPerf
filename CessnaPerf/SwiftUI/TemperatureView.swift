@@ -24,7 +24,7 @@ struct TemperatureView: View {
     }
     var body: some View {
                 HStack {
-                    Text("         Temp:            ")
+                    Text("    Temp:            ")
                     TextField("", text: $tempEntry)
                         .focused($textFieldHasFocus, equals: true)
                         .onChange(of: textFieldHasFocus) { _ in
@@ -98,6 +98,6 @@ struct TemperatureView: View {
 
 //struct TemperatureView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        TemperatureView(temperature: .constant(0), focused: true)
+//        TemperatureView(temperature: .constant(11))
 //    }
 //}

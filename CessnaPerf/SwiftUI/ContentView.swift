@@ -17,7 +17,17 @@ struct ContentView: View {
     @State var qnh: Int?
     @State var wind: String = "calm"
     
-    @State var showSideMenuView: Bool = false
+    @State var showSideMenuView: Bool = false {
+        didSet {
+            if showSideMenuView == false {
+                print("showSideMenuViewBool has just become false")
+                guard let type = userDefaults.object(forKey: "aircraftType") as! String? else { return }
+                aircraftType = type
+                print("aircraftType is now \(aircraftType)")
+            }
+            
+        }
+    }
     @State private var showPressAltAlert = false
     
     @State var isGrass: Bool = false
@@ -28,21 +38,36 @@ struct ContentView: View {
     @State var ftTOR: Double = 0.0
     
     var dataFrame = DataFrame()
+    var dataFrameC182 = DataFrame()
     
     @Environment(\.scenePhase) var scenePhase
     let userDefaults = UserDefaults.standard
-    
+    @State var aircraftType: String = "C172"
    
     
     init() {
         let fileURL = Bundle.main.url(forResource: "C172Perf", withExtension: "csv")
+        let fileURLCessna182 = Bundle.main.url(forResource: "C182Perf", withExtension: "csv")
         do {
             self.dataFrame = try DataFrame(contentsOfCSVFile: fileURL!)
             print(TODDataFrame(dataFrame: dataFrame))
             print(TORDataFrame(dataFrame: dataFrame))
         } catch {
-            print("url loading failed")
+            print("C172 url loading failed")
         }
+        do {
+            self.dataFrameC182 = try DataFrame(contentsOfCSVFile: fileURLCessna182!)
+            print(TODDataFrame(dataFrame: dataFrameC182))
+            print(TORDataFrame(dataFrame: dataFrameC182))
+        }catch {
+            print("C182 url loading failed")
+        }
+       print("ContentView init ran")
+        guard let type = userDefaults.object(forKey: "aircraftType") as! String? else {
+            userDefaults.set("C172", forKey: "aircraftType")
+            return }
+        print("userDefaults has saved aircraftType \(type)")
+        
     }
     
     //MARK: body
@@ -144,7 +169,7 @@ struct ContentView: View {
 
            //MARK: SideView layer
           
-                    SideMenuView()
+                SideMenuView(showSideMenuView: $showSideMenuView)
                     .offset(x:showSideMenuView ? -UIScreen.main.bounds.width/4 : -UIScreen.main.bounds.width )
                     .animation(.easeInOut(duration: 0.4), value: showSideMenuView)
   

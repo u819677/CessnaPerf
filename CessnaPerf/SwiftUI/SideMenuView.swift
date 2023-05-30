@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct SideMenuView: View {
-   
+    @Binding var showSideMenuView: Bool
     @State var showFileView: Bool = false
  
     var body: some View {
@@ -33,7 +33,9 @@ struct SideMenuView: View {
                 .background(Color.black)
             Button {
                 showFileView =  true
+               showSideMenuView = false
             }
+                
         label: {
             Text("C172P    \(Image(systemName: "chevron.forward"))")
                 .foregroundColor(.black)
@@ -73,6 +75,6 @@ struct SideMenuView: View {
 
 struct SideMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        SideMenuView()
+        SideMenuView(showSideMenuView: .constant(true))
     }
 }
