@@ -10,6 +10,8 @@ import SwiftUI
 
 struct ResultsView: View {
     @Environment(\.dismiss) var dismiss
+    
+    @Environment(\.aircraftType) var aircraftType
  
     @Binding var ftTOD: Double
     @Binding var ftTOR: Double
@@ -25,7 +27,7 @@ struct ResultsView: View {
 
             //this is a multi-line string literal, line breaks are required
             Text("""
-                Aircraft type: \(aircraft)
+                Aircraft type: \(aircraftType)
                 TOR = \(String(format: "%.0f", ftTOR)) ft
                 TOD = \(String(format: "%.0f", ftTOD)) ft
                 """)
@@ -53,7 +55,8 @@ struct ResultsView: View {
             )
             // .shadow(radius: 5)
         }.frame(width: 320, height: 400, alignment: .center)
-        }
+        }//.aircraftType(aircraft)
+            .environment(\.aircraftType, "Glider")
     }
 }
 

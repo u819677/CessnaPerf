@@ -242,6 +242,7 @@ struct ContentView: View {
         }//end NavView
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)///this is prob needed to lock the whole ZStack although still needs the -50 for height of image
       //  .ignoresSafeArea()
+        .environment(\.aircraftType, "BigJet")
     }///end of body
 }///end of struct
 
@@ -250,5 +251,22 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+struct AircraftTypeKey: EnvironmentKey {
+    static let defaultValue: String = "Cirrus"
+}
 
-
+extension EnvironmentValues {
+    var aircraftType: String {
+        get {
+            self[AircraftTypeKey.self]
+        }
+        set {
+            self[AircraftTypeKey.self] = newValue
+        }
+    }
+}
+extension View {
+    func aircraftType(_ aircraftType: String) -> some View {
+        environment(\.aircraftType, aircraftType)
+    }
+}
