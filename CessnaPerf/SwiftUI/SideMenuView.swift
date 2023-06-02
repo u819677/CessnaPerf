@@ -11,6 +11,7 @@ import SwiftUI
 struct SideMenuView: View {
     @Binding var showSideMenuView: Bool
     @State var showFileView: Bool = false
+    @State var dataFile: String?
     var body: some View {
         VStack(alignment: .trailing){
             Spacer()
@@ -30,6 +31,7 @@ struct SideMenuView: View {
             Divider()
                 .background(Color.black)
             Button {
+                dataFile = "C172P"
                 showFileView =  true
                showSideMenuView = false
             }
@@ -41,7 +43,9 @@ struct SideMenuView: View {
         }
             Divider()
                 .background(Color.black)
-            Button {//C182 File will go here
+            Button {dataFile = "C182RG"
+                showFileView = true
+                showSideMenuView = false
             }
         label: {
             Text("C182RG    \(Image(systemName: "chevron.forward"))")
@@ -55,7 +59,7 @@ struct SideMenuView: View {
             RadioButtonView()
         }
         .sheet(isPresented: $showFileView) {
-            FileView()
+            FileView(dataFile: $dataFile)
         }
         .frame(width: UIScreen.main.bounds.width/2)
         .background(Color(skyBlue))
@@ -64,7 +68,7 @@ struct SideMenuView: View {
 
 struct SideMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        SideMenuView(showSideMenuView: .constant(true))
+        SideMenuView(showSideMenuView: .constant(true), dataFile: "C172P")
             .environmentObject(Cessna())
     }
 }
