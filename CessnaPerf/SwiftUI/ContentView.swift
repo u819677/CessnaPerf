@@ -89,12 +89,12 @@ struct ContentView: View {
                         .padding(.top)
                     Spacer()
                     
-                    // MARK: Calculate button logic
+                    // MARK: Compute button logic
                     Button {
                         
-                        guard let aircraftType = userDefaults.object(forKey: "aircraftType") as! String? else { return}
-                        print("aircraftType in userDefaults is \(aircraftType)")
-                       return
+                    //    guard let aircraftType = userDefaults.object(forKey: "aircraftType") as! String? else { return}
+//                        print("aircraftType in userDefaults is \(aircraftType)")
+//                       return
                         let todDataFrameC172 = TODDataFrame(dataFrame: dataFrameC172)
                         let torDataFrameC172 = TORDataFrame(dataFrame: dataFrameC172)
                         let todDataFrameC182 = TODDataFrame(dataFrame: dataFrameC182)

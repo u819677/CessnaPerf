@@ -9,6 +9,7 @@ import SwiftUI
 
 struct WeightView: View {
     @Environment(\.scenePhase) var scenePhase
+    @EnvironmentObject var cessna: Cessna
     let userDefaults = UserDefaults.standard
     
     @State var weightEntry: String = ""//2400"
@@ -87,8 +88,20 @@ struct WeightView: View {
         if weightEntry.isEmpty {
             return false
         }
+        let type = cessna.type
+        var lowerWeight: Int
+        var higherWeight: Int
+        switch type {
+        case "C172P":
+            lowerWeight = 2000; higherWeight = 2400 
+        case "C182RG":
+            lowerWeight = 2500; higherWeight = 3100
+        default:
+            lowerWeight = 0; higherWeight = 0/// this makes the compiler happy by ensuring that these vars are guaranteed to be initialised.
+        }
         if let intTOW = Int(weightEntry) {
-            if intTOW  >= 2000 && intTOW <= 2400 {
+           // if intTOW  >= 2000 && intTOW <= 2400 {
+                if intTOW >= lowerWeight && intTOW <= higherWeight {
                 return true
             } else {
                 return false
