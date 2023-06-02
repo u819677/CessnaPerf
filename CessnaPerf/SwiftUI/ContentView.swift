@@ -21,7 +21,7 @@ struct ContentView: View {
         didSet {
             if showSideMenuView == false {
                 print("showSideMenuViewBool has just become false")
-                ///save the type after selection but also when leaving the sideMenuView
+                ///save the type that is selected before leaving the sideMenuView
                 userDefaults.set(cessna.type, forKey: "aircraftType")
                 print("aircraftType set in ContentView properties is now \(cessna.type) but need to check in UserDefaults to be sure")
             }
@@ -90,8 +90,9 @@ struct ContentView: View {
                     // MARK: Calculate button logic
                     Button {
                         
-//                        print("cessna.type is \(cessna.type)")
-//                        return
+                        guard let aircraftType = userDefaults.object(forKey: "aircraftType") as! String? else { return}
+                        print("aircraftType in userDefaults is \(aircraftType)")
+                       return
                         let todDataFrameC172 = TODDataFrame(dataFrame: dataFrameC172)
                         let torDataFrameC172 = TORDataFrame(dataFrame: dataFrameC172)
                         let todDataFrameC182 = TODDataFrame(dataFrame: dataFrameC182)
