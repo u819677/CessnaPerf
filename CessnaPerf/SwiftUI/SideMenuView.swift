@@ -11,12 +11,10 @@ import SwiftUI
 struct SideMenuView: View {
     @Binding var showSideMenuView: Bool
     @State var showFileView: Bool = false
-    @Binding var aircraft: String
     var body: some View {
-        VStack {
+        VStack(alignment: .trailing){
             Spacer()
             VStack(spacing: 15){
-           // Spacer()
             Text("Source data:")
                 .font(.title2)
                 .foregroundColor(.black)
@@ -46,7 +44,7 @@ struct SideMenuView: View {
             Button {//C182 File will go here
             }
         label: {
-            Text("C182    \(Image(systemName: "chevron.forward"))")
+            Text("C182RG    \(Image(systemName: "chevron.forward"))")
                 .foregroundColor(.black)
                 .font(.title2)
         }
@@ -54,20 +52,11 @@ struct SideMenuView: View {
                 .background(Color.black)
         }
          Spacer()
-           // Spacer()
-            RadioButtonView(aircraft: $aircraft)
-                .padding()
-           // Spacer()
+            RadioButtonView()
         }
-        
-       // .padding(32)
-       
-        //.edgesIgnoringSafeArea(.bottom)
-        //.ignoresSafeArea(.all)
         .sheet(isPresented: $showFileView) {
             FileView()
         }
-        
         .frame(width: UIScreen.main.bounds.width/2)
         .background(Color(skyBlue))
     }
@@ -75,6 +64,7 @@ struct SideMenuView: View {
 
 struct SideMenuView_Previews: PreviewProvider {
     static var previews: some View {
-        SideMenuView(showSideMenuView: .constant(true), aircraft: .constant("C172"))
+        SideMenuView(showSideMenuView: .constant(true))
+            .environmentObject(Cessna())
     }
 }

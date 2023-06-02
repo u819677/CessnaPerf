@@ -15,7 +15,7 @@ struct ResultsView: View {
  
     @Binding var ftTOD: Double
     @Binding var ftTOR: Double
-    @Binding var aircraft: String
+   // @Binding var aircraft: String
     var body: some View {
         ZStack{
             Image("airfield")
@@ -62,6 +62,6 @@ struct ResultsView: View {
 
 struct ResultsView_Previews: PreviewProvider {
     static var previews: some View {
-        ResultsView( ftTOD: .constant(2000), ftTOR: .constant(2000), aircraft: .constant("C152"))
+        ResultsView( ftTOD: .constant(2000), ftTOR: .constant(2000))//, //aircraft: .constant("C152"))
     }
 }
