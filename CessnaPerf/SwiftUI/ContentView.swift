@@ -66,7 +66,9 @@ struct ContentView: View {
         guard let type = userDefaults.object(forKey: "aircraftType") as! String? else {
             userDefaults.set("C172", forKey: "aircraftType")
             return }
+       // cessna.type = type
         print("userDefaults has saved aircraftType \(type)")
+       // print("cessna.type is now \(cessna.type)")
     }
  
     //MARK: body
@@ -193,8 +195,8 @@ struct ContentView: View {
                     if showSideMenuView == false {
                         ToolbarItemGroup(placement: .bottomBar) {
                             HStack{
-                                Image(systemName: "")//can't use Spacer() for some reason
-                                Spacer()
+                                Text("")
+                                Spacer()///pushes ellipsis toolbar icon to the right edge
                                 Button{ showSideMenuView = true }
                             label: {
                                 Image(systemName: "ellipsis") //Image(systemName: "text.justify")
@@ -203,7 +205,9 @@ struct ContentView: View {
                                     .background(Color(skyBlue))
                                     .mask(Circle())                                
                             }
-                            }
+                            
+                            }//end of HStack
+                            
                         }
                     }
                 }//end of .toolbar
@@ -266,4 +270,10 @@ extension View {
 }
 class Cessna: ObservableObject {
     @Published var type: String = "C172P"
+    init() {
+        print("Class init() ran")///runs at the start to put the default type into cessna.type
+        let userDefaults = UserDefaults.standard
+        guard let type = userDefaults.object(forKey: "aircraftType") as! String? else {return}///this is checking to see the last used aircraft type. If not then the default is C172P otherwise it's set to previously used type.
+        self.type = type
+    }
 }
