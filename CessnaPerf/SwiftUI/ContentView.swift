@@ -38,6 +38,7 @@ struct ContentView: View {
     var dataFrameC182 = DataFrame()
     
     @Environment(\.scenePhase) var scenePhase
+    @Environment(\.isFocused) var isFocused
     let userDefaults = UserDefaults.standard
    
    // @State var aircraft: String = "C172"
@@ -103,18 +104,18 @@ struct ContentView: View {
                         
                         if cessna.type == "C172P" {
                             ///firstly calc calm TOD then correct for windComponent
-                            ftTOD = Double(feetTOD(dataFrame: todDataFrameC172, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
+                            ftTOD = Double(todC172P(dataFrame: todDataFrameC172, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
                             ftTOD = ftTOD * Factor(for: wind)
                             ///firstly calc calm TOR then correct for windComponent
-                            ftTOR = Double(feetTOR(dataFrame: torDataFrameC172, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
+                            ftTOR = Double(torC172P(dataFrame: torDataFrameC172, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
                             ftTOR = ftTOR * Factor(for: wind)
                             
                         } else if cessna.type == "C182RG" {
                             ///firstly calc calm TOD then correct for windComponent
-                            ftTOD = Double(feetTOD(dataFrame: todDataFrameC182, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
+                            ftTOD = Double(todC182RG(dataFrame: todDataFrameC182, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
                             ftTOD = ftTOD * Factor(for: wind)
                             ///firstly calc calm TOR then correct for windComponent
-                            ftTOR = Double(feetTOR(dataFrame: torDataFrameC182, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
+                            ftTOR = Double(torC182RG(dataFrame: torDataFrameC182, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
                             ftTOR = ftTOR * Factor(for: wind)
                         } else  {
                             ftTOD = 0.01
@@ -227,6 +228,9 @@ struct ContentView: View {
                     }
                 }
             }
+            .onChange(of: isFocused) { _ in
+                print("isFocused changed")
+            }//doesn't seem to trigger
             .sheet(isPresented: $showResults) {
                 ResultsView(ftTOD: $ftTOD,  ftTOR: $ftTOR)
             }

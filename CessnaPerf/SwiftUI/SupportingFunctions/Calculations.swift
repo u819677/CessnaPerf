@@ -6,33 +6,59 @@
 //
 import TabularData
 
-func feetTOD(dataFrame: DataFrame, pressureAltitude: Int, temperature: Int, weight: Int) -> Int {
+func todC172P(dataFrame: DataFrame, pressureAltitude: Int, temperature: Int, weight: Int) -> Int {
     let (rowIndexLowerAltitude2400lbs, lowerTemperatureColumn) = pressureAltitudeAndTemperatureLowerBoundaryIndicees(pressureAltitude: pressureAltitude, temperature: temperature)
     let rowIndexLowerAltitude2200lbs = rowIndexLowerAltitude2400lbs + 4
     let rowIndexLowerAltitude2000lbs = rowIndexLowerAltitude2200lbs + 4
     
-    let todUpperWeight = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2400lbs, temperature: temperature, columnIndexLowerTemperature: lowerTemperatureColumn)
-    let todMidWeight = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2200lbs, temperature: temperature, columnIndexLowerTemperature: lowerTemperatureColumn)
-    let todLowerWeight = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2000lbs, temperature: temperature, columnIndexLowerTemperature: lowerTemperatureColumn)
+    let tod2400lbs = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2400lbs, temperature: temperature, columnIndexLowerTemperature: lowerTemperatureColumn)
+    let tod2200lbs = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2200lbs, temperature: temperature, columnIndexLowerTemperature: lowerTemperatureColumn)
+    let tod2000lbs = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2000lbs, temperature: temperature, columnIndexLowerTemperature: lowerTemperatureColumn)
     
-    let tod = todForActualWeightC172P(weight: weight, tod2400: todUpperWeight, tod2200: todMidWeight, tod2000: todLowerWeight)
-    return tod
+    let todC172P = todForActualWeightC172P(weight: weight, tod2400: tod2400lbs, tod2200: tod2200lbs, tod2000: tod2000lbs)
+    return todC172P
 }
 
 
-func feetTOR(dataFrame: DataFrame, pressureAltitude: Int, temperature: Int, weight: Int) -> Int {
+func torC172P(dataFrame: DataFrame, pressureAltitude: Int, temperature: Int, weight: Int) -> Int {
     let (rowIndexLowerAltitude2400lbs, columnIndexLowerTemperature) = pressureAltitudeAndTemperatureLowerBoundaryIndicees(pressureAltitude: pressureAltitude, temperature: temperature)
     let rowIndexLowerAltitude2200lbs = rowIndexLowerAltitude2400lbs + 4
     let rowIndexLowerAltitude2000lbs = rowIndexLowerAltitude2200lbs + 4
     
-    let torUpperWeight = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2400lbs, temperature: temperature, columnIndexLowerTemperature: columnIndexLowerTemperature)
-    let torMidWeight = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2200lbs, temperature: temperature, columnIndexLowerTemperature: columnIndexLowerTemperature)
-    let torLowerWeight = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2000lbs, temperature: temperature, columnIndexLowerTemperature: columnIndexLowerTemperature)
+    let tor2400lbs = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2400lbs, temperature: temperature, columnIndexLowerTemperature: columnIndexLowerTemperature)
+    let tor2200lbs = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2200lbs, temperature: temperature, columnIndexLowerTemperature: columnIndexLowerTemperature)
+    let tor2000lbs = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2000lbs, temperature: temperature, columnIndexLowerTemperature: columnIndexLowerTemperature)
     
-    let tor = torForActualWeightC172P(weight: weight, tor2400: torUpperWeight, tor2200: torMidWeight, tor2000: torLowerWeight)
-    return tor
+    let torC172P = torForActualWeightC172P(weight: weight, tor2400: tor2400lbs, tor2200: tor2200lbs, tor2000: tor2000lbs)
+    return torC172P
 }
 
+func todC182RG(dataFrame: DataFrame, pressureAltitude: Int, temperature: Int, weight: Int) -> Int {
+    let (rowIndexLowerAltitude3100lbs, lowerTemperatureColumn) = pressureAltitudeAndTemperatureLowerBoundaryIndicees(pressureAltitude: pressureAltitude, temperature: temperature)
+    let rowIndexLowerAltitude2800lbs = rowIndexLowerAltitude3100lbs + 4
+    let rowIndexLowerAltitude2500lbs = rowIndexLowerAltitude2800lbs + 4
+    
+    let tod3100lbs = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude3100lbs, temperature: temperature, columnIndexLowerTemperature: lowerTemperatureColumn)
+    let tod2800lbs = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2800lbs, temperature: temperature, columnIndexLowerTemperature: lowerTemperatureColumn)
+    let tod2500lbs = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2500lbs, temperature: temperature, columnIndexLowerTemperature: lowerTemperatureColumn)
+    
+    let todC182RG = todForActualWeightC182RG(weight: weight, tod3100: tod3100lbs, tod2800: tod2800lbs, tod2500: tod2500lbs)
+    return todC182RG
+}
+
+
+func torC182RG(dataFrame: DataFrame, pressureAltitude: Int, temperature: Int, weight: Int) -> Int {
+    let (rowIndexLowerAltitude3100lbs, columnIndexLowerTemperature) = pressureAltitudeAndTemperatureLowerBoundaryIndicees(pressureAltitude: pressureAltitude, temperature: temperature)
+    let rowIndexLowerAltitude2800lbs = rowIndexLowerAltitude3100lbs + 4
+    let rowIndexLowerAltitude2500lbs = rowIndexLowerAltitude2800lbs + 4
+    
+    let tor3100lbs = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude3100lbs, temperature: temperature, columnIndexLowerTemperature: columnIndexLowerTemperature)
+    let tor2800lbs = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2800lbs, temperature: temperature, columnIndexLowerTemperature: columnIndexLowerTemperature)
+    let tor2500lbs = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2500lbs, temperature: temperature, columnIndexLowerTemperature: columnIndexLowerTemperature)
+    
+    let torC182RG = torForActualWeightC182RG(weight: weight, tor3100: tor3100lbs, tor2800: tor2800lbs, tor2500: tor2500lbs)
+    return torC182RG
+}
 
 func pressureAltitudeAndTemperatureLowerBoundaryIndicees(pressureAltitude: Int, temperature: Int) -> (Int, Int) {
     var rowIndexLowerPressureAltitude: Int = 0
@@ -108,6 +134,35 @@ func torForActualWeightC172P(weight: Int, tor2400: Int, tor2200: Int, tor2000: I
     return tor
 }
 
+func todForActualWeightC182RG(weight: Int, tod3100: Int, tod2800: Int, tod2500: Int) -> Int {
+    var tod: Int = 0
+    switch weight {
+    case 3100:
+        tod = tod3100
+    case  2800...3099:
+        tod = tod2800 +  (tod3100 - tod2800) * (weight - 2800) / 300
+    case 2500...2799:
+        tod = tod2500 + (tod2800 - tod2500) * (weight - 2500) / 300
+    default:
+        print("weight out of range")
+    }
+    return tod
+}
+
+func torForActualWeightC182RG(weight: Int, tor3100: Int, tor2800: Int, tor2500: Int) -> Int {
+    var tor: Int = 0
+    switch weight {
+    case 3100:
+        tor = tor3100
+    case  2800...3099:
+        tor = tor2800 +  (tor3100 - tor2800) * (weight - 2800) / 300
+    case 2000...2199:
+        tor = tor2500 + (tor2800 - tor2500) * (weight - 2500) / 300
+    default:
+        print("weight out of range")
+    }
+    return tor
+}
 
 func OldcorrectedPA(elevationEntry: String, qnhEntry: String) -> (Int, Bool) {
     //MARK:- calculate pa
