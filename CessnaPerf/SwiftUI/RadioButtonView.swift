@@ -8,7 +8,9 @@ import SwiftUI
 
 struct RadioButtonView: View {
     @EnvironmentObject var cessna: Cessna
-
+    init(){
+       // print("RadioButton init ran and cessna.type is \(cessna.type)")
+    }
     var body: some View {
         VStack(spacing: 20) {
             VStack(alignment: .leading){
@@ -49,7 +51,9 @@ struct RadioButtonView: View {
             .padding(5)
         }
         .background(Color(skyBlue))
+        //.environmentObject(Cessna())
     }//end body
+        
 }//end struct
 struct RadioButtonView_Previews: PreviewProvider {
     static var previews: some View {

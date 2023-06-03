@@ -7,8 +7,6 @@
 import SwiftUI
 import TabularData
 
-
-
 struct ContentView: View {
     // MARK: Properties
     @State var temperature: Int?
@@ -25,7 +23,6 @@ struct ContentView: View {
                 userDefaults.set(cessna.type, forKey: "aircraftType")
                 print("aircraftType set in ContentView properties is now \(cessna.type) but need to check in UserDefaults to be sure")
             }
-
         }
     }
     @State private var showPressAltAlert = false
@@ -64,7 +61,7 @@ struct ContentView: View {
             print("C182 url loading failed")
         }
         guard let type = userDefaults.object(forKey: "aircraftType") as! String? else {
-            userDefaults.set("C172", forKey: "aircraftType")
+            userDefaults.set("C172P", forKey: "aircraftType")
             return }
        // cessna.type = type
         print("userDefaults has saved aircraftType \(type)")
@@ -239,7 +236,7 @@ struct ContentView: View {
         }//end NavView
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)///this is prob needed to lock the whole ZStack although still needs the -50 for height of image
       //  .ignoresSafeArea()
-        .environment(\.aircraftType, "BigJet")
+        //.environment(\.aircraftType, "BigJet")
         .environmentObject(cessna)
     }///end of body
 }///end of struct
@@ -271,7 +268,9 @@ extension View {
 class Cessna: ObservableObject {
     @Published var type: String = "C172P"
     init() {
+        
         print("Class init() ran")///runs at the start to put the default type into cessna.type
+        print("type is \(type)")
         let userDefaults = UserDefaults.standard
         guard let type = userDefaults.object(forKey: "aircraftType") as! String? else {return}///this is checking to see the last used aircraft type. If not then the default is C172P otherwise it's set to previously used type.
         self.type = type

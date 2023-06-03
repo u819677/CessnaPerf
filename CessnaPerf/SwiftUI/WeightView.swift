@@ -70,7 +70,7 @@ struct WeightView: View {
                 }
             label: {Text("Cancel").bold() }
                 Button{
-                    print(String(describing: weight))
+                    print("weight in WeightView toolbar is \(String(describing: weight))")
                     isValid = checkTOW(of: weightEntry)
                     if isValid {
                         weight = Int(weightEntry)
@@ -89,6 +89,7 @@ struct WeightView: View {
             return false
         }
         let type = cessna.type
+        print("checkTOW in WeightView ran and cessna.type is \(cessna.type)")
         var lowerWeight: Int
         var higherWeight: Int
         switch type {
