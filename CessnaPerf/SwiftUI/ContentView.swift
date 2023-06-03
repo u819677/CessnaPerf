@@ -42,7 +42,11 @@ struct ContentView: View {
     let userDefaults = UserDefaults.standard
    
    // @State var aircraft: String = "C172"
-    @StateObject var cessna = Cessna()
+    @StateObject var cessna = Cessna(){
+        didSet {
+            print("cessna didset in ContentView ran")
+        }
+    }
 
     init() {
         let fileURL = Bundle.main.url(forResource: "C172Perf", withExtension: "csv")

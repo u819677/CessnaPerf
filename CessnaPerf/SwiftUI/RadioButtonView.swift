@@ -15,6 +15,7 @@ struct RadioButtonView: View {
         VStack(spacing: 20) {
             VStack(alignment: .leading){
                 Text("Select aircraft:")
+                    .font(.title2)
                 HStack{
                     Button{cessna.type = "C152"}
                 label: {
