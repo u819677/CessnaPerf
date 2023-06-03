@@ -11,11 +11,11 @@ func feetTOD(dataFrame: DataFrame, pressureAltitude: Int, temperature: Int, weig
     let rowIndexLowerAltitude2200lbs = rowIndexLowerAltitude2400lbs + 4
     let rowIndexLowerAltitude2000lbs = rowIndexLowerAltitude2200lbs + 4
     
-    let feetUpperWeight = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2400lbs, temperature: temperature, columnIndexLowerTemperature: lowerTemperatureColumn)
-    let feetMidWeight = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2200lbs, temperature: temperature, columnIndexLowerTemperature: lowerTemperatureColumn)
-    let feetLowerWeight = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2000lbs, temperature: temperature, columnIndexLowerTemperature: lowerTemperatureColumn)
+    let todUpperWeight = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2400lbs, temperature: temperature, columnIndexLowerTemperature: lowerTemperatureColumn)
+    let todMidWeight = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2200lbs, temperature: temperature, columnIndexLowerTemperature: lowerTemperatureColumn)
+    let todLowerWeight = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2000lbs, temperature: temperature, columnIndexLowerTemperature: lowerTemperatureColumn)
     
-    let tod = todForActualWeightC172P(weight: weight, tod2400: feetUpperWeight, tod2200: feetMidWeight, tod2000: feetLowerWeight)
+    let tod = todForActualWeightC172P(weight: weight, tod2400: todUpperWeight, tod2200: todMidWeight, tod2000: todLowerWeight)
     return tod
 }
 
@@ -25,11 +25,11 @@ func feetTOR(dataFrame: DataFrame, pressureAltitude: Int, temperature: Int, weig
     let rowIndexLowerAltitude2200lbs = rowIndexLowerAltitude2400lbs + 4
     let rowIndexLowerAltitude2000lbs = rowIndexLowerAltitude2200lbs + 4
     
-    let tor2400lbs = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2400lbs, temperature: temperature, columnIndexLowerTemperature: columnIndexLowerTemperature)
-    let tor2200lbs = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2200lbs, temperature: temperature, columnIndexLowerTemperature: columnIndexLowerTemperature)
-    let tor2000lbs = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2000lbs, temperature: temperature, columnIndexLowerTemperature: columnIndexLowerTemperature)
+    let torUpperWeight = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2400lbs, temperature: temperature, columnIndexLowerTemperature: columnIndexLowerTemperature)
+    let torMidWeight = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2200lbs, temperature: temperature, columnIndexLowerTemperature: columnIndexLowerTemperature)
+    let torLowerWeight = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude2000lbs, temperature: temperature, columnIndexLowerTemperature: columnIndexLowerTemperature)
     
-    let tor = torForActualWeightC172P(weight: weight, tor2400: tor2400lbs, tor2200: tor2200lbs, tor2000: tor2000lbs)
+    let tor = torForActualWeightC172P(weight: weight, tor2400: torUpperWeight, tor2200: torMidWeight, tor2000: torLowerWeight)
     return tor
 }
 

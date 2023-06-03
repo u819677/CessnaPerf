@@ -80,7 +80,7 @@ struct ContentView: View {
                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height-50)
 
                 VStack{
-                    Text(showSideMenuView ? "" : "\(cessna.type) Take Off Performance")
+                    Text(showSideMenuView ? "" : "\(cessna.type) Take Off Perf")
                         .font(.custom("Noteworthy Bold", size: 26))
                         .foregroundColor(.white)
                         .padding(.top)

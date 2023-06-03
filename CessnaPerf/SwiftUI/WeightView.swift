@@ -54,7 +54,7 @@ struct WeightView: View {
             guard let calcTime = userDefaults.object(forKey: "calcTime") as! Date? else { return }
             ///because calc has not been done yet so there's no calcTime
             if calcTime.timeIntervalSinceNow < -3600 {
-                weightEntry = ""
+                weightEntry = ""///forces a re-compute incase take off conditions have changed since earler calculation
             }
         }
     }  //end of body
