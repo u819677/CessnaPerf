@@ -41,7 +41,7 @@ struct ResultsView: View {
                 
                 """)
                 .padding(10)
-                .frame(width: 300, height: 100)
+                .frame(width: 300)//, height: 100)
                 .background(RoundedRectangle(cornerRadius: 10).fill(Color(skyBlue)))
                 .font(.custom("Noteworthy-Bold", size: 25))
                 .foregroundColor(.black)
@@ -58,7 +58,7 @@ struct ResultsView: View {
                 .stroke(Color.white, lineWidth: 3)
             )
             .background(Color.gray.opacity(0.6))
-        }.frame(width: 320, height: 600, alignment: .center)
+        }.frame(width: 320, height: 400, alignment: .center)
         }
     }
 }
