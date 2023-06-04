@@ -13,8 +13,8 @@
 		233D9B882A1F4CAB00C89497 /* AircraftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233D9B872A1F4CAB00C89497 /* AircraftView.swift */; };
 		233D9B8A2A1F4F8700C89497 /* AircraftPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233D9B892A1F4F8700C89497 /* AircraftPickerView.swift */; };
 		233D9BE02A21419A00C89497 /* RadioButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233D9BDF2A21419A00C89497 /* RadioButtonView.swift */; };
-		233D9BE42A23C6D600C89497 /* C182Perf.csv in Resources */ = {isa = PBXBuildFile; fileRef = 233D9BE32A23C6D600C89497 /* C182Perf.csv */; };
-		233D9C1A2A26620000C89497 /* C182data.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 233D9C192A26620000C89497 /* C182data.pdf */; };
+		233D9BE42A23C6D600C89497 /* C182RGdata.csv in Resources */ = {isa = PBXBuildFile; fileRef = 233D9BE32A23C6D600C89497 /* C182RGdata.csv */; };
+		233D9C1A2A26620000C89497 /* C182RGinfo.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 233D9C192A26620000C89497 /* C182RGinfo.pdf */; };
 		233EFBAA2A1799EB00DC589B /* TemperatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233EFBA92A1799EB00DC589B /* TemperatureView.swift */; };
 		233EFBAE2A17DB3700DC589B /* WeightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233EFBAD2A17DB3700DC589B /* WeightView.swift */; };
 		233EFBB02A17E9C300DC589B /* ElevationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233EFBAF2A17E9C300DC589B /* ElevationView.swift */; };
@@ -23,7 +23,7 @@
 		233EFBB62A18B5A800DC589B /* oldElevationView.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 233EFBB52A18B5A800DC589B /* oldElevationView.rtf */; };
 		233EFBB82A18B5E700DC589B /* oldTemperatureView.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 233EFBB72A18B5E700DC589B /* oldTemperatureView.rtf */; };
 		233EFBBA2A18B61000DC589B /* oldWeightView.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 233EFBB92A18B61000DC589B /* oldWeightView.rtf */; };
-		234889E72A1D2614005BD74E /* C172Perf.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 234889E62A1D2614005BD74E /* C172Perf.pdf */; };
+		234889E72A1D2614005BD74E /* C172Pinfo.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 234889E62A1D2614005BD74E /* C172Pinfo.pdf */; };
 		236E894129FFAE170011B767 /* CessnaPerfApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236E894029FFAE170011B767 /* CessnaPerfApp.swift */; };
 		236E894329FFAE170011B767 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236E894229FFAE170011B767 /* ContentView.swift */; };
 		236E894529FFAE190011B767 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 236E894429FFAE190011B767 /* Assets.xcassets */; };
@@ -32,7 +32,7 @@
 		236E895B29FFB6F40011B767 /* ResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236E895A29FFB6F40011B767 /* ResultsView.swift */; };
 		236E895D29FFC1E40011B767 /* Calculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236E895C29FFC1E40011B767 /* Calculations.swift */; };
 		236E89672A0015C00011B767 /* WindPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236E89662A0015C00011B767 /* WindPicker.swift */; };
-		23E299822A0250750036E691 /* C172Perf.csv in Resources */ = {isa = PBXBuildFile; fileRef = 23E299812A0250750036E691 /* C172Perf.csv */; };
+		23E299822A0250750036E691 /* C172Pdata.csv in Resources */ = {isa = PBXBuildFile; fileRef = 23E299812A0250750036E691 /* C172Pdata.csv */; };
 		23E299862A0A7FD60036E691 /* SurfaceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E299852A0A7FD60036E691 /* SurfaceView.swift */; };
 		23E299A22A0BCFB10036E691 /* SpareCode.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 23E299A12A0BCFB10036E691 /* SpareCode.rtf */; };
 		23F9FFC42A1D31CC00D55FDF /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23F9FFC32A1D31CC00D55FDF /* SideMenuView.swift */; };
@@ -45,8 +45,8 @@
 		233D9B872A1F4CAB00C89497 /* AircraftView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AircraftView.swift; sourceTree = "<group>"; };
 		233D9B892A1F4F8700C89497 /* AircraftPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AircraftPickerView.swift; sourceTree = "<group>"; };
 		233D9BDF2A21419A00C89497 /* RadioButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonView.swift; sourceTree = "<group>"; };
-		233D9BE32A23C6D600C89497 /* C182Perf.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = C182Perf.csv; sourceTree = "<group>"; };
-		233D9C192A26620000C89497 /* C182data.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = C182data.pdf; sourceTree = "<group>"; };
+		233D9BE32A23C6D600C89497 /* C182RGdata.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = C182RGdata.csv; sourceTree = "<group>"; };
+		233D9C192A26620000C89497 /* C182RGinfo.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = C182RGinfo.pdf; sourceTree = "<group>"; };
 		233EFBA92A1799EB00DC589B /* TemperatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureView.swift; sourceTree = "<group>"; };
 		233EFBAD2A17DB3700DC589B /* WeightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightView.swift; sourceTree = "<group>"; };
 		233EFBAF2A17E9C300DC589B /* ElevationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationView.swift; sourceTree = "<group>"; };
@@ -55,7 +55,7 @@
 		233EFBB52A18B5A800DC589B /* oldElevationView.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = oldElevationView.rtf; sourceTree = "<group>"; };
 		233EFBB72A18B5E700DC589B /* oldTemperatureView.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = oldTemperatureView.rtf; sourceTree = "<group>"; };
 		233EFBB92A18B61000DC589B /* oldWeightView.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = oldWeightView.rtf; sourceTree = "<group>"; };
-		234889E62A1D2614005BD74E /* C172Perf.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = C172Perf.pdf; sourceTree = "<group>"; };
+		234889E62A1D2614005BD74E /* C172Pinfo.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = C172Pinfo.pdf; sourceTree = "<group>"; };
 		236E893D29FFAE170011B767 /* CessnaPerf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CessnaPerf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		236E894029FFAE170011B767 /* CessnaPerfApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CessnaPerfApp.swift; sourceTree = "<group>"; };
 		236E894229FFAE170011B767 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -66,7 +66,7 @@
 		236E895A29FFB6F40011B767 /* ResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsView.swift; sourceTree = "<group>"; };
 		236E895C29FFC1E40011B767 /* Calculations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Calculations.swift; sourceTree = "<group>"; };
 		236E89662A0015C00011B767 /* WindPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindPicker.swift; sourceTree = "<group>"; };
-		23E299812A0250750036E691 /* C172Perf.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = C172Perf.csv; sourceTree = "<group>"; };
+		23E299812A0250750036E691 /* C172Pdata.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = C172Pdata.csv; sourceTree = "<group>"; };
 		23E299852A0A7FD60036E691 /* SurfaceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurfaceView.swift; sourceTree = "<group>"; };
 		23E299A12A0BCFB10036E691 /* SpareCode.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = SpareCode.rtf; sourceTree = "<group>"; };
 		23F9FFC32A1D31CC00D55FDF /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
@@ -95,10 +95,10 @@
 		234889E32A1D1C52005BD74E /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				234889E62A1D2614005BD74E /* C172Perf.pdf */,
-				23E299812A0250750036E691 /* C172Perf.csv */,
-				233D9BE32A23C6D600C89497 /* C182Perf.csv */,
-				233D9C192A26620000C89497 /* C182data.pdf */,
+				23E299812A0250750036E691 /* C172Pdata.csv */,
+				234889E62A1D2614005BD74E /* C172Pinfo.pdf */,
+				233D9BE32A23C6D600C89497 /* C182RGdata.csv */,
+				233D9C192A26620000C89497 /* C182RGinfo.pdf */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -230,13 +230,13 @@
 				233EFBB62A18B5A800DC589B /* oldElevationView.rtf in Resources */,
 				23E299A22A0BCFB10036E691 /* SpareCode.rtf in Resources */,
 				233EFBBA2A18B61000DC589B /* oldWeightView.rtf in Resources */,
-				233D9C1A2A26620000C89497 /* C182data.pdf in Resources */,
-				23E299822A0250750036E691 /* C172Perf.csv in Resources */,
-				233D9BE42A23C6D600C89497 /* C182Perf.csv in Resources */,
+				233D9C1A2A26620000C89497 /* C182RGinfo.pdf in Resources */,
+				23E299822A0250750036E691 /* C172Pdata.csv in Resources */,
+				233D9BE42A23C6D600C89497 /* C182RGdata.csv in Resources */,
 				236E895229FFB0D10011B767 /* Notes.rtf in Resources */,
 				233EFBB42A18B4C900DC589B /* oldQNHView.rtf in Resources */,
 				236E894829FFAE190011B767 /* Preview Assets.xcassets in Resources */,
-				234889E72A1D2614005BD74E /* C172Perf.pdf in Resources */,
+				234889E72A1D2614005BD74E /* C172Pinfo.pdf in Resources */,
 				236E894529FFAE190011B767 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

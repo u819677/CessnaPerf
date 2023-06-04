@@ -15,9 +15,9 @@ struct FileView: View {
     let pdfC172P: PDFDocument
     let pdfC182RG: PDFDocument
     init(dataFile: Binding<String?>) {
-        let urlC172P = Bundle.main.url(forResource: "C172Perf", withExtension: "pdf")!
+        let urlC172P = Bundle.main.url(forResource: "C172Pinfo", withExtension: "pdf")!
         pdfC172P = PDFDocument(url: urlC172P)!
-        let urlC182RG = Bundle.main.url(forResource: "C182data", withExtension: "pdf")!
+        let urlC182RG = Bundle.main.url(forResource: "C182RGinfo", withExtension: "pdf")!
         pdfC182RG = PDFDocument(url: urlC182RG)!
         self._dataFile = dataFile
     }

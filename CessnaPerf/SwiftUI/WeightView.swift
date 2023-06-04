@@ -10,7 +10,7 @@ import SwiftUI
 struct WeightView: View {
     @Environment(\.scenePhase) var scenePhase
     @EnvironmentObject var cessna: Cessna
-    @EnvironmentObject var dataEntryFields: DataEntryFields
+    @EnvironmentObject var dataEntry: DataEntry
     let userDefaults = UserDefaults.standard
     
     @State var weightEntry: String = ""//2400"
@@ -28,9 +28,10 @@ struct WeightView: View {
                 .onChange(of: textFieldHasFocus) { _ in
                     if weight == nil { weightEntry = "" }///to force user to press Enter 
                 }
-                .onChange(of: dataEntryFields.clearAll) { _ in
+                .onChange(of: dataEntry.clear) { _ in   //this .onChange modifier looks pretty useful!
                     weightEntry = ""
-                    dataEntryFields.clearAll = false
+                    weight = nil
+                    dataEntry.clear = false
                 }
                 .keyboardType(.numberPad)
                 .toolbar {toolbarItems()}

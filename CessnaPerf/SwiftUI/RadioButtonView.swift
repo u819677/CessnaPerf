@@ -8,7 +8,7 @@ import SwiftUI
 
 struct RadioButtonView: View {
     @EnvironmentObject var cessna: Cessna
-    @EnvironmentObject var dataEntryFields: DataEntryFields
+    @EnvironmentObject var dataEntry: DataEntry
 
     var body: some View {
         VStack(spacing: 20) {
@@ -17,7 +17,7 @@ struct RadioButtonView: View {
                     .font(.title2)
                 HStack{
                     Button{cessna.type = "C152"
-                        dataEntryFields.clearAll = true
+                        dataEntry.clear = true
                     }
                 label: {
                         Circle()
@@ -29,7 +29,7 @@ struct RadioButtonView: View {
                 }
                 HStack{
                     Button{cessna.type = "C172P"
-                        dataEntryFields.clearAll = true
+                        dataEntry.clear = true
 
                     }
                 label: {
@@ -42,7 +42,7 @@ struct RadioButtonView: View {
                 }
                 HStack{
                     Button{cessna.type = "C182RG"
-                        dataEntryFields.clearAll = true
+                        dataEntry.clear = true
 
                     }
                 label: {

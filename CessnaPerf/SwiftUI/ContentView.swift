@@ -47,10 +47,10 @@ struct ContentView: View {
             print("cessna didset in ContentView ran")
         }
     }
-    @StateObject var dataEntryFields = DataEntryFields()
+    @StateObject var dataEntryFields = DataEntry()
     init() {
-        let fileURL = Bundle.main.url(forResource: "C172Perf", withExtension: "csv")
-        let fileURLCessna182 = Bundle.main.url(forResource: "C182Perf", withExtension: "csv")
+        let fileURL = Bundle.main.url(forResource: "C172Pdata", withExtension: "csv")
+        let fileURLCessna182 = Bundle.main.url(forResource: "C182RGdata", withExtension: "csv")
         do {
             self.dataFrameC172 = try DataFrame(contentsOfCSVFile: fileURL!)
             print(TODDataFrame(dataFrame: dataFrameC172))
@@ -93,10 +93,7 @@ struct ContentView: View {
                     
                     // MARK: Compute button logic
                     Button {
-                        
-                    //    guard let aircraftType = userDefaults.object(forKey: "aircraftType") as! String? else { return}
-//                        print("aircraftType in userDefaults is \(aircraftType)")
-//                       return
+
                         let todDataFrameC172 = TODDataFrame(dataFrame: dataFrameC172)
                         let torDataFrameC172 = TORDataFrame(dataFrame: dataFrameC172)
                         let todDataFrameC182 = TODDataFrame(dataFrame: dataFrameC182)
@@ -285,6 +282,6 @@ class Cessna: ObservableObject {
         self.type = type
     }
 }
-class DataEntryFields: ObservableObject {
-    @Published var clearAll: Bool = false
+class DataEntry: ObservableObject {
+    @Published var clear: Bool = false
 }
