@@ -51,33 +51,18 @@ struct ContentView: View {
         let fileURLC182RG = Bundle.main.url(forResource: "C182RGdata", withExtension: "csv")
         let fileURLC152 = Bundle.main.url(forResource: "C152data", withExtension: "csv")
         
-        do {
-            self.dataFrameC172P = try DataFrame(contentsOfCSVFile: fileURLC172P!)
-            print(TODDataFrame(dataFrame: dataFrameC172P))
-            print(TORDataFrame(dataFrame: dataFrameC172P))
-        } catch {
-            print("C172 url loading failed")
-        }
-        do {
-            self.dataFrameC182RG = try DataFrame(contentsOfCSVFile: fileURLC182RG!)
-            print(TODDataFrame(dataFrame: dataFrameC182RG))
-            print(TORDataFrame(dataFrame: dataFrameC182RG))
-        }catch {
-            print("C182 url loading failed")
-        }
-        do {
-            self.dataFrameC152 = try DataFrame(contentsOfCSVFile: fileURLC152!)
-            print(TODDataFrame(dataFrame: dataFrameC152))
-            print(TORDataFrame(dataFrame: dataFrameC152))
-        }catch {
-            print("C152 url loading failed")
-        }
-        
-        guard let type = userDefaults.object(forKey: "aircraftType") as! String? else {
-            userDefaults.set("C172P", forKey: "aircraftType")
-            print("userDefaults was nil so has saved C172P")
+        do {self.dataFrameC172P = try DataFrame(contentsOfCSVFile: fileURLC172P!) }
+        catch {print("C172 url loading failed") }
+  
+        do { self.dataFrameC182RG = try DataFrame(contentsOfCSVFile: fileURLC182RG!)}
+        catch {print("C182 url loading failed")}
+            
+        do {self.dataFrameC152 = try DataFrame(contentsOfCSVFile: fileURLC152!)}
+        catch {print("C152 url loading failed")}
+            
+        guard let type = userDefaults.object(forKey: "aircraftType") as! String?
+        else { userDefaults.set("C172P", forKey: "aircraftType")
             return }
-        print("userDefaults has previously saved  \(type)")
     }
  
     //MARK: body
@@ -102,6 +87,7 @@ struct ContentView: View {
                     Button {
                         print("cessna.type is \(cessna.type)")
                         if cessna.type == "C152" {weight = 1670}///tried setting this in WeightView but didn't get back here
+                        ///
                         let todDataFrameC172 = TODDataFrame(dataFrame: dataFrameC172P)
                         let torDataFrameC172 = TORDataFrame(dataFrame: dataFrameC172P)
                         let todDataFrameC182 = TODDataFrame(dataFrame: dataFrameC182RG)
@@ -114,27 +100,30 @@ struct ContentView: View {
                         let pressureAltitude = correctedAltitude(for: elevation, and: qnh)
                         if pressureAltitude > 2000 { showPressAltAlert = true }
                         
-                        if cessna.type == "C172P" {
+                        switch cessna.type {
+                        case "C172P":
                             ///firstly calc calm TOD then correct for windComponent, then repeat for TOR
                             ftTOD = Double(todC172P(dataFrame: todDataFrameC172, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
                             ftTOD = ftTOD * Factor(for: wind)
                             ftTOR = Double(torC172P(dataFrame: torDataFrameC172, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
                             ftTOR = ftTOR * Factor(for: wind)
                             
-                        } else if cessna.type == "C182RG" {
+                        case "C182RG":
                             ///firstly calc calm TOD then correct for windComponent, then repeat for TOR
                             ftTOD = Double(todC182RG(dataFrame: todDataFrameC182, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
                             ftTOD = ftTOD * Factor(for: wind)
                             ftTOR = Double(torC182RG(dataFrame: torDataFrameC182, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
                             ftTOR = ftTOR * Factor(for: wind)
                             
-                        } else if cessna.type == "C152" {
+                        case "C152":
                             ftTOD = Double(todC152(dataFrame: todDataFrameC152, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
                             ftTOD = ftTOD * Factor(for: wind)
                             ftTOR = Double(torC152(dataFrame: torDataFrameC152, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
                             ftTOR = ftTOR * Factor(for: wind)
+                        default:
+                            return
                         }
-                        
+
                         if isGrass {//add 15% of TOR in case of grass runway
                             let extraGrassFeet = ftTOR * 0.15
                             ftTOD += extraGrassFeet
@@ -171,7 +160,6 @@ struct ContentView: View {
                 }//end of second layer VStack
                 .ignoresSafeArea(.keyboard)//this stops Calculate button moving up behind keyboard
                 //MARK: textFields layer
-               // ScrollView{
                     VStack{//this layer is on top of the image and then the Calculate button
                         Spacer()
                         WeightView(weight: $weight)
@@ -188,7 +176,6 @@ struct ContentView: View {
                             .padding(10)
                         Spacer()
                     }.padding(.top, 50)///need something like this to prevent top textField go out of view when keyboard
-              //  }
                 .opacity(showSideMenuView ? 0.0 : 1.0)//end of top layer VStack
                 Color.black
                     .opacity(showSideMenuView ? 0.5 : 0.0)
@@ -217,9 +204,7 @@ struct ContentView: View {
                                     .background(Color(skyBlue))
                                     .mask(Circle())                                
                             }
-                            
                             }//end of HStack
-                            
                         }
                     }
                 }//end of .toolbar
@@ -253,10 +238,7 @@ struct ContentView: View {
             }
         }//end NavView
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)///this is prob needed to lock the whole ZStack although still needs the -50 for height of image
-      //  .ignoresSafeArea()
-        //.environment(\.aircraftType, "BigJet")
         .environmentObject(cessna)
-       // .environmentObject(dataEntry)
     }///end of body
 }///end of struct
 
@@ -265,25 +247,7 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-//struct AircraftTypeKey: EnvironmentKey {
-//    static let defaultValue: String = "Cirrus"
-//}
 
-//extension EnvironmentValues {
-//    var aircraftType: String {
-//        get {
-//            self[AircraftTypeKey.self]
-//        }
-//        set {
-//            self[AircraftTypeKey.self] = newValue
-//        }
-//    }
-//}
-//extension View {
-//    func aircraftType(_ aircraftType: String) -> some View {
-//        environment(\.aircraftType, aircraftType)
-//    }
-//}
 class Cessna: ObservableObject {
     @Published var type: String = "C172P"
     init() {
@@ -292,6 +256,4 @@ class Cessna: ObservableObject {
         self.type = type
     }
 }
-//class DataEntry: ObservableObject {
-//    @Published var clear: Bool = false
-//}
+
