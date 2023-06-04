@@ -8,16 +8,17 @@ import SwiftUI
 
 struct RadioButtonView: View {
     @EnvironmentObject var cessna: Cessna
-    init(){
-       // print("RadioButton init ran and cessna.type is \(cessna.type)")
-    }
+    @EnvironmentObject var dataEntryFields: DataEntryFields
+
     var body: some View {
         VStack(spacing: 20) {
             VStack(alignment: .leading){
                 Text("Select aircraft:")
                     .font(.title2)
                 HStack{
-                    Button{cessna.type = "C152"}
+                    Button{cessna.type = "C152"
+                        dataEntryFields.clearAll = true
+                    }
                 label: {
                         Circle()
                             .radioButtonStyle()
@@ -27,7 +28,10 @@ struct RadioButtonView: View {
                         .font(.title2)
                 }
                 HStack{
-                    Button{cessna.type = "C172P" }
+                    Button{cessna.type = "C172P"
+                        dataEntryFields.clearAll = true
+
+                    }
                 label: {
                     Circle()
                         .radioButtonStyle()
@@ -37,7 +41,10 @@ struct RadioButtonView: View {
                         .font(.title2)
                 }
                 HStack{
-                    Button{cessna.type = "C182RG" }
+                    Button{cessna.type = "C182RG"
+                        dataEntryFields.clearAll = true
+
+                    }
                 label: {
                     Circle()
                         .radioButtonStyle()

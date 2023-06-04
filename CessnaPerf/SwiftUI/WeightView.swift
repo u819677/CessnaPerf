@@ -10,6 +10,7 @@ import SwiftUI
 struct WeightView: View {
     @Environment(\.scenePhase) var scenePhase
     @EnvironmentObject var cessna: Cessna
+    @EnvironmentObject var dataEntryFields: DataEntryFields
     let userDefaults = UserDefaults.standard
     
     @State var weightEntry: String = ""//2400"
@@ -25,13 +26,14 @@ struct WeightView: View {
                 .font(.custom("Noteworthy-Bold", size: 25))
                 .focused($textFieldHasFocus, equals: true)
                 .onChange(of: textFieldHasFocus) { _ in
-                    if weight == nil {
-                        weightEntry = ""
-                    }
+                    if weight == nil { weightEntry = "" }///to force user to press Enter 
+                }
+                .onChange(of: dataEntryFields.clearAll) { _ in
+                    weightEntry = ""
+                    dataEntryFields.clearAll = false
                 }
                 .keyboardType(.numberPad)
                 .toolbar {toolbarItems()}
-            
                 .padding()
                 .position(x: 50, y: 12)
                 .frame(width: 120, height: 28)
@@ -50,6 +52,7 @@ struct WeightView: View {
             weight = nil
             textFieldHasFocus = true
         }
+        
         .onChange(of: scenePhase) { _ in
             guard let calcTime = userDefaults.object(forKey: "calcTime") as! Date? else { return }
             ///because calc has not been done yet so there's no calcTime
@@ -57,6 +60,7 @@ struct WeightView: View {
                 weightEntry = ""///forces a re-compute incase take off conditions have changed since earler calculation
             }
         }
+        
     }  //end of body
 
     @ToolbarContentBuilder

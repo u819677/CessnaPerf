@@ -47,7 +47,7 @@ struct ContentView: View {
             print("cessna didset in ContentView ran")
         }
     }
-
+    @StateObject var dataEntryFields = DataEntryFields()
     init() {
         let fileURL = Bundle.main.url(forResource: "C172Perf", withExtension: "csv")
         let fileURLCessna182 = Bundle.main.url(forResource: "C182Perf", withExtension: "csv")
@@ -246,6 +246,7 @@ struct ContentView: View {
       //  .ignoresSafeArea()
         //.environment(\.aircraftType, "BigJet")
         .environmentObject(cessna)
+        .environmentObject(dataEntryFields)
     }///end of body
 }///end of struct
 
@@ -283,4 +284,7 @@ class Cessna: ObservableObject {
         guard let type = userDefaults.object(forKey: "aircraftType") as! String? else {return}///this is checking to see the last used aircraft type. If not then the default is C172P otherwise it's set to previously used type.
         self.type = type
     }
+}
+class DataEntryFields: ObservableObject {
+    @Published var clearAll: Bool = false
 }
