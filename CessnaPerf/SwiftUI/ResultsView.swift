@@ -32,19 +32,22 @@ struct ResultsView: View {
                 TOR = \(String(format: "%.0f", ftTOR)) ft
                 TOD = \(String(format: "%.0f", ftTOD)) ft
                 """)
+            .shadow(color: .black, radius: 2)
             .foregroundColor(.white)
             .font(.custom("Noteworthy-Bold", size: 25))
                 Text("""
                 TODR ( = TOD x 1.25)
-                       = \(String(format: "%.0f",(ftTOD * 1.25 / 3.28) )) metres
+                        = \(String(format: "%.0f",(ftTOD * 1.25 / 3.28) )) metres
                 
                 """)
                 .padding(10)
-                .frame(width: 300)
+                .frame(width: 300, height: 100)
                 .background(RoundedRectangle(cornerRadius: 10).fill(Color(skyBlue)))
                 .font(.custom("Noteworthy-Bold", size: 25))
                 .foregroundColor(.black)
                 .padding(30)
+            
+            
             Button(" OK  "){
                 dismiss()
             }
@@ -54,10 +57,9 @@ struct ResultsView: View {
             .overlay(RoundedRectangle(cornerRadius: 5)
                 .stroke(Color.white, lineWidth: 3)
             )
-            // .shadow(radius: 5)
-        }.frame(width: 320, height: 400, alignment: .center)
-        }//.aircraftType(aircraft)
-            //.environment(\.aircraftType, "Glider")
+            .background(Color.gray.opacity(0.6))
+        }.frame(width: 320, height: 600, alignment: .center)
+        }
     }
 }
 
