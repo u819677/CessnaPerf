@@ -44,7 +44,7 @@ struct ContentView: View {
             print("cessna didset in ContentView ran")
         }
     }
-    @StateObject var dataEntry = DataEntry()
+   // @StateObject var dataEntry = DataEntry()
     init() {
         let fileURLC172P = Bundle.main.url(forResource: "C172Pdata", withExtension: "csv")
         let fileURLC182RG = Bundle.main.url(forResource: "C182RGdata", withExtension: "csv")
@@ -242,7 +242,7 @@ struct ContentView: View {
       //  .ignoresSafeArea()
         //.environment(\.aircraftType, "BigJet")
         .environmentObject(cessna)
-        .environmentObject(dataEntry)
+       // .environmentObject(dataEntry)
     }///end of body
 }///end of struct
 
@@ -278,6 +278,6 @@ class Cessna: ObservableObject {
         self.type = type
     }
 }
-class DataEntry: ObservableObject {
-    @Published var clear: Bool = false
-}
+//class DataEntry: ObservableObject {
+//    @Published var clear: Bool = false
+//}

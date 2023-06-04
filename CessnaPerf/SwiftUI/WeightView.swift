@@ -10,7 +10,7 @@ import SwiftUI
 struct WeightView: View {
     @Environment(\.scenePhase) var scenePhase
     @EnvironmentObject var cessna: Cessna
-    @EnvironmentObject var dataEntry: DataEntry
+   // @EnvironmentObject var dataEntry: DataEntry
     let userDefaults = UserDefaults.standard
     
     @State var weightEntry: String = ""//2400"
@@ -22,29 +22,32 @@ struct WeightView: View {
     var body: some View {
         HStack {
           //  Text("  Weight:     ")
-            Text(cessna.type != "C152" ? "  Weight    " : "Weight:   1670lbs")
+            Text(cessna.type != "C152" ? "  Weight:    " : "Weight:      1670lbs")
                 .font(.custom("Noteworthy-Bold", size: 25))
-            TextField("", text: $weightEntry)
-                .font(.custom("Noteworthy-Bold", size: 25))
-                .focused($textFieldHasFocus, equals: true)
-                .onChange(of: textFieldHasFocus) { _ in
-                    if weight == nil { weightEntry = "" }///to force user to press Enter 
-                }
-                .onChange(of: dataEntry.clear) { _ in   //this .onChange modifier looks pretty useful!
-                    weightEntry = ""    ///clears the weight after there's been a type change in RadioButtonView
-                    weight = nil
-                    dataEntry.clear = false
-                }
-                .keyboardType(.numberPad)
-                .toolbar {toolbarItems()}
-                .padding()
-                .position(x: 50, y: 12)
-                .frame(width: 120, height: 28)
-                .border(Color.black, width: 0.5)
-                .background(isValid ? Color.clear : Color.red.opacity(0.7))
-            Text("lbs")
-                .font(.custom("Noteworthy-Bold", size: 25))
-            // .navigationBarHidden(true)//not sure what this does or if needed
+            if cessna.type != "C152" {
+                TextField("", text: $weightEntry)
+                    .font(.custom("Noteworthy-Bold", size: 25))
+                    .focused($textFieldHasFocus, equals: true)
+                    .onChange(of: textFieldHasFocus) { _ in
+                        if weight == nil { weightEntry = "" }///to force user to press Enter
+                    }
+                   // .onChange(of: dataEntry.clear) { _ in   //this .onChange modifier looks pretty useful!
+                    .onChange(of: cessna.type) { _ in
+                        weightEntry = ""    ///clears the weight after there's been a type change in RadioButtonView
+                        weight = nil
+                        //dataEntry.clear = false
+                    }
+                    .keyboardType(.numberPad)
+                    .toolbar {toolbarItems()}
+                    .padding()
+                    .position(x: 50, y: 12)
+                    .frame(width: 120, height: 28)
+                    .border(Color.black, width: 0.5)
+                    .background(isValid ? Color.clear : Color.red.opacity(0.7))
+                Text("lbs")
+                    .font(.custom("Noteworthy-Bold", size: 25))
+                // .navigationBarHidden(true)//not sure what this does or if needed
+            }
         }  //end of HStack
        
         .frame(width: 320,height: 35)
