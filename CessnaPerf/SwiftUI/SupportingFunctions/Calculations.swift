@@ -60,6 +60,22 @@ func torC182RG(dataFrame: DataFrame, pressureAltitude: Int, temperature: Int, we
     return torC182RG
 }
 
+func todC152(dataFrame: DataFrame, pressureAltitude: Int, temperature: Int, weight: Int) -> Int {
+    let (rowIndexLowerAltitude1670lbs, columnIndexLowerTemperature) = pressureAltitudeAndTemperatureLowerBoundaryIndicees(pressureAltitude: pressureAltitude, temperature: temperature)
+    let tor1670lbs = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude1670lbs, temperature: temperature, columnIndexLowerTemperature: columnIndexLowerTemperature)
+    
+    return tor1670lbs
+}
+
+func torC152(dataFrame: DataFrame, pressureAltitude: Int, temperature: Int, weight: Int) -> Int {
+    let (rowIndexLowerAltitude1670lbs, columnIndexLowerTemperature) = pressureAltitudeAndTemperatureLowerBoundaryIndicees(pressureAltitude: pressureAltitude, temperature: temperature)
+    let tod1670lbs = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude1670lbs, temperature: temperature, columnIndexLowerTemperature: columnIndexLowerTemperature)
+    
+    return tod1670lbs
+}
+
+
+
 func pressureAltitudeAndTemperatureLowerBoundaryIndicees(pressureAltitude: Int, temperature: Int) -> (Int, Int) {
     var rowIndexLowerPressureAltitude: Int = 0
     var columnIndexLowerTemperature: Int = 0

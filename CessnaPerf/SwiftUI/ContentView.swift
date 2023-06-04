@@ -34,6 +34,8 @@ struct ContentView: View {
     
     var dataFrameC172P = DataFrame()
     var dataFrameC182RG = DataFrame()
+    var dataFrameC152 = DataFrame()
+    
     
     @Environment(\.scenePhase) var scenePhase
     @Environment(\.isFocused) var isFocused
@@ -44,10 +46,11 @@ struct ContentView: View {
             print("cessna didset in ContentView ran")
         }
     }
-   // @StateObject var dataEntry = DataEntry()
     init() {
         let fileURLC172P = Bundle.main.url(forResource: "C172Pdata", withExtension: "csv")
         let fileURLC182RG = Bundle.main.url(forResource: "C182RGdata", withExtension: "csv")
+        let fileURLC152 = Bundle.main.url(forResource: "C152data", withExtension: "csv")
+        
         do {
             self.dataFrameC172P = try DataFrame(contentsOfCSVFile: fileURLC172P!)
             print(TODDataFrame(dataFrame: dataFrameC172P))
@@ -62,14 +65,19 @@ struct ContentView: View {
         }catch {
             print("C182 url loading failed")
         }
+        do {
+            self.dataFrameC152 = try DataFrame(contentsOfCSVFile: fileURLC152!)
+            print(TODDataFrame(dataFrame: dataFrameC152))
+            print(TORDataFrame(dataFrame: dataFrameC152))
+        }catch {
+            print("C152 url loading failed")
+        }
+        
         guard let type = userDefaults.object(forKey: "aircraftType") as! String? else {
             userDefaults.set("C172P", forKey: "aircraftType")
-            cessna.type = "set in ContentView"
-            print("there was nothing in userDefaults")
+            print("userDefaults was nil so has saved C172P")
             return }
-       // cessna.type = type
-        print("userDefaults has saved aircraftType \(type)")
-       // print("cessna.type is now \(cessna.type)")
+        print("userDefaults has previously saved  \(type)")
     }
  
     //MARK: body
@@ -93,10 +101,14 @@ struct ContentView: View {
                     // MARK: Compute button logic
                     Button {
                         print("weight is \(String(describing: weight))")
+                        print("cessna.type is \(cessna.type)")
                         let todDataFrameC172 = TODDataFrame(dataFrame: dataFrameC172P)
                         let torDataFrameC172 = TORDataFrame(dataFrame: dataFrameC172P)
                         let todDataFrameC182 = TODDataFrame(dataFrame: dataFrameC182RG)
                         let torDataFrameC182 = TORDataFrame(dataFrame: dataFrameC182RG)
+                        let todDataFrameC152 = TODDataFrame(dataFrame: dataFrameC152)
+                        let torDataFrameC152 = TORDataFrame(dataFrame: dataFrameC152)
+                        
                         guard let weight = weight, let temperature = temperature, let elevation = elevation, let qnh = qnh  else { return }
                         
                         let pressureAltitude = correctedAltitude(for: elevation, and: qnh)
@@ -118,12 +130,16 @@ struct ContentView: View {
                             ftTOR = Double(torC182RG(dataFrame: torDataFrameC182, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
                             ftTOR = ftTOR * Factor(for: wind)
                         } else if cessna.type == "C152" {
-                           print("C152 type is detected in Compute button logic")
+                            ftTOD = Double(todC152(dataFrame: todDataFrameC152, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
+                            ftTOD = ftTOD * Factor(for: wind)
+                            ftTOR = Double(torC152(dataFrame: torDataFrameC152, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
+                            ftTOR = ftTOR * Factor(for: wind)
+                            
                         } else {
                             ftTOD = 0.01
                             ftTOR = 0.01
                         }
-                        if isGrass {//add 15% of TOR for grass runway
+                        if isGrass {//add 15% of TOR in case of grass runway
                             let extraGrassFeet = ftTOR * 0.15
                             ftTOD += extraGrassFeet
                             ftTOR += extraGrassFeet
