@@ -15,6 +15,7 @@
 		233D9BE02A21419A00C89497 /* RadioButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233D9BDF2A21419A00C89497 /* RadioButtonView.swift */; };
 		233D9BE42A23C6D600C89497 /* C182RGdata.csv in Resources */ = {isa = PBXBuildFile; fileRef = 233D9BE32A23C6D600C89497 /* C182RGdata.csv */; };
 		233D9C1A2A26620000C89497 /* C182RGinfo.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 233D9C192A26620000C89497 /* C182RGinfo.pdf */; };
+		233D9C382A2C9E4900C89497 /* C152data.csv in Resources */ = {isa = PBXBuildFile; fileRef = 233D9C372A2C9E4900C89497 /* C152data.csv */; };
 		233EFBAA2A1799EB00DC589B /* TemperatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233EFBA92A1799EB00DC589B /* TemperatureView.swift */; };
 		233EFBAE2A17DB3700DC589B /* WeightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233EFBAD2A17DB3700DC589B /* WeightView.swift */; };
 		233EFBB02A17E9C300DC589B /* ElevationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 233EFBAF2A17E9C300DC589B /* ElevationView.swift */; };
@@ -47,6 +48,7 @@
 		233D9BDF2A21419A00C89497 /* RadioButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonView.swift; sourceTree = "<group>"; };
 		233D9BE32A23C6D600C89497 /* C182RGdata.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = C182RGdata.csv; sourceTree = "<group>"; };
 		233D9C192A26620000C89497 /* C182RGinfo.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = C182RGinfo.pdf; sourceTree = "<group>"; };
+		233D9C372A2C9E4900C89497 /* C152data.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = C152data.csv; sourceTree = "<group>"; };
 		233EFBA92A1799EB00DC589B /* TemperatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemperatureView.swift; sourceTree = "<group>"; };
 		233EFBAD2A17DB3700DC589B /* WeightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightView.swift; sourceTree = "<group>"; };
 		233EFBAF2A17E9C300DC589B /* ElevationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElevationView.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 		234889E32A1D1C52005BD74E /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				233D9C372A2C9E4900C89497 /* C152data.csv */,
 				23E299812A0250750036E691 /* C172Pdata.csv */,
 				234889E62A1D2614005BD74E /* C172Pinfo.pdf */,
 				233D9BE32A23C6D600C89497 /* C182RGdata.csv */,
@@ -235,6 +238,7 @@
 				233D9BE42A23C6D600C89497 /* C182RGdata.csv in Resources */,
 				236E895229FFB0D10011B767 /* Notes.rtf in Resources */,
 				233EFBB42A18B4C900DC589B /* oldQNHView.rtf in Resources */,
+				233D9C382A2C9E4900C89497 /* C152data.csv in Resources */,
 				236E894829FFAE190011B767 /* Preview Assets.xcassets in Resources */,
 				234889E72A1D2614005BD74E /* C172Pinfo.pdf in Resources */,
 				236E894529FFAE190011B767 /* Assets.xcassets in Resources */,

@@ -18,9 +18,11 @@ struct WeightView: View {
     @FocusState var textFieldHasFocus: Bool?
     @Binding var weight: Int? //= 2400
     
+ 
     var body: some View {
         HStack {
-            Text("  Weight:     ")
+          //  Text("  Weight:     ")
+            Text(cessna.type != "C152" ? "  Weight    " : "C152")
                 .font(.custom("Noteworthy-Bold", size: 25))
             TextField("", text: $weightEntry)
                 .font(.custom("Noteworthy-Bold", size: 25))
@@ -29,7 +31,7 @@ struct WeightView: View {
                     if weight == nil { weightEntry = "" }///to force user to press Enter 
                 }
                 .onChange(of: dataEntry.clear) { _ in   //this .onChange modifier looks pretty useful!
-                    weightEntry = ""
+                    weightEntry = ""    ///clears the weight after there's been a type change in RadioButtonView
                     weight = nil
                     dataEntry.clear = false
                 }

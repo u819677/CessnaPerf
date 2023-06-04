@@ -18,10 +18,8 @@ struct ContentView: View {
     @State var showSideMenuView: Bool = false {
         didSet {
             if showSideMenuView == false {
-                print("showSideMenuViewBool has just become false")
-                ///save the type that is selected before leaving the sideMenuView
+                ///save the type that is selected at the point of leaving the sideMenuView
                 userDefaults.set(cessna.type, forKey: "aircraftType")
-                print("aircraftType set in ContentView properties is now \(cessna.type) but need to check in UserDefaults to be sure")
             }
         }
     }
@@ -34,39 +32,40 @@ struct ContentView: View {
     @State var ftTOD: Double = 0.0
     @State var ftTOR: Double = 0.0
     
-    var dataFrameC172 = DataFrame()
-    var dataFrameC182 = DataFrame()
+    var dataFrameC172P = DataFrame()
+    var dataFrameC182RG = DataFrame()
     
     @Environment(\.scenePhase) var scenePhase
     @Environment(\.isFocused) var isFocused
     let userDefaults = UserDefaults.standard
-   
-   // @State var aircraft: String = "C172"
+
     @StateObject var cessna = Cessna(){
         didSet {
             print("cessna didset in ContentView ran")
         }
     }
-    @StateObject var dataEntryFields = DataEntry()
+    @StateObject var weightEntry = DataEntry()
     init() {
-        let fileURL = Bundle.main.url(forResource: "C172Pdata", withExtension: "csv")
-        let fileURLCessna182 = Bundle.main.url(forResource: "C182RGdata", withExtension: "csv")
+        let fileURLC172P = Bundle.main.url(forResource: "C172Pdata", withExtension: "csv")
+        let fileURLC182RG = Bundle.main.url(forResource: "C182RGdata", withExtension: "csv")
         do {
-            self.dataFrameC172 = try DataFrame(contentsOfCSVFile: fileURL!)
-            print(TODDataFrame(dataFrame: dataFrameC172))
-            print(TORDataFrame(dataFrame: dataFrameC172))
+            self.dataFrameC172P = try DataFrame(contentsOfCSVFile: fileURLC172P!)
+            print(TODDataFrame(dataFrame: dataFrameC172P))
+            print(TORDataFrame(dataFrame: dataFrameC172P))
         } catch {
             print("C172 url loading failed")
         }
         do {
-            self.dataFrameC182 = try DataFrame(contentsOfCSVFile: fileURLCessna182!)
-            print(TODDataFrame(dataFrame: dataFrameC182))
-            print(TORDataFrame(dataFrame: dataFrameC182))
+            self.dataFrameC182RG = try DataFrame(contentsOfCSVFile: fileURLC182RG!)
+            print(TODDataFrame(dataFrame: dataFrameC182RG))
+            print(TORDataFrame(dataFrame: dataFrameC182RG))
         }catch {
             print("C182 url loading failed")
         }
         guard let type = userDefaults.object(forKey: "aircraftType") as! String? else {
             userDefaults.set("C172P", forKey: "aircraftType")
+            cessna.type = "set in ContentView"
+            print("there was nothing in userDefaults")
             return }
        // cessna.type = type
         print("userDefaults has saved aircraftType \(type)")
@@ -94,10 +93,10 @@ struct ContentView: View {
                     // MARK: Compute button logic
                     Button {
 
-                        let todDataFrameC172 = TODDataFrame(dataFrame: dataFrameC172)
-                        let torDataFrameC172 = TORDataFrame(dataFrame: dataFrameC172)
-                        let todDataFrameC182 = TODDataFrame(dataFrame: dataFrameC182)
-                        let torDataFrameC182 = TORDataFrame(dataFrame: dataFrameC182)
+                        let todDataFrameC172 = TODDataFrame(dataFrame: dataFrameC172P)
+                        let torDataFrameC172 = TORDataFrame(dataFrame: dataFrameC172P)
+                        let todDataFrameC182 = TODDataFrame(dataFrame: dataFrameC182RG)
+                        let torDataFrameC182 = TORDataFrame(dataFrame: dataFrameC182RG)
                         guard let weight = weight, let temperature = temperature, let elevation = elevation, let qnh = qnh  else { return }
                         
                         let pressureAltitude = correctedAltitude(for: elevation, and: qnh)
@@ -243,7 +242,7 @@ struct ContentView: View {
       //  .ignoresSafeArea()
         //.environment(\.aircraftType, "BigJet")
         .environmentObject(cessna)
-        .environmentObject(dataEntryFields)
+        .environmentObject(weightEntry)
     }///end of body
 }///end of struct
 
@@ -274,9 +273,6 @@ extension View {
 class Cessna: ObservableObject {
     @Published var type: String = "C172P"
     init() {
-        
-        print("Class init() ran")///runs at the start to put the default type into cessna.type
-        print("type is \(type)")
         let userDefaults = UserDefaults.standard
         guard let type = userDefaults.object(forKey: "aircraftType") as! String? else {return}///this is checking to see the last used aircraft type. If not then the default is C172P otherwise it's set to previously used type.
         self.type = type
