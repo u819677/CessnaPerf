@@ -57,7 +57,7 @@ struct ResultsView: View {
             // .shadow(radius: 5)
         }.frame(width: 320, height: 400, alignment: .center)
         }//.aircraftType(aircraft)
-            .environment(\.aircraftType, "Glider")
+            //.environment(\.aircraftType, "Glider")
     }
 }
 

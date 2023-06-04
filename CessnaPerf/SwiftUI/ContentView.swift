@@ -92,7 +92,7 @@ struct ContentView: View {
                     
                     // MARK: Compute button logic
                     Button {
-
+                        print("weight is \(String(describing: weight))")
                         let todDataFrameC172 = TODDataFrame(dataFrame: dataFrameC172P)
                         let torDataFrameC172 = TORDataFrame(dataFrame: dataFrameC172P)
                         let todDataFrameC182 = TODDataFrame(dataFrame: dataFrameC182RG)
@@ -117,7 +117,9 @@ struct ContentView: View {
                             ///firstly calc calm TOR then correct for windComponent
                             ftTOR = Double(torC182RG(dataFrame: torDataFrameC182, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
                             ftTOR = ftTOR * Factor(for: wind)
-                        } else  {
+                        } else if cessna.type == "C152" {
+                           print("C152 type is detected in Compute button logic")
+                        } else {
                             ftTOD = 0.01
                             ftTOR = 0.01
                         }
@@ -251,25 +253,25 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
-struct AircraftTypeKey: EnvironmentKey {
-    static let defaultValue: String = "Cirrus"
-}
+//struct AircraftTypeKey: EnvironmentKey {
+//    static let defaultValue: String = "Cirrus"
+//}
 
-extension EnvironmentValues {
-    var aircraftType: String {
-        get {
-            self[AircraftTypeKey.self]
-        }
-        set {
-            self[AircraftTypeKey.self] = newValue
-        }
-    }
-}
-extension View {
-    func aircraftType(_ aircraftType: String) -> some View {
-        environment(\.aircraftType, aircraftType)
-    }
-}
+//extension EnvironmentValues {
+//    var aircraftType: String {
+//        get {
+//            self[AircraftTypeKey.self]
+//        }
+//        set {
+//            self[AircraftTypeKey.self] = newValue
+//        }
+//    }
+//}
+//extension View {
+//    func aircraftType(_ aircraftType: String) -> some View {
+//        environment(\.aircraftType, aircraftType)
+//    }
+//}
 class Cessna: ObservableObject {
     @Published var type: String = "C172P"
     init() {

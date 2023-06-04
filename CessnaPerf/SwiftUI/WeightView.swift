@@ -10,9 +10,7 @@ import SwiftUI
 struct WeightView: View {
     @Environment(\.scenePhase) var scenePhase
     @EnvironmentObject var cessna: Cessna
-   // @EnvironmentObject var dataEntry: DataEntry
     let userDefaults = UserDefaults.standard
-    
     @State var weightEntry: String = ""//2400"
     @State var isValid: Bool = true
     @FocusState var textFieldHasFocus: Bool?
@@ -21,7 +19,6 @@ struct WeightView: View {
  
     var body: some View {
         HStack {
-          //  Text("  Weight:     ")
             Text(cessna.type != "C152" ? "  Weight:    " : "Weight:      1670lbs")
                 .font(.custom("Noteworthy-Bold", size: 25))
             if cessna.type != "C152" {
@@ -30,12 +27,6 @@ struct WeightView: View {
                     .focused($textFieldHasFocus, equals: true)
                     .onChange(of: textFieldHasFocus) { _ in
                         if weight == nil { weightEntry = "" }///to force user to press Enter
-                    }
-                   // .onChange(of: dataEntry.clear) { _ in   //this .onChange modifier looks pretty useful!
-                    .onChange(of: cessna.type) { _ in
-                        weightEntry = ""    ///clears the weight after there's been a type change in RadioButtonView
-                        weight = nil
-                        //dataEntry.clear = false
                     }
                     .keyboardType(.numberPad)
                     .toolbar {toolbarItems()}
@@ -58,15 +49,24 @@ struct WeightView: View {
             weight = nil
             textFieldHasFocus = true
         }
-        
+        .onAppear() {   ///to cover start up when C152 is the previously chosen type
+            if cessna.type == "C152" { weight = 1670 }
+        }
+        .onChange(of: cessna.type) { _ in
+            weightEntry = ""    ///clears the weight after there's been a type change in RadioButtonView
+            weight = nil
+            if cessna.type == "C152" {
+                weight = 1670
+            }
+        }
         .onChange(of: scenePhase) { _ in
             guard let calcTime = userDefaults.object(forKey: "calcTime") as! Date? else { return }
             ///because calc has not been done yet so there's no calcTime
             if calcTime.timeIntervalSinceNow < -3600 {
                 weightEntry = ""///forces a re-compute incase take off conditions have changed since earler calculation
+                weight = nil ///need to clear entry and also clear previous value
             }
         }
-        
     }  //end of body
 
     @ToolbarContentBuilder
@@ -122,9 +122,9 @@ struct WeightView: View {
     }//end of checkTOW
 }
 
-//struct WeightView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        WeightView()
-//    }
-//}
+struct WeightView_Previews: PreviewProvider {
+    static var previews: some View {
+        WeightView(weight: .constant(9999)).environmentObject(Cessna())
+    }
+}
 
