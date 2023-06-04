@@ -49,17 +49,12 @@ struct WeightView: View {
             weight = nil
             textFieldHasFocus = true
         }
-        .onAppear() {   ///to cover start up when C152 is the previously chosen type
-            if cessna.type == "C152" {
-           print("onAppear in WeightView ran")
-                weight = 1670 }
-        }
         .onChange(of: cessna.type) { _ in
             weightEntry = ""    ///clears the weight after there's been a type change in RadioButtonView
             weight = nil
-            if cessna.type == "C152" {
-                weight = 1670
-            }
+//            if cessna.type == "C152" {
+//                weight = 1670
+//            }
         }
         .onChange(of: scenePhase) { _ in
             guard let calcTime = userDefaults.object(forKey: "calcTime") as! Date? else { return }

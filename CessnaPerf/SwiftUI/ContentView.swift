@@ -100,8 +100,8 @@ struct ContentView: View {
                     
                     // MARK: Compute button logic
                     Button {
-                        print("weight is \(String(describing: weight))")
                         print("cessna.type is \(cessna.type)")
+                        if cessna.type == "C152" {weight = 1670}///tried setting this in WeightView but didn't get back here
                         let todDataFrameC172 = TODDataFrame(dataFrame: dataFrameC172P)
                         let torDataFrameC172 = TORDataFrame(dataFrame: dataFrameC172P)
                         let todDataFrameC182 = TODDataFrame(dataFrame: dataFrameC182RG)
@@ -115,30 +115,26 @@ struct ContentView: View {
                         if pressureAltitude > 2000 { showPressAltAlert = true }
                         
                         if cessna.type == "C172P" {
-                            ///firstly calc calm TOD then correct for windComponent
+                            ///firstly calc calm TOD then correct for windComponent, then repeat for TOR
                             ftTOD = Double(todC172P(dataFrame: todDataFrameC172, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
                             ftTOD = ftTOD * Factor(for: wind)
-                            ///firstly calc calm TOR then correct for windComponent
                             ftTOR = Double(torC172P(dataFrame: torDataFrameC172, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
                             ftTOR = ftTOR * Factor(for: wind)
                             
                         } else if cessna.type == "C182RG" {
-                            ///firstly calc calm TOD then correct for windComponent
+                            ///firstly calc calm TOD then correct for windComponent, then repeat for TOR
                             ftTOD = Double(todC182RG(dataFrame: todDataFrameC182, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
                             ftTOD = ftTOD * Factor(for: wind)
-                            ///firstly calc calm TOR then correct for windComponent
                             ftTOR = Double(torC182RG(dataFrame: torDataFrameC182, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
                             ftTOR = ftTOR * Factor(for: wind)
+                            
                         } else if cessna.type == "C152" {
                             ftTOD = Double(todC152(dataFrame: todDataFrameC152, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
                             ftTOD = ftTOD * Factor(for: wind)
                             ftTOR = Double(torC152(dataFrame: torDataFrameC152, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
                             ftTOR = ftTOR * Factor(for: wind)
-                            
-                        } else {
-                            ftTOD = 0.01
-                            ftTOR = 0.01
                         }
+                        
                         if isGrass {//add 15% of TOR in case of grass runway
                             let extraGrassFeet = ftTOR * 0.15
                             ftTOD += extraGrassFeet
@@ -151,7 +147,7 @@ struct ContentView: View {
                             showResults = true
                             return
                         }
-                        ///there's already a calcTime but no need to update it if it was done very recently, and actually it's better not to update it due other work that UserDefaults do in background
+                        ///there's already a calcTime so need to update it if it was done very recently, and anyway it's better not to update it too often due other work that UserDefaults do in background. This is to stop crashing in case of mashing the Compute button.
                         let elapsedTimeSinceCalc = calcTime.timeIntervalSinceNow
                         if elapsedTimeSinceCalc < -100 {    ///100s min time between calcTime updates should be ok.
                             let newCalcTime = Date()

@@ -62,16 +62,17 @@ func torC182RG(dataFrame: DataFrame, pressureAltitude: Int, temperature: Int, we
 
 func todC152(dataFrame: DataFrame, pressureAltitude: Int, temperature: Int, weight: Int) -> Int {
     let (rowIndexLowerAltitude1670lbs, columnIndexLowerTemperature) = pressureAltitudeAndTemperatureLowerBoundaryIndicees(pressureAltitude: pressureAltitude, temperature: temperature)
-    let tor1670lbs = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude1670lbs, temperature: temperature, columnIndexLowerTemperature: columnIndexLowerTemperature)
+    let tod1670lbs = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude1670lbs, temperature: temperature, columnIndexLowerTemperature: columnIndexLowerTemperature)
+//    let todC152 = todForActualWeightC152(weight: weight, tod3100: tod3100lbs, tod2800: tod2800lbs, tod2500: tod2500lbs)
     
-    return tor1670lbs
+    return tod1670lbs
 }
 
 func torC152(dataFrame: DataFrame, pressureAltitude: Int, temperature: Int, weight: Int) -> Int {
     let (rowIndexLowerAltitude1670lbs, columnIndexLowerTemperature) = pressureAltitudeAndTemperatureLowerBoundaryIndicees(pressureAltitude: pressureAltitude, temperature: temperature)
-    let tod1670lbs = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude1670lbs, temperature: temperature, columnIndexLowerTemperature: columnIndexLowerTemperature)
+    let tor1670lbs = feetActualPressureAltitudeActualTemperature(dataFrame: dataFrame, pressureAltitude: pressureAltitude, rowIndexLowerAltitude: rowIndexLowerAltitude1670lbs, temperature: temperature, columnIndexLowerTemperature: columnIndexLowerTemperature)
     
-    return tod1670lbs
+    return tor1670lbs
 }
 
 
@@ -179,6 +180,11 @@ func torForActualWeightC182RG(weight: Int, tor3100: Int, tor2800: Int, tor2500: 
     }
     return tor
 }
+
+//func todForActualWeightC152()
+
+
+
 
 func OldcorrectedPA(elevationEntry: String, qnhEntry: String) -> (Int, Bool) {
     //MARK:- calculate pa
