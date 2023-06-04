@@ -22,7 +22,7 @@ struct WeightView: View {
     var body: some View {
         HStack {
           //  Text("  Weight:     ")
-            Text(cessna.type != "C152" ? "  Weight    " : "C152")
+            Text(cessna.type != "C152" ? "  Weight    " : "Weight:   1670lbs")
                 .font(.custom("Noteworthy-Bold", size: 25))
             TextField("", text: $weightEntry)
                 .font(.custom("Noteworthy-Bold", size: 25))

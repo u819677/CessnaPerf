@@ -44,7 +44,7 @@ struct ContentView: View {
             print("cessna didset in ContentView ran")
         }
     }
-    @StateObject var weightEntry = DataEntry()
+    @StateObject var dataEntry = DataEntry()
     init() {
         let fileURLC172P = Bundle.main.url(forResource: "C172Pdata", withExtension: "csv")
         let fileURLC182RG = Bundle.main.url(forResource: "C182RGdata", withExtension: "csv")
@@ -242,7 +242,7 @@ struct ContentView: View {
       //  .ignoresSafeArea()
         //.environment(\.aircraftType, "BigJet")
         .environmentObject(cessna)
-        .environmentObject(weightEntry)
+        .environmentObject(dataEntry)
     }///end of body
 }///end of struct
 
