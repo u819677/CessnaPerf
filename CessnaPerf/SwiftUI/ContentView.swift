@@ -60,7 +60,7 @@ struct ContentView: View {
         do {self.dataFrameC152 = try DataFrame(contentsOfCSVFile: fileURLC152!)}
         catch {print("C152 url loading failed")}
             
-        guard let type = userDefaults.object(forKey: "aircraftType") as! String?
+        guard (userDefaults.object(forKey: "aircraftType") as! String?) != nil
         else { userDefaults.set("C172P", forKey: "aircraftType")
             return }
     }

@@ -14,11 +14,15 @@ struct FileView: View {
     @Binding var dataFile: String?
     let pdfC172P: PDFDocument
     let pdfC182RG: PDFDocument
+    let pdfC152: PDFDocument
+    
     init(dataFile: Binding<String?>) {
         let urlC172P = Bundle.main.url(forResource: "C172Pinfo", withExtension: "pdf")!
         pdfC172P = PDFDocument(url: urlC172P)!
         let urlC182RG = Bundle.main.url(forResource: "C182RGinfo", withExtension: "pdf")!
         pdfC182RG = PDFDocument(url: urlC182RG)!
+        let urlC152 = Bundle.main.url(forResource: "C152info", withExtension: "pdf")!
+        pdfC152 = PDFDocument(url: urlC152)!
         self._dataFile = dataFile
     }
     var body: some View {
@@ -27,6 +31,9 @@ struct FileView: View {
                 uiKitPDFView(showing: pdfC172P)
             } else if dataFile == "C182RG" {
                 uiKitPDFView(showing: pdfC182RG)
+            }  else if dataFile == "C152" {
+                    uiKitPDFView(showing: pdfC152)
+                
             }
             Spacer()
             Button("OK") {
