@@ -40,14 +40,14 @@ struct ResultsView: View {
                         = \(String(format: "%.0f",(ftTOD * 1.25 / 3.28) )) metres
                 
                 """)
-                .padding(10)
-                .frame(width: 300)//, height: 100)
+                //.padding(10)
+                .frame(width: 300, height: 140)
                 .background(RoundedRectangle(cornerRadius: 10).fill(Color(skyBlue)))
                 .font(.custom("Noteworthy-Bold", size: 25))
                 .foregroundColor(.black)
                 .padding(30)
             
-            
+            //Spacer()
             Button(" OK  "){
                 dismiss()
             }
@@ -58,7 +58,10 @@ struct ResultsView: View {
                 .stroke(Color.white, lineWidth: 3)
             )
             .background(Color.gray.opacity(0.6))
-        }.frame(width: 320, height: 400, alignment: .center)
+            .padding(.top, 100)
+        }.frame(width: 320, height: 700, alignment: .center)
+                //.border(.black, width:2)
+                
         }
     }
 }
