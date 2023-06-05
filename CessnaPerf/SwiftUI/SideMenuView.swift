@@ -21,7 +21,10 @@ struct SideMenuView: View {
                 .foregroundColor(.black)
             Divider()
                 .background(Color.black)
-            Button {//C152 File will go here
+            Button {
+                dataFile = "C152"
+                showFileView = true
+                showSideMenuView = false
             }
         label: {
             Text("C152    \(Image(systemName: "chevron.forward"))")
