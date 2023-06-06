@@ -23,6 +23,7 @@
 		233EFBB62A18B5A800DC589B /* oldElevationView.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 233EFBB52A18B5A800DC589B /* oldElevationView.rtf */; };
 		233EFBB82A18B5E700DC589B /* oldTemperatureView.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 233EFBB72A18B5E700DC589B /* oldTemperatureView.rtf */; };
 		233EFBBA2A18B61000DC589B /* oldWeightView.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 233EFBB92A18B61000DC589B /* oldWeightView.rtf */; };
+		236C44A32A2F1F9700741E72 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 236C44A22A2F1F9700741E72 /* Launch Screen.storyboard */; };
 		236E894129FFAE170011B767 /* CessnaPerfApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236E894029FFAE170011B767 /* CessnaPerfApp.swift */; };
 		236E894329FFAE170011B767 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236E894229FFAE170011B767 /* ContentView.swift */; };
 		236E894529FFAE190011B767 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 236E894429FFAE190011B767 /* Assets.xcassets */; };
@@ -57,6 +58,7 @@
 		233EFBB52A18B5A800DC589B /* oldElevationView.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = oldElevationView.rtf; sourceTree = "<group>"; };
 		233EFBB72A18B5E700DC589B /* oldTemperatureView.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = oldTemperatureView.rtf; sourceTree = "<group>"; };
 		233EFBB92A18B61000DC589B /* oldWeightView.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = oldWeightView.rtf; sourceTree = "<group>"; };
+		236C44A22A2F1F9700741E72 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		236E893D29FFAE170011B767 /* CessnaPerf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CessnaPerf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		236E894029FFAE170011B767 /* CessnaPerfApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CessnaPerfApp.swift; sourceTree = "<group>"; };
 		236E894229FFAE170011B767 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				233D9B872A1F4CAB00C89497 /* AircraftView.swift */,
 				233D9B892A1F4F8700C89497 /* AircraftPickerView.swift */,
 				233D9BDF2A21419A00C89497 /* RadioButtonView.swift */,
+				236C44A22A2F1F9700741E72 /* Launch Screen.storyboard */,
 				233EFBD72A1902ED00DC589B /* SupportingFunctions */,
 			);
 			path = SwiftUI;
@@ -235,6 +238,7 @@
 				233EFBB82A18B5E700DC589B /* oldTemperatureView.rtf in Resources */,
 				233EFBB62A18B5A800DC589B /* oldElevationView.rtf in Resources */,
 				23E299A22A0BCFB10036E691 /* SpareCode.rtf in Resources */,
+				236C44A32A2F1F9700741E72 /* Launch Screen.storyboard in Resources */,
 				233EFBBA2A18B61000DC589B /* oldWeightView.rtf in Resources */,
 				23E299822A0250750036E691 /* C172Pdata.csv in Resources */,
 				233D9BE42A23C6D600C89497 /* C182RGdata.csv in Resources */,
@@ -407,8 +411,10 @@
 				INFOPLIST_FILE = CessnaPerf/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -417,9 +423,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.rdcsoftware.CessnaPerf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -437,8 +446,10 @@
 				INFOPLIST_FILE = CessnaPerf/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -447,9 +458,12 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = net.rdcsoftware.CessnaPerf;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
