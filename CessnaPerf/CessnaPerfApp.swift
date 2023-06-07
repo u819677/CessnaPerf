@@ -12,7 +12,7 @@ struct CessnaPerfApp: App {
     var body: some Scene {
         WindowGroup {
             //WindPicker(windComponent: .constant("testing"))
-            ContentView()
+            ContentView()//.statusBarHidden(true)
             //PDFUIView()
             //SurfaceView(isTarmac: .constant(true))
         }

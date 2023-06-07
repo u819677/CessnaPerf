@@ -75,7 +75,8 @@ struct WeightView: View {
                     weight = nil
                     textFieldHasFocus = nil
                 }
-            label: {Text("Cancel").bold() }
+            label: {Text("Cancel").bold() }.foregroundColor(.black)
+                
                 Button{
                     print("weight in WeightView toolbar is \(String(describing: weight))")
                     isValid = checkTOW(of: weightEntry)
@@ -86,11 +87,11 @@ struct WeightView: View {
                     }
                     textFieldHasFocus = nil
                 }
-            label: {Text("Enter").bold() }
+            label: {Text("Enter").bold()}.foregroundColor(.black)
             }   //end ToolbarItemGroup
         }   //end if
     }
-
+    
     private func checkTOW(of weightEntry: String) -> Bool {
         if weightEntry.isEmpty {
             return false

@@ -69,3 +69,4 @@ func TORDataFrame(dataFrame: DataFrame) -> DataFrame {
 }
 
 let skyBlue = UIColor(hue: 0.5472, saturation: 0.42, brightness: 0.97, alpha: 1.0)
+let C172P = "C172P" //this could be used to remove risk of typo but not sure it adds much. 

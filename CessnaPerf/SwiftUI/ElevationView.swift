@@ -67,7 +67,7 @@ struct ElevationView: View {
                     elevation = nil
                     textFieldHasFocus = nil
                 }
-            label: {Text("Cancel").bold() }
+            label: {Text("Cancel").bold() }.foregroundColor(.black)
                 Button{
                     isValid = checkElevation(of: elevationEntry)
                     if isValid {
@@ -77,7 +77,7 @@ struct ElevationView: View {
                     }
                     textFieldHasFocus = nil
                 }
-            label: {Text("Enter").bold() }
+            label: {Text("Enter").bold() }.foregroundColor(.black)
             }   //end ToolbarItemGroup
         }   //end if
     }

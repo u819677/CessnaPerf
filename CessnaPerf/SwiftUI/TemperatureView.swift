@@ -70,7 +70,7 @@ struct TemperatureView: View {
                     temperature = nil
                     textFieldHasFocus = nil
                 }
-            label: {Text("Cancel").bold() }
+            label: {Text("Cancel").bold() }.foregroundColor(.black)
                 Button{
                     isValid = checkValidity(of: tempEntry)
                     if isValid {
@@ -80,7 +80,7 @@ struct TemperatureView: View {
                     }
                     textFieldHasFocus = nil
                 }
-            label: {Text("Enter").bold() }
+            label: {Text("Enter").bold() }.foregroundColor(.black)
             }
         }//end if
     }

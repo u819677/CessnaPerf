@@ -82,7 +82,7 @@ struct ContentView: View {
                         .foregroundColor(.white)
                         .padding(.top)
                     Spacer()
-                    
+               
                     // MARK: Compute button logic
                     Button {
                         print("cessna.type is \(cessna.type)")
@@ -147,18 +147,24 @@ struct ContentView: View {
                     //MARK: Calculate button View
                 label: {
                     Text("  Compute  ")
+                        //.background(.gray)
                         .foregroundColor(.white).bold()
                         .font(.custom("Noteworthy Bold", size: 25))
+                       // .background(.gray)
                         .padding(5)
+                   //    .background(.red)
+                        //.background(Color.gray)
                         .overlay(RoundedRectangle(cornerRadius: 5)
                             .stroke(Color.white, lineWidth: 4).bold()
                         )
-                        .background(Color.gray)
+                        .background {Color.gray}
+                       // .background(Color.gray)
                 }///end of Button
                 .opacity(showSideMenuView ? 0.0 : 1.0)
-                .padding(80)
+                .padding()
                 }//end of second layer VStack
-                .ignoresSafeArea(.keyboard)//this stops Calculate button moving up behind keyboard
+                .ignoresSafeArea(.keyboard)///this stops Compute button moving up behind keyboard
+               // .border(.green, width: 4)
                 //MARK: textFields layer
                     VStack{//this layer is on top of the image and then the Calculate button
                         Spacer()
@@ -175,8 +181,9 @@ struct ContentView: View {
                         SurfaceView(isGrass: $isGrass)
                             .padding(10)
                         Spacer()
-                    }.padding(.top, 50)///need something like this to prevent top textField go out of view when keyboard
+                    }.padding(.top, 70)///need something like this to prevent top textField go out of view when keyboard
                 .opacity(showSideMenuView ? 0.0 : 1.0)//end of top layer VStack
+                //.border(Color.blue, width: 2)
                 Color.black
                     .opacity(showSideMenuView ? 0.5 : 0.0)
                     .onTapGesture {
@@ -205,6 +212,7 @@ struct ContentView: View {
                                     .mask(Circle())                                
                             }
                             }//end of HStack
+                            .padding(.bottom, 25)
                         }
                     }
                 }//end of .toolbar
@@ -238,6 +246,7 @@ struct ContentView: View {
             }
         }//end NavView
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)///this is prob needed to lock the whole ZStack although still needs the -50 for height of image
+       // .border(Color.white, width: 2)
         .environmentObject(cessna)
     }///end of body
 }///end of struct
