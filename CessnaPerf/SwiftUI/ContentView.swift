@@ -77,6 +77,7 @@ struct ContentView: View {
                     
                     // MARK: Compute button logic
                     Button {
+                        print("Tapped")
                         if cessna.type == "C152" {weight = 1670}///tried setting this in WeightView but didn't get back here
                         let todDataFrameC172P = TODDataFrame(dataFrame: dataFrameC172P)
                         let torDataFrameC172P = TORDataFrame(dataFrame: dataFrameC172P)
@@ -139,24 +140,29 @@ struct ContentView: View {
                         }
                         showResults = true
                     }
-                    
-                    //MARK: Compute Button View
                 label: {
-                    Text("  Compute  ")
+                    Text("Compute")
+                        .padding(10)
                         .foregroundColor(.white).bold()
+                        //.border(.white, width: 3)
                         .font(.custom("Noteworthy Bold", size: 25))
-                        .padding(5)
+                       
                         .overlay(RoundedRectangle(cornerRadius: 5)
                             .stroke(Color.white, lineWidth: 4).bold()
                         )
                         .background {Color.gray} /// a lot of different ways to add this background, this is only way that works and doesn't 'leak' to the edge of the view
-                        .contentShape(Rectangle())
-                }///end of Button
+                        
+                }//.contentShape(Rectangle())///end of Button
+                .padding()
+                //.border(.white, width: 3)
+                .contentShape(Rectangle())
+                .padding(.bottom,20)
+                    
                 .sheet(isPresented: $showResults) { ///this can go elsewhere but seems good idea to put close to Button
                     ResultsView(ftTOD: $ftTOD,  ftTOR: $ftTOR)
                 }
                 .opacity(showSideMenuView ? 0.0 : 1.0)
-                .padding()
+                //.padding()
                 }//end of second layer VStack
                 .ignoresSafeArea(.keyboard)///this stops Compute button moving up behind keyboard
                 
@@ -184,27 +190,38 @@ struct ContentView: View {
                     .offset(x:showSideMenuView ? -UIScreen.main.bounds.width/4 : -UIScreen.main.bounds.width )
                     .animation(.easeInOut(duration: 0.4), value: showSideMenuView)
                 
-                //MARK: toolbar
-                    .toolbar {
-                        if showSideMenuView == false {
-                            ToolbarItemGroup(placement: .bottomBar) {
-                                HStack{
-                                    Text("")
-                                    Spacer()///pushes ellipsis toolbar icon to the right edge
-                                    Button{ showSideMenuView = true }
-                                label: {
-                                    Image(systemName: "ellipsis") //Image(systemName: "text.justify") //(is another option)
-                                        .frame(width: 40, height: 40)
-                                        .foregroundColor(.black)
-                                        .background(Color(skyBlue))
-                                        .mask(Circle())
-                                }
-                                }//end of HStack
-                                .padding(.bottom, 25)
-                            }
-                        }
-                    }//end of .toolbar
+           
+                   
             }//end of ZStack
+            //MARK: toolbar
+            .toolbar {
+                if showSideMenuView == false {
+                    ToolbarItemGroup(placement: .bottomBar) {
+                        Spacer().allowsHitTesting(false)
+                       // Button("TEST") {}
+                       // HStack{
+//                                    Text("")
+//                                        .border(.white,width: 2)
+                         //   Spacer()///pushes ellipsis toolbar icon to the right edge
+                            Button{ showSideMenuView = true }
+                        label: {
+                            Image(systemName: "ellipsis") //Image(systemName: "text.justify") //(is another option)
+                                .frame(width: 40, height: 40)
+                                .foregroundColor(.black)
+                                .background(Color(skyBlue))
+                                .mask(Circle())
+                                .padding()//.bottom,20)
+                        }
+                     //   }//end of HStack
+                       // .frame(width: UIScreen.main.bounds.width)
+                      //  .padding(.bottom, 25)
+                        .border(.green, width: 4)
+                    }
+                }
+            }//end of .toolbar
+            .border(.black, width: 5)
+            
+            
             //MARK: userDefaults update
             .onChange(of: scenePhase) { newPhase in///scope comes here if maybe app has been asleep then woken up
                 if newPhase == .active {
@@ -223,7 +240,7 @@ struct ContentView: View {
                 }
             }
         }//end NavView
-        .alert("Pressure Altitude is above 2000ft, use POH data", isPresented: $showPressAltAlert) {
+        .alert("Pressure Altitude is above 2000ft: use POH data", isPresented: $showPressAltAlert) {
             Button("OK", role: .cancel) { }
         }
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)///this is prob needed to lock the whole ZStack although still needs the -50 for height of image
