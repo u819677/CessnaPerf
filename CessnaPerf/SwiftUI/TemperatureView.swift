@@ -33,8 +33,8 @@ struct TemperatureView: View {
                             }
                         }
                         .keyboardType(.numberPad)
-                        .padding()
-                        .position(x: 50, y: 12)
+                        .padding(.leading, 10)
+                       // .position(x: 50, y: 12)
                         .frame(width: 80, height: 28)
                         .border(Color.black, width: 0.5)
                         .background(isValid ? Color.clear : Color.red.opacity(0.7))
@@ -96,8 +96,8 @@ struct TemperatureView: View {
 }//end of struct
 
 
-//struct TemperatureView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        TemperatureView(temperature: .constant(11))
-//    }
-//}
+struct TemperatureView_Previews: PreviewProvider {
+    static var previews: some View {
+        TemperatureView(temperature: .constant(11))
+    }
+}

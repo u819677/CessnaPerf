@@ -19,7 +19,7 @@ struct WeightView: View {
  
     var body: some View {
         HStack {
-            Text(cessna.type != "C152" ? "  Weight:    " : "Weight:      1670lbs")
+            Text(cessna.type != "C152" ? "  Weight:    " : "Weight:      1670  lbs")
                 .font(.custom("Noteworthy-Bold", size: 25))
             if cessna.type != "C152" {
                 TextField("", text: $weightEntry)
@@ -30,9 +30,10 @@ struct WeightView: View {
                     }
                     .keyboardType(.numberPad)
                     .toolbar {toolbarItems()}
-                    .padding()
-                    .position(x: 50, y: 12)
-                    .frame(width: 120, height: 28)
+                    .padding(.leading,10)
+                   // .position(x: 50, y: 12)
+                    .frame(width: 110, height: 28)
+                
                     .border(Color.black, width: 0.5)
                     .background(isValid ? Color.clear : Color.red.opacity(0.7))
                 Text("lbs")

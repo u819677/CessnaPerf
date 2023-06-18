@@ -15,6 +15,10 @@ struct SurfaceView: View {
             .toggleStyle(
                 SurfaceToggle(isGrass: $isGrass,
                               thumbColor: Color(UIColor.systemGray2)))
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color(skyBlue), lineWidth: 2)
+            )
     }
 }
 

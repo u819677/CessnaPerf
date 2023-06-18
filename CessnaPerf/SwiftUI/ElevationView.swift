@@ -20,7 +20,7 @@ struct ElevationView: View {
         HStack {
             Text("  Elevation:     ")
                 .font(.custom("Noteworthy-Bold", size: 25))
-            TextField("", text: $elevationEntry)
+            TextField("", text: $elevationEntry)//.multilineTextAlignment(.trailing)
                 .font(.custom("Noteworthy-Bold", size: 25))
                 .focused($textFieldHasFocus, equals: true)
                 .onChange(of: textFieldHasFocus) { _ in
@@ -31,9 +31,9 @@ struct ElevationView: View {
                 .keyboardType(.numberPad)
                 .toolbar {toolbarItems()}
 
-                .padding()
-                .position(x: 50, y: 12)
-                .frame(width: 120, height: 28)
+                .padding(.leading, 10)
+                //.position(x: 50, y: 12)
+                .frame(width: 100, height: 28)
                 .border(Color.black, width: 0.5)
                 .background(isValid ? Color.clear : Color.red.opacity(0.7))
             Text("ft")
@@ -97,10 +97,9 @@ struct ElevationView: View {
     }
 }
 
-//struct WeightView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        WeightView()
-//    }
-//}
-
+struct ElevationView_Previews: PreviewProvider {
+    static var previews: some View {
+        ElevationView(elevation: .constant(11)).environmentObject(Cessna())
+    }
+}
 

@@ -30,9 +30,9 @@ struct QNHView: View {
                 }
                 .keyboardType(.numberPad)
                 .toolbar {toolbarItems()}
-                .padding()
+                .padding(.leading,10)
                 .position(x: 50, y: 12)
-                .frame(width: 120, height: 28)
+                .frame(width: 90, height: 28)
                 .border(Color.black, width: 0.5)
                 .background(isValid ? Color.clear : Color.red.opacity(0.7))
             Text("hPa")
@@ -96,10 +96,10 @@ struct QNHView: View {
     }
 }
 
-//struct WeightView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        WeightView()
-//    }
-//}
+struct QNHView_Previews: PreviewProvider {
+    static var previews: some View {
+        QNHView(qnh: .constant(1013))
+    }
+}
 
 

@@ -29,11 +29,21 @@ struct ContentView: View {
     
     @State var ftTOD: Double = 0.0
     @State var ftTOR: Double = 0.0
+  //  @Environment(\.keyboardShowing) var keyboardShowing
     
+    @State var keyboardShowing: Bool = false
     var dataFrameC172P = DataFrame(), dataFrameC182RG = DataFrame(), dataFrameC152 = DataFrame()
     
-    @Environment(\.scenePhase) var scenePhase
-    @Environment(\.isFocused) var isFocused
+    @Environment(\.scenePhase) var scenePhase {
+        didSet{
+            print("scenePhase didSet")
+        }
+    }
+//    @Environment(\.isFocused) var isFocused{
+//        didSet{
+//            print("isFocused didSet")
+//        }
+//    }
     let userDefaults = UserDefaults.standard
     
     @StateObject var cessna = Cessna()///this allows access to Cessna class from various child views
@@ -75,91 +85,19 @@ struct ContentView: View {
                         .padding(.top)
                     Spacer()
                     
-                    // MARK: Compute button logic
-                    Button {
-                        compute()
-//                        print("Tapped")
-//                        if cessna.type == "C152" {weight = 1670}///tried setting this in WeightView but didn't get back here
-//                        let todDataFrameC172P = TODDataFrame(dataFrame: dataFrameC172P)
-//                        let torDataFrameC172P = TORDataFrame(dataFrame: dataFrameC172P)
-//
-//                        let todDataFrameC182RG = TODDataFrame(dataFrame: dataFrameC182RG)
-//                        let torDataFrameC182RG = TORDataFrame(dataFrame: dataFrameC182RG)
-//
-//                        let todDataFrameC152 = TODDataFrame(dataFrame: dataFrameC152)
-//                        let torDataFrameC152 = TORDataFrame(dataFrame: dataFrameC152)
-//
-//                        guard let weight = weight, let temperature = temperature, let elevation = elevation, let qnh = qnh  else { return }
-//
-//                        let pressureAltitude = correctedAltitude(for: elevation, and: qnh)
-//                        if pressureAltitude > 2000 {
-//                            showPressAltAlert = true
-//                            return  ///Without this return cannot display results sheet!
-//                        }
-//
-//                        switch cessna.type {
-//                            /// for each type: firstly calc calm TOD then correct for windComponent.  Then repeat using TOR figures.
-//                        case "C172P":
-//                            ftTOD = Double(todC172P(dataFrame: todDataFrameC172P, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
-//                            ftTOD = ftTOD * Factor(for: wind)
-//                            ftTOR = Double(torC172P(dataFrame: torDataFrameC172P, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
-//                            ftTOR = ftTOR * Factor(for: wind)
-//
-//                        case "C182RG":
-//                            ftTOD = Double(todC182RG(dataFrame: todDataFrameC182RG, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
-//                            ftTOD = ftTOD * Factor(for: wind)
-//                            ftTOR = Double(torC182RG(dataFrame: torDataFrameC182RG, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
-//                            ftTOR = ftTOR * Factor(for: wind)
-//
-//                        case "C152":
-//                            ftTOD = Double(todC152(dataFrame: todDataFrameC152, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
-//                            ftTOD = ftTOD * Factor(for: wind)
-//                            ftTOR = Double(torC152(dataFrame: torDataFrameC152, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
-//                            ftTOR = ftTOR * Factor(for: wind)
-//                        default:
-//                            return
-//                        }
-//
-//                        if isGrass {//add 15% of TOR in case of grass runway
-//                            let extraGrassFeet = ftTOR * 0.15
-//                            ftTOD += extraGrassFeet
-//                            ftTOR += extraGrassFeet
-//                        }
-//
-//                        guard let calcTime = userDefaults.object(forKey: "calcTime") as! Date? else {
-//                            let calcTime = Date()
-//                            userDefaults.set(calcTime, forKey: "calcTime")
-//                            showResults = true
-//                            print("no calcTime was in userDefaults")
-//                            return
-//                        }
-//                        ///there's already a calcTime so need to update it if it was done very recently, and anyway it's better not to update it too often due other work that UserDefaults do in background. This is to stop crashing in case of mashing the Compute button.
-//                        let elapsedTimeSinceCalc = calcTime.timeIntervalSinceNow
-//                        if elapsedTimeSinceCalc < -100 {    ///only create new calcTime if existing calcTime is more than 100s old
-//                            let newCalcTime = Date()
-//                            userDefaults.set(newCalcTime, forKey: "calcTime")
-//                        }
-                      //  showResults = true
-                    }
-                label: {
-                    computeLabel
-//                    Text("Compute")
-//                        .padding(10)
-//                        .foregroundColor(.white).bold()
-//                        //.border(.white, width: 3)
-//                        .font(.custom("Noteworthy Bold", size: 25))
-//
-//                        .overlay(RoundedRectangle(cornerRadius: 5)
-//                            .stroke(Color.white, lineWidth: 4).bold()
-//                        )
-//                        .background {Color.gray} /// a lot of different ways to add this background, this is only way that works and doesn't 'leak' to the edge of the view
-                        
-                }//.contentShape(Rectangle())///end of Button
-                .padding()
-                //.border(.white, width: 3)
-                .contentShape(Rectangle())
-                .padding(.bottom,0)
+//                    // MARK: Compute button logic
+//                    Button {
                     
+//                        compute()
+//                    }
+//                label: {
+//                    computeLabel
+//                }//.contentShape(Rectangle())///end of Button
+//                .padding()
+//                //.border(.white, width: 3)
+//                .contentShape(Rectangle())
+//                .padding(.bottom,0)
+//
                 .sheet(isPresented: $showResults) { ///this can go elsewhere but seems good idea to put close to Button
                     ResultsView(ftTOD: $ftTOD,  ftTOR: $ftTOR)
                 }
@@ -176,10 +114,16 @@ struct ContentView: View {
                     ElevationView(elevation: $elevation).padding(10)
                     QNHView(qnh: $qnh).padding(10)
                     WindView(wind: $wind).padding(10)
-                    SurfaceView(isGrass: $isGrass).padding(10)
+                    SurfaceView(isGrass: $isGrass).padding(10).opacity(keyboardShowing ? 0 : 1)//.animation(.easeInOut, value: 10)
+                   
+                        Button{
+                            compute()} label: {
+                                computeLabel
+                            }.padding(20).opacity(keyboardShowing ? 0 : 1)
                     Spacer()
                 }.padding(.top, 70)///need something like this to prevent top textField go out of view when keyboard
                     .opacity(showSideMenuView ? 0.0 : 1.0)//end of top layer VStack
+                    .ignoresSafeArea(.keyboard)
                 Color.black
                     .opacity(showSideMenuView ? 0.5 : 0.0)
                     .onTapGesture {
@@ -217,11 +161,11 @@ struct ContentView: View {
                      //   }//end of HStack
                        // .frame(width: UIScreen.main.bounds.width)
                       //  .padding(.bottom, 25)
-                        .border(.green, width: 4)
+                        //.border(.green, width: 4)
                     }
                 }
             }//end of .toolbar
-            .border(.black, width: 5)
+          //  .border(.black, width: 5)
             
             
             //MARK: userDefaults update
@@ -247,9 +191,20 @@ struct ContentView: View {
         }
         .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)///this is prob needed to lock the whole ZStack although still needs the -50 for height of image
         .environmentObject(cessna)
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
+            print("keyboardWillShowNotification")
+            keyboardShowing = true
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+            print("keyboardWillHideNotification")
+            keyboardShowing = false
+        }
     }///end of body
+    
+    ///
+    //MARK: Compute Button
     @ViewBuilder var computeLabel: some View {
-        Text("Compute")
+        Text("Compute")//.hidden()
             .padding(10)
             .foregroundColor(.white).bold()
             //.border(.white, width: 3)
@@ -261,7 +216,6 @@ struct ContentView: View {
             .background {Color.gray} /// a lot of different ways to add this background, this is only way that works and doesn't 'leak' to the edge of the view
     }
     func compute() -> Void {
-        print("Tapped")
         if cessna.type == "C152" {weight = 1670}///tried setting this in WeightView but didn't get back here
         let todDataFrameC172P = TODDataFrame(dataFrame: dataFrameC172P)
         let torDataFrameC172P = TORDataFrame(dataFrame: dataFrameC172P)
@@ -322,7 +276,7 @@ struct ContentView: View {
             userDefaults.set(newCalcTime, forKey: "calcTime")
         }
         showResults = true
-    }
+    }//end of Compute button
     
     
     
