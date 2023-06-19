@@ -19,7 +19,7 @@ struct WeightView: View {
  //MARK: body
     var body: some View {
         HStack {
-            Text(cessna.type != "C152" ? "  Weight:    " : "Weight:      1670  lbs")
+            Text(cessna.type != "C152" ? "  Weight:    " : "Weight:      1670  lbs").padding(.bottom, 4)///just to lift the tail of the g up into the blue
             if cessna.type != "C152" {///C152 does not accept user entry; POH only gives figures for 1670lbs
                 TextField("", text: $weightEntry)
                     .textFieldModifier()

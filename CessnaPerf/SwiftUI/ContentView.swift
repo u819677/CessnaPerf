@@ -29,26 +29,16 @@ struct ContentView: View {
     
     @State var ftTOD: Double = 0.0
     @State var ftTOR: Double = 0.0
-  //  @Environment(\.keyboardShowing) var keyboardShowing
     
-    @State var keyboardShowing: Bool = false
+    @State var keyboardShowing: Bool = false    //allows to hide some Views when keyboard visible
     var dataFrameC172P = DataFrame(), dataFrameC182RG = DataFrame(), dataFrameC152 = DataFrame()
     
-    @Environment(\.scenePhase) var scenePhase {
-        didSet{
-            print("scenePhase didSet")
-        }
-    }
-//    @Environment(\.isFocused) var isFocused{
-//        didSet{
-//            print("isFocused didSet")
-//        }
-//    }
+    @Environment(\.scenePhase) var scenePhase
     
     let userDefaults = UserDefaults.standard
     
     @StateObject var cessna = Cessna()///this allows access to Cessna class from various child views
-
+    //MARK: init
     init() {
         let fileURLC172P = Bundle.main.url(forResource: "C172Pdata", withExtension: "csv")
         let fileURLC182RG = Bundle.main.url(forResource: "C182RGdata", withExtension: "csv")
@@ -80,30 +70,16 @@ struct ContentView: View {
                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height-50)
                 
                 VStack{
-                    Text(showSideMenuView ? "" : "\(cessna.type) Take Off Perf")
+                    Text(showSideMenuView ? "" : "\(cessna.type) Take Off Perf")///clears the title for the side menu
                         .font(.custom("Noteworthy Bold", size: 26))
                         .foregroundColor(.white)
                         .padding(.top)
                     Spacer()
-                    
-//                    // MARK: Compute button logic
-//                    Button {
-                    
-//                        compute()
-//                    }
-//                label: {
-//                    computeLabel
-//                }//.contentShape(Rectangle())///end of Button
-//                .padding()
-//                //.border(.white, width: 3)
-//                .contentShape(Rectangle())
-//                .padding(.bottom,0)
-//
+
                 .sheet(isPresented: $showResults) { ///this can go elsewhere but seems good idea to put close to Button
                     ResultsView(ftTOD: $ftTOD,  ftTOR: $ftTOR)
                 }
                 .opacity(showSideMenuView ? 0.0 : 1.0)
-                //.padding()
                 }//end of second layer VStack
                 .ignoresSafeArea(.keyboard)///this stops Compute button moving up behind keyboard
                 
@@ -120,7 +96,7 @@ struct ContentView: View {
                         Button{
                             compute()} label: {
                                 computeLabel
-                            }.padding(20).opacity(keyboardShowing ? 0 : 1)
+                            }.padding(30).opacity(keyboardShowing ? 0 : 1)
                     Spacer()
                 }.padding(.top, 70)///need something like this to prevent top textField go out of view when keyboard
                     .opacity(showSideMenuView ? 0.0 : 1.0)//end of top layer VStack
@@ -205,7 +181,7 @@ struct ContentView: View {
     ///
     //MARK: Compute Button
     @ViewBuilder var computeLabel: some View {
-        Text("Compute")//.hidden()
+        Text("Compute")
             .padding(10)
             .foregroundColor(.white).bold()
             //.border(.white, width: 3)

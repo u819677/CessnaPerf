@@ -20,7 +20,6 @@ struct QNHView: View {
     var body: some View {
         HStack {
             Text("  QNH:     ")
-                .font(.custom("Noteworthy-Bold", size: 25))
             TextField("", text: $qnhEntry)
                 .textFieldModifier()
                 .focused($textFieldHasFocus, equals: true)
@@ -76,7 +75,7 @@ struct QNHView: View {
         if let intQNH = Int(qnhInput) {
             if intQNH >= 950 && intQNH <= 1050 {
                 return true
-            }else {  return false }
+            } else {  return false }
         }
         return false
     }

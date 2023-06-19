@@ -24,7 +24,7 @@ struct WindView: View {
                 .foregroundColor(.black)
                 .padding()
         }
-            .frame(width: 320, height: 35)
+            .frame(width: 320, height: 40)
             .background(RoundedRectangle(cornerRadius: 10).fill(Color(skyBlue)))
             .onTapGesture {
                 showWindPicker = true

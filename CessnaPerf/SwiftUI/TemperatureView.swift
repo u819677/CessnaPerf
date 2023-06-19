@@ -25,14 +25,15 @@ struct TemperatureView: View {
     //MARK: body
     var body: some View {
                 HStack {
-                    Text("    Temp:            ")
+                    Text("    Temp:            ").padding(.bottom, 4)
                     TextField("", text: $tempEntry)
-                        .textFieldModifier()
+                        .padding(.leading,10)
+                        .frame(width: 80, height: 28)///different width so not using custom modifier here
+                        .border(Color.black, width: 0.5)
+                        .keyboardType(.numberPad)
                         .focused($textFieldHasFocus, equals: true)
                         .onChange(of: textFieldHasFocus) { _ in
-                                if temperature == nil {
-                                    tempEntry = ""
-                            }
+                            if temperature == nil { tempEntry = ""}
                         }
                         .background(isValid ? Color.clear : Color.red.opacity(0.7))
                     Text("°C")

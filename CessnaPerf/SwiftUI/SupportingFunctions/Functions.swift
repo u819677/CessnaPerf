@@ -75,7 +75,7 @@ struct DataEntryViewModifier: ViewModifier {
         content
             .font(.custom("Noteworthy-Bold", size: 25))
             //.keyboardType(.numberPad)
-            .frame(width: 320,height: 35)
+            .frame(width: 320,height: 40)
            // .border(Color.black, width: 0.5)
             .background(RoundedRectangle(cornerRadius: 10).fill(Color(skyBlue)))
 
@@ -94,8 +94,6 @@ struct TextFieldModifier: ViewModifier {
 extension View {
     func dataEntryModifier() -> some View {
         modifier(DataEntryViewModifier())
-           
-        
     }
     func textFieldModifier() -> some View {
         modifier(TextFieldModifier())
