@@ -31,7 +31,8 @@ struct QNHView: View {
                 .keyboardType(.numberPad)
                 .toolbar {toolbarItems()}
                 .padding(.leading,10)
-                .position(x: 50, y: 12)
+                
+               // .position(x: 50, y: 12)
                 .frame(width: 90, height: 28)
                 .border(Color.black, width: 0.5)
                 .background(isValid ? Color.clear : Color.red.opacity(0.7))

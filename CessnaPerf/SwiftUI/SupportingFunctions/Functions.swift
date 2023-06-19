@@ -69,3 +69,35 @@ func TORDataFrame(dataFrame: DataFrame) -> DataFrame {
 
 let skyBlue = UIColor(hue: 0.5472, saturation: 0.42, brightness: 0.97, alpha: 1.0)
 let C172P = "C172P" //this could be used to remove risk of typo but not sure it adds much. 
+
+struct DataEntryViewModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .font(.custom("Noteworthy-Bold", size: 25))
+            //.keyboardType(.numberPad)
+            .frame(width: 320,height: 35)
+           // .border(Color.black, width: 0.5)
+            .background(RoundedRectangle(cornerRadius: 10).fill(Color(skyBlue)))
+
+    }
+}
+struct TextFieldModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        content
+            .padding(.leading,10)
+            .frame(width: 110, height: 28)
+            .border(Color.black, width: 0.5)
+            .keyboardType(.numberPad)
+
+    }
+}
+extension View {
+    func dataEntryModifier() -> some View {
+        modifier(DataEntryViewModifier())
+           
+        
+    }
+    func textFieldModifier() -> some View {
+        modifier(TextFieldModifier())
+    }
+}

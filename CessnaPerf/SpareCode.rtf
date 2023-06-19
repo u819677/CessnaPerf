@@ -207,7 +207,7 @@
 \f1\b \cf18 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 private
 \f0\b0 \cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0  
 \f1\b \cf18 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 var
-\f0\b0 \cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0  showingAlert = \cf19 \cb16 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 false\cf15 \cb16 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 \
+\f0\b0 \cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0  showingAlert = \cf19 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 false\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 \
 \
     
 \f1\b \cf18 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 var
@@ -215,9 +215,9 @@
 \f1\b \cf18 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 some
 \f0\b0 \cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0  \cf20 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 View\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0  \{\
         \cf20 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 Button\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 (\cf21 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 "Show Alert"\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 ) \{\
-            showingAlert = \cf19 \cb16 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 true\cf15 \cb16 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 \
+            showingAlert = \cf19 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 true\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 \
         \}\
-        .\cf22 \cb16 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 alert\cf15 \cb16 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 (\cf21 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 "Important message"\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 , isPresented: $showingAlert) \{\
+        .\cf22 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 alert\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 (\cf21 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 "Important message"\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 , isPresented: $showingAlert) \{\
             \cf20 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 Button\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 (\cf21 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 "OK"\cf15 \shad\shadx0\shady-20\shadr0\shado0 \shadc0 , role: .cancel) \{ \}\
         \}\
     \}
@@ -308,4 +308,7 @@ useful way to clear userDefaults during development\
 \f0\b0 \cf4  bundleID = \cf8 Bundle\cf4 .\cf9 main\cf4 .\cf9 bundleIdentifier\cf4  \{\
             \cf8 UserDefaults\cf4 .\cf9 standard\cf4 .\cf9 removePersistentDomain\cf4 (\cf9 forName\cf4 : bundleID)\
         \}\
+\
+   \cf2 //   if textFieldHasFocus ?? false \{  //conditional builder is only avail in iOS16\
+above was in the toolbar content builder, in the func, doesn't seem to be required. makes sense.\cf4 \
         }

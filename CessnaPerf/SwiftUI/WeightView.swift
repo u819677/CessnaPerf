@@ -14,37 +14,26 @@ struct WeightView: View {
     @State var weightEntry: String = ""//2400"
     @State var isValid: Bool = true
     @FocusState var textFieldHasFocus: Bool?
-    @Binding var weight: Int? //= 2400
+    @Binding var weight: Int?
     
- 
+ //MARK: body
     var body: some View {
         HStack {
             Text(cessna.type != "C152" ? "  Weight:    " : "Weight:      1670  lbs")
-                .font(.custom("Noteworthy-Bold", size: 25))
-            if cessna.type != "C152" {
+            if cessna.type != "C152" {///C152 does not accept user entry; POH only gives figures for 1670lbs
                 TextField("", text: $weightEntry)
-                    .font(.custom("Noteworthy-Bold", size: 25))
+                    .textFieldModifier()
                     .focused($textFieldHasFocus, equals: true)
                     .onChange(of: textFieldHasFocus) { _ in
                         if weight == nil { weightEntry = "" }///to force user to press Enter
                     }
-                    .keyboardType(.numberPad)
-                    .toolbar {toolbarItems()}
-                    .padding(.leading,10)
-                   // .position(x: 50, y: 12)
-                    .frame(width: 110, height: 28)
-                
-                    .border(Color.black, width: 0.5)
+                    .toolbar {toolbarItems()}//.font(.system(size: 18))///overrides the custom font
                     .background(isValid ? Color.clear : Color.red.opacity(0.7))
                 Text("lbs")
-                    .font(.custom("Noteworthy-Bold", size: 25))
-                // .navigationBarHidden(true)//not sure what this does or if needed
             }
         }  //end of HStack
-       
-        .frame(width: 320,height: 35)
-        .background(RoundedRectangle(cornerRadius: 10).fill(Color(skyBlue)))
-        .onTapGesture {
+        .dataEntryModifier()
+        .onTapGesture { ///prep for a new entry
             weightEntry = ""
             isValid = true
             weight = nil
@@ -53,34 +42,30 @@ struct WeightView: View {
         .onChange(of: cessna.type) { _ in
             weightEntry = ""    ///clears the weight after there's been a type change in RadioButtonView
             weight = nil
-//            if cessna.type == "C152" {
-//                weight = 1670
-//            }
         }
         .onChange(of: scenePhase) { _ in
             guard let calcTime = userDefaults.object(forKey: "calcTime") as! Date? else { return }
-            ///because calc has not been done yet so there's no calcTime
+            ///return because calc has not been done yet so there's no calcTime
             if calcTime.timeIntervalSinceNow < -3600 {
-                weightEntry = ""///forces a re-compute incase take off conditions have changed since earler calculation
-                weight = nil ///need to clear entry and also clear previous value
+                weightEntry = ""///forces a re-compute (a precaution since take off conditions may have changed since earler calculation)
+                weight = nil ///need to clear previous value
             }
         }
     }  //end of body
-
+    
+    //MARK: Toolbar
     @ToolbarContentBuilder
     private func toolbarItems() -> some ToolbarContent {
-        if textFieldHasFocus ?? false {  //this is a conditional builder, only avail in iOS16
+        if textFieldHasFocus ?? false {  //this is a conditional builder, only avail in iOS16 //need if to avoid multiple Cancel and Enter Buttons
             ToolbarItemGroup(placement: .keyboard) {
                 Button{
                     weightEntry = ""
                     weight = nil
                     textFieldHasFocus = nil
                 }
-            label: {Text("Cancel").bold() }.foregroundColor(.black)
-                
+            label: {Text("Cancel").bold() }.foregroundColor(.black).font(.system(size: 18))///overrides the custom font
                 Button{
-                    print("weight in WeightView toolbar is \(String(describing: weight))")
-                    isValid = checkTOW(of: weightEntry)
+                    isValid = checkTOW(for: weightEntry)
                     if isValid {
                         weight = Int(weightEntry)
                     } else {
@@ -88,12 +73,12 @@ struct WeightView: View {
                     }
                     textFieldHasFocus = nil
                 }
-            label: {Text("Enter").bold()}.foregroundColor(.black)
+            label: {Text("Enter").bold()}.foregroundColor(.black).font(.system(size: 18))///overrides the custom font
             }   //end ToolbarItemGroup
         }   //end if
     }
-    
-    private func checkTOW(of weightEntry: String) -> Bool {
+    //MARK: checkTOW
+    private func checkTOW(for weightEntry: String) -> Bool {
         if weightEntry.isEmpty {
             return false
         }
@@ -107,15 +92,12 @@ struct WeightView: View {
         case "C182RG":
             lowerWeight = 2500; higherWeight = 3100
         default:
-            lowerWeight = 0; higherWeight = 0/// this makes the compiler happy by ensuring that these vars are guaranteed to be initialised.
+            lowerWeight = 0; higherWeight = 0/// this keeps the compiler happy by ensuring that these vars are guaranteed to be initialised.
         }
         if let intTOW = Int(weightEntry) {
-           // if intTOW  >= 2000 && intTOW <= 2400 {
-                if intTOW >= lowerWeight && intTOW <= higherWeight {
+            if intTOW >= lowerWeight && intTOW <= higherWeight {
                 return true
-            } else {
-                return false
-            }
+            } else { return false }
         }
         return false
     }//end of checkTOW

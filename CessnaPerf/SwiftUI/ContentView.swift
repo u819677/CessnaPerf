@@ -44,6 +44,7 @@ struct ContentView: View {
 //            print("isFocused didSet")
 //        }
 //    }
+    
     let userDefaults = UserDefaults.standard
     
     @StateObject var cessna = Cessna()///this allows access to Cessna class from various child views
