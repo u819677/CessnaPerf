@@ -67,11 +67,38 @@ struct ContentView: View {
                     .edgesIgnoringSafeArea(.all)
                     .ignoresSafeArea(.keyboard)
                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                VStack{ ///this layer is just for the ellipsis blue menu button.
+                    Spacer()
+                    HStack{
+                        Spacer()
+                        if showSideMenuView == false {
+                            Image(systemName: "ellipsis") //Image(systemName: "text.justify") //(is another option)
+                                .frame(width: 40, height: 40)
+                                .foregroundColor(.black)
+                                .background(Color(skyBlue))
+                                .mask(Circle())
+                                .padding(35)
+                                .onTapGesture {
+                                    showSideMenuView = true
+                                }
+                        }
+                    }
+                }
+                
                 VStack{
+                    if UIDevice.current.name == "iPhone 14 Pro" {
+                      Divider()
+                        Divider()
+                    }
+                    if UIDevice.current.name == "iPhone 13 mini" {
+                      Divider()
+                        Divider()
+                    }
                     Text(showSideMenuView ? "" : "\(cessna.type) Take Off Perf")///clears the title for the side menu
                         .font(.custom("Noteworthy Bold", size: 26))
                         .foregroundColor(.white)
-                        .padding(.top)
+
+                      
                     Spacer()//to force the Title to the top
                 .opacity(showSideMenuView ? 0.0 : 1.0)
                 }//end of second layer VStack
@@ -101,6 +128,7 @@ struct ContentView: View {
                     .opacity(showSideMenuView ? 0.5 : 0.0)
                     .ignoresSafeArea(.all)
                     .onTapGesture {
+                        print("\(UIDevice.current.name)")
                         showSideMenuView = false    ///the way to clear away the side menu view
                     }
 
@@ -110,32 +138,15 @@ struct ContentView: View {
                     .animation(.easeInOut(duration: 0.4), value: showSideMenuView)
            
             }//end of ZStack
-            //MARK: toolbar
-            .toolbar {  //this is the little blue ellipsis button
-                if showSideMenuView == false {
-                    ToolbarItemGroup(placement: .bottomBar) {
-                        Spacer().allowsHitTesting(false)
-                            Button{ showSideMenuView = true }
-                        label: {
-                            Image(systemName: "ellipsis") //Image(systemName: "text.justify") //(is another option)
-                                .frame(width: 40, height: 40)
-                                .foregroundColor(.black)
-                                .background(Color(skyBlue))
-                                .mask(Circle())
-                                .padding()
-                        }
-                    }
-                }
-            }//end of .toolbar
             
             //MARK: userDefaults update
             .onChange(of: scenePhase) { newPhase in///scope comes here if maybe app has been asleep then woken up
                 if newPhase == .active {
                     guard let calcTime = userDefaults.object(forKey: "calcTime") as! Date? else { return}
                     ///above guard returns if there's no calcTime because calc has not been done yet. Even if fields are populated that's ok, they've not been used for a calculation yet.
-                    ///now check for a valid calcTime but need to check if it's expired:
+                    ///having checked for a valid calcTime now need to check if it's expired. If so then need to reset.
                     if calcTime.timeIntervalSinceNow < -3600 {
-                        ///calcTime is more than one hour old so calculation needs to be done again: so reset all values to nil
+                        ///calcTime is more than one hour old so calculation needs to be done again: so reset all values to nil.
                         userDefaults.set(nil, forKey: "calcTime")
                         weight = nil
                         temperature = nil

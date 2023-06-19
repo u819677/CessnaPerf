@@ -34,7 +34,7 @@ struct SurfaceToggle: ToggleStyle {
     
     func makeBody(configuration: Configuration) -> some View {
         HStack {
-            Text("   Runway surface")
+            Text("        Runway surface")
                 .font(.custom("Noteworthy Bold", size: 24))
                 .foregroundColor(isGrass ? Color.black : Color.white)
                 .padding(.bottom, 4)

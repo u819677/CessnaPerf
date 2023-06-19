@@ -18,7 +18,7 @@ struct WindView: View {
                 .font(.custom("Noteworthy Bold", size: 25))
                 .foregroundColor(.black)
                // .padding()
-                .padding()
+                .padding(.trailing, 20)
             
             Image(systemName: "chevron.right")
                 .foregroundColor(.black)

@@ -4,12 +4,12 @@
 \red14\green14\blue255;\red155\green35\blue147;\red11\green79\blue121;\red57\green0\blue160;\red108\green54\blue169;
 \red50\green109\blue116;\red15\green104\blue160;\red196\green26\blue22;\red28\green0\blue207;\red28\green70\blue74;
 \red246\green246\blue239;\red24\green24\blue28;\red224\green213\blue97;\red235\green0\blue121;\red157\green101\blue255;
-\red103\green225\blue255;\red248\green60\blue79;\red72\green212\blue251;}
+\red103\green225\blue255;\red248\green60\blue79;\red72\green212\blue251;\red74\green85\blue96;}
 {\*\expandedcolortbl;;\csgenericrgb\c36526\c42188\c47515;\csgenericrgb\c100000\c100000\c100000;\csgenericrgb\c0\c0\c0\c85000;
 \csgenericrgb\c5500\c5500\c100000;\csgenericrgb\c60759\c13753\c57628;\csgenericrgb\c4314\c30980\c47451;\csgenericrgb\c22454\c0\c62803;\csgenericrgb\c42190\c21278\c66379;
 \csgenericrgb\c19418\c42935\c45455;\csgenericrgb\c5882\c40784\c62745;\csgenericrgb\c77000\c10200\c8600;\csgenericrgb\c11000\c0\c81000;\csgenericrgb\c10981\c27276\c28869;
 \cssrgb\c97255\c97255\c94902;\cssrgb\c12549\c12549\c14510;\cssrgb\c90196\c85882\c45490;\cssrgb\c94902\c14118\c54902;\cssrgb\c68235\c50588\c100000;
-\cssrgb\c46275\c90196\c100000;\cssrgb\c98824\c33725\c38039;\cssrgb\c32941\c86275\c98824;}
+\cssrgb\c46275\c90196\c100000;\cssrgb\c98824\c33725\c38039;\cssrgb\c32941\c86275\c98824;\csgenericrgb\c29020\c33333\c37647;}
 \paperw12240\paperh15840\margl1440\margr1440\vieww9000\viewh8400\viewkind0
 \deftab593
 \pard\tx593\pardeftab593\partightenfactor0
@@ -311,6 +311,26 @@ useful way to clear userDefaults during development\
 \
    \cf2 //   if textFieldHasFocus ?? false \{  //conditional builder is only avail in iOS16\
 above was in the toolbar content builder, in the func, is however required, otherwise corrupted toolbar buttons\
-\cf4             \cf2 //    .ignoresSafeArea(.keyboard)///this stops Compute button moving up behind keyboard, or maybe not requried\cf4 \
+\cf4             \cf2 //    .ignoresSafeArea(.keyboard)///this stops Compute button moving up behind keyboard, or maybe not requried\
+\
+wasted a lot of time with this toolbar, didn't work. Seems that the height of the toolbar cannot be increased, not big enough for my ellipsis.\
+//            //
+\f1\b \cf23 MARK: toolbar
+\f0\b0 \cf4 \
+\cf2 //            .toolbar \{  //this is the little blue ellipsis button\cf4 \
+\cf2 //                if showSideMenuView == false \{\cf4 \
+\cf2 //                    ToolbarItemGroup(placement: .bottomBar) \{\cf4 \
+\cf2 //                        Spacer().allowsHitTesting(false)\cf4 \
+\cf2 //                            Button\{ showSideMenuView = true \}\cf4 \
+\cf2 //                        label: \{\cf4 \
+\cf2 //                            Image(systemName: "ellipsis") //Image(systemName: "text.justify") //(is another option)\cf4 \
+\cf2 //                                .frame(width: 40, height: 40)\cf4 \
+\cf2 //                                .foregroundColor(.black)\cf4 \
+\cf2 //                                .background(Color(skyBlue))\cf4 \
+\cf2 //                                .mask(Circle())\cf4 \
+\cf2 //                        \}//.padding()\cf4 \
+\cf2 //                    \}\cf4 \
+\cf2 //                \}\cf4 \
+\cf2 //            \}//end of .toolbar\cf4 \
 \
         }

@@ -13,7 +13,7 @@ struct SideMenuView: View {
     @State var showFileView: Bool = false
     @State var dataFile: String?
     var body: some View {
-        VStack(alignment: .trailing){
+        VStack{//} (alignment: .trailing){
             Spacer()
             VStack(spacing: 15){
             Text("Source data:")
@@ -30,6 +30,7 @@ struct SideMenuView: View {
             Text("C152    \(Image(systemName: "chevron.forward"))")
                 .foregroundColor(.black)
                 .font(.title2)
+                .padding(.trailing, -30)
         }
             Divider()
                 .background(Color.black)
@@ -43,6 +44,7 @@ struct SideMenuView: View {
             Text("C172P    \(Image(systemName: "chevron.forward"))")
                 .foregroundColor(.black)
                 .font(.title2)
+                .padding(.trailing, -20)
         }
             Divider()
                 .background(Color.black)
@@ -54,12 +56,13 @@ struct SideMenuView: View {
             Text("C182RG    \(Image(systemName: "chevron.forward"))")
                 .foregroundColor(.black)
                 .font(.title2)
+                .padding(.trailing, -5)
         }
             Divider()
                 .background(Color.black)
         }
          Spacer()
-            RadioButtonView()
+            RadioButtonView().padding(.bottom, 20)
         }
         .sheet(isPresented: $showFileView) {
             FileView(dataFile: $dataFile)
