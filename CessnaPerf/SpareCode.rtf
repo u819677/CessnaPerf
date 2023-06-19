@@ -310,5 +310,7 @@ useful way to clear userDefaults during development\
         \}\
 \
    \cf2 //   if textFieldHasFocus ?? false \{  //conditional builder is only avail in iOS16\
-above was in the toolbar content builder, in the func, doesn't seem to be required. makes sense.\cf4 \
+above was in the toolbar content builder, in the func, is however required, otherwise corrupted toolbar buttons\
+\cf4             \cf2 //    .ignoresSafeArea(.keyboard)///this stops Compute button moving up behind keyboard, or maybe not requried\cf4 \
+\
         }

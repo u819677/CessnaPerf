@@ -34,10 +34,9 @@ struct ContentView: View {
     var dataFrameC172P = DataFrame(), dataFrameC182RG = DataFrame(), dataFrameC152 = DataFrame()
     
     @Environment(\.scenePhase) var scenePhase
-    
     let userDefaults = UserDefaults.standard
-    
     @StateObject var cessna = Cessna()///this allows access to Cessna class from various child views
+    ///
     //MARK: init
     init() {
         let fileURLC172P = Bundle.main.url(forResource: "C172Pdata", withExtension: "csv")
@@ -68,36 +67,32 @@ struct ContentView: View {
                     .edgesIgnoringSafeArea(.all)
                     .ignoresSafeArea(.keyboard)
                     .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height-50)
-                
                 VStack{
                     Text(showSideMenuView ? "" : "\(cessna.type) Take Off Perf")///clears the title for the side menu
                         .font(.custom("Noteworthy Bold", size: 26))
                         .foregroundColor(.white)
                         .padding(.top)
                     Spacer()
-
-                .sheet(isPresented: $showResults) { ///this can go elsewhere but seems good idea to put close to Button
-                    ResultsView(ftTOD: $ftTOD,  ftTOR: $ftTOR)
-                }
                 .opacity(showSideMenuView ? 0.0 : 1.0)
                 }//end of second layer VStack
-                .ignoresSafeArea(.keyboard)///this stops Compute button moving up behind keyboard
                 
-                //MARK: textFields layer
-                VStack{//this layer is on top of the image and then the Calculate button
+                //MARK: TextFields layer
+                VStack{//this layer is on top of the image
                     Spacer()
                     WeightView(weight: $weight).padding(10)
                     TemperatureView(temperature: $temperature).padding(10)
                     ElevationView(elevation: $elevation).padding(10)
                     QNHView(qnh: $qnh).padding(10)
                     WindView(wind: $wind).padding(10)
-                    SurfaceView(isGrass: $isGrass).padding(10).opacity(keyboardShowing ? 0 : 1)//.animation(.easeInOut, value: 10)
-                   
-                        Button{
-                            compute()} label: {
-                                computeLabel
-                            }.padding(30).opacity(keyboardShowing ? 0 : 1)
+                    SurfaceView(isGrass: $isGrass).padding(10).opacity(keyboardShowing ? 0 : 1)
+                    Button{
+                        compute()} label: {
+                            computeLabel
+                        }.padding(30).opacity(keyboardShowing ? 0 : 1)
                     Spacer()
+                        .sheet(isPresented: $showResults) { ///this can go elsewhere but seems good idea to put close to Button
+                            ResultsView(ftTOD: $ftTOD,  ftTOR: $ftTOR)
+                        }
                 }.padding(.top, 70)///need something like this to prevent top textField go out of view when keyboard
                     .opacity(showSideMenuView ? 0.0 : 1.0)//end of top layer VStack
                     .ignoresSafeArea(.keyboard)
@@ -106,26 +101,18 @@ struct ContentView: View {
                     .onTapGesture {
                         showSideMenuView = false    ///the way to clear away the side menu view
                     }
-                
+
                 //MARK: SideView layer
-                
                 SideMenuView(showSideMenuView: $showSideMenuView)
                     .offset(x:showSideMenuView ? -UIScreen.main.bounds.width/4 : -UIScreen.main.bounds.width )
                     .animation(.easeInOut(duration: 0.4), value: showSideMenuView)
-                
            
-                   
             }//end of ZStack
             //MARK: toolbar
-            .toolbar {
+            .toolbar {  //this is the little blue ellipsis button
                 if showSideMenuView == false {
                     ToolbarItemGroup(placement: .bottomBar) {
                         Spacer().allowsHitTesting(false)
-                       // Button("TEST") {}
-                       // HStack{
-//                                    Text("")
-//                                        .border(.white,width: 2)
-                         //   Spacer()///pushes ellipsis toolbar icon to the right edge
                             Button{ showSideMenuView = true }
                         label: {
                             Image(systemName: "ellipsis") //Image(systemName: "text.justify") //(is another option)
@@ -133,17 +120,11 @@ struct ContentView: View {
                                 .foregroundColor(.black)
                                 .background(Color(skyBlue))
                                 .mask(Circle())
-                                .padding()//.bottom,20)
+                                .padding()
                         }
-                     //   }//end of HStack
-                       // .frame(width: UIScreen.main.bounds.width)
-                      //  .padding(.bottom, 25)
-                        //.border(.green, width: 4)
                     }
                 }
             }//end of .toolbar
-          //  .border(.black, width: 5)
-            
             
             //MARK: userDefaults update
             .onChange(of: scenePhase) { newPhase in///scope comes here if maybe app has been asleep then woken up
@@ -166,27 +147,22 @@ struct ContentView: View {
         .alert("Pressure Altitude is above 2000ft: use POH data", isPresented: $showPressAltAlert) {
             Button("OK", role: .cancel) { }
         }
-        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)///this is prob needed to lock the whole ZStack although still needs the -50 for height of image
+        .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)///this is prob needed to lock the whole ZStack although still needs  -50 for height of image?
         .environmentObject(cessna)
         .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification)) { _ in
-            print("keyboardWillShowNotification")
             keyboardShowing = true
         }
         .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
-            print("keyboardWillHideNotification")
             keyboardShowing = false
         }
     }///end of body
     
-    ///
-    //MARK: Compute Button
+    //MARK: Compute Btn Label and logic
     @ViewBuilder var computeLabel: some View {
         Text("Compute")
             .padding(10)
             .foregroundColor(.white).bold()
-            //.border(.white, width: 3)
             .font(.custom("Noteworthy Bold", size: 25))
-           
             .overlay(RoundedRectangle(cornerRadius: 5)
                 .stroke(Color.white, lineWidth: 4).bold()
             )
@@ -208,11 +184,11 @@ struct ContentView: View {
         let pressureAltitude = correctedAltitude(for: elevation, and: qnh)
         if pressureAltitude > 2000 {
             showPressAltAlert = true
-            return  ///Without this return cannot display results sheet!
+            return  ///Without this return cannot subsequently display results sheet!
         }
         
         switch cessna.type {
-            /// for each type: firstly calc calm TOD then correct for windComponent.  Then repeat using TOR figures.
+            /// for each type: firstly calc calm TOD then correct for windComponent.  Then repeat with TOR figures.
         case "C172P":
             ftTOD = Double(todC172P(dataFrame: todDataFrameC172P, pressureAltitude: pressureAltitude, temperature: temperature, weight: weight))
             ftTOD = ftTOD * Factor(for: wind)
@@ -254,9 +230,6 @@ struct ContentView: View {
         }
         showResults = true
     }//end of Compute button
-    
-    
-    
 }///end of struct
 
 struct ContentView_Previews: PreviewProvider {
