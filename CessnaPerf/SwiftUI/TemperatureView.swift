@@ -18,32 +18,27 @@ struct TemperatureView: View {
     @Binding var temperature: Int?
     
 
-    init(temperature: Binding<Int?> ) {// {, focused: FocusState<Bool?>.Binding) {//some clever init syntax here for FocusState
+    init(temperature: Binding<Int?> ) {// {, focused: FocusState<Bool?>.Binding) {//some clever init syntax here for FocusState... not needed
         UIToolbar.appearance().barTintColor = UIColor.lightGray
         self._temperature = temperature
     }
+    //MARK: body
     var body: some View {
                 HStack {
                     Text("    Temp:            ")
                     TextField("", text: $tempEntry)
+                        .textFieldModifier()
                         .focused($textFieldHasFocus, equals: true)
                         .onChange(of: textFieldHasFocus) { _ in
                                 if temperature == nil {
                                     tempEntry = ""
                             }
                         }
-                        .keyboardType(.numberPad)
-                        .padding(.leading, 10)
-                       // .position(x: 50, y: 12)
-                        .frame(width: 80, height: 28)
-                        .border(Color.black, width: 0.5)
                         .background(isValid ? Color.clear : Color.red.opacity(0.7))
                     Text("°C")
-                     .navigationBarHidden(true)//not sure what this does or if needed
+                  ///   .navigationBarHidden(true)//not sure what this does or if needed
                 }//end of HStack
-                .font(.custom("Noteworthy-Bold", size: 25))
-                .frame(width: 320,height: 35)
-                .background(RoundedRectangle(cornerRadius: 10).fill(Color(skyBlue)))
+                .dataEntryModifier()
                 .onTapGesture {
                     tempEntry = ""
                     isValid = true
@@ -59,9 +54,9 @@ struct TemperatureView: View {
                     }
                 }
     }//end of body
+    //MARK: Toolbar
     @ToolbarContentBuilder
     private func toolbarItems() -> some ToolbarContent {
-        
         if textFieldHasFocus ?? false {
             ToolbarItemGroup(placement: .keyboard)
             {
@@ -72,24 +67,23 @@ struct TemperatureView: View {
                 }
             label: {Text("Cancel").bold() }.foregroundColor(.black)
                 Button{
-                    isValid = checkValidity(of: tempEntry)
+                    isValid = checkValidity(for: tempEntry)
                     if isValid {
                         temperature = Int(tempEntry)
-                    } else {
-                        temperature = nil
-                    }
+                    } else { temperature = nil }
                     textFieldHasFocus = nil
                 }
             label: {Text("Enter").bold() }.foregroundColor(.black)
             }
         }//end if
     }
-    private func checkValidity(of tempEntry: String) -> Bool {
+    //MARK: checkValidity
+    private func checkValidity(for tempEntry: String) -> Bool {
         if tempEntry.isEmpty { return false }
-        if let intTemp = Int(tempEntry) {   //checks that the string be made into an Int
+        if let intTemp = Int(tempEntry) {   ///checks that the string can be made into an Int
             if intTemp >= 0 && intTemp <= 40 {
                 return true
-            } else { return false } //entry out of permitted range
+            } else { return false } /// entry is out of permitted range
         }
         return false        //the default case to keep compiler happy
     }

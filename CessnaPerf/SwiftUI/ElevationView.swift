@@ -16,33 +16,22 @@ struct ElevationView: View {
     @Environment(\.scenePhase) var scenePhase
     let userDefaults = UserDefaults.standard
     
+    //MARK: body
     var body: some View {
         HStack {
             Text("  Elevation:     ")
-                .font(.custom("Noteworthy-Bold", size: 25))
             TextField("", text: $elevationEntry)//.multilineTextAlignment(.trailing)
-                .font(.custom("Noteworthy-Bold", size: 25))
+                .textFieldModifier()
                 .focused($textFieldHasFocus, equals: true)
                 .onChange(of: textFieldHasFocus) { _ in
-                        if elevation == nil {
-                            elevationEntry = ""
-                    }
+                    if elevation == nil { elevationEntry = "" }
                 }
-                .keyboardType(.numberPad)
                 .toolbar {toolbarItems()}
-
-                .padding(.leading, 10)
-                //.position(x: 50, y: 12)
-                .frame(width: 100, height: 28)
-                .border(Color.black, width: 0.5)
                 .background(isValid ? Color.clear : Color.red.opacity(0.7))
             Text("ft")
-                .font(.custom("Noteworthy-Bold", size: 25))
-            // .navigationBarHidden(true)//not sure what this does or if needed
+            /// .navigationBarHidden(true)//not sure what this does or if needed
         }//end of HStack
-       
-        .frame(width: 320,height: 35)
-        .background(RoundedRectangle(cornerRadius: 10).fill(Color(skyBlue)))
+        .dataEntryModifier()
         .onTapGesture {
             elevationEntry = ""
             isValid = true
@@ -51,13 +40,13 @@ struct ElevationView: View {
         }
         .onChange(of: scenePhase) { _ in
             guard let calcTime = userDefaults.object(forKey: "calcTime") as! Date?  else { return }
-                ///because calc has not been done yet so there's no calcTime
+            ///because calc has not been done yet so there's no calcTime
             if calcTime.timeIntervalSinceNow < -3600 {
                 elevationEntry = ""
-                }
+            }
         }
     }
-
+    //MARK: Toolbar
     @ToolbarContentBuilder
     private func toolbarItems() -> some ToolbarContent {
         if textFieldHasFocus ?? false {  //this is a conditional builder, only avail in iOS16
@@ -67,31 +56,24 @@ struct ElevationView: View {
                     elevation = nil
                     textFieldHasFocus = nil
                 }
-            label: {Text("Cancel").bold() }.foregroundColor(.black)
+            label: {Text("Cancel").bold() }.foregroundColor(.black).font(.system(size: 18))///overrides the custom font. But why this not required in Temperature View??? v strange.
                 Button{
-                    isValid = checkElevation(of: elevationEntry)
-                    if isValid {
-                        elevation = Int(elevationEntry)
-                    } else {
-                        elevation = nil
-                    }
+                    isValid = checkElevation(for: elevationEntry)
+                    if isValid { elevation = Int(elevationEntry)
+                    } else { elevation = nil }
                     textFieldHasFocus = nil
                 }
-            label: {Text("Enter").bold() }.foregroundColor(.black)
+            label: {Text("Enter").bold() }.foregroundColor(.black).font(.system(size: 18))///overrides the custom font
             }   //end ToolbarItemGroup
         }   //end if
     }
-
-    func checkElevation(of elevationInput: String) -> Bool {
-        if elevationInput.isEmpty {
-            return true
-        }
+    //MARK: checkElevation
+    func checkElevation(for elevationInput: String) -> Bool {
+        if elevationInput.isEmpty { return true }
         if let intElevation = Int(elevationInput) {
             if intElevation >= 0 && intElevation <= 2000 {
                 return true
-            }else {
-                return false
-            }
+            } else { return false }
         }
         return false
     }

@@ -16,33 +16,23 @@ struct QNHView: View {
     @FocusState var textFieldHasFocus: Bool?
     @Binding var qnh: Int?
     
+    //MARK: body
     var body: some View {
         HStack {
             Text("  QNH:     ")
                 .font(.custom("Noteworthy-Bold", size: 25))
             TextField("", text: $qnhEntry)
-                .font(.custom("Noteworthy-Bold", size: 25))
+                .textFieldModifier()
                 .focused($textFieldHasFocus, equals: true)
                 .onChange(of: textFieldHasFocus) { _ in
-                        if qnh == nil {
-                            qnhEntry = ""
-                    }
+                    if qnh == nil { qnhEntry = "" }
                 }
-                .keyboardType(.numberPad)
                 .toolbar {toolbarItems()}
-                .padding(.leading,10)
-                
-               // .position(x: 50, y: 12)
-                .frame(width: 90, height: 28)
-                .border(Color.black, width: 0.5)
                 .background(isValid ? Color.clear : Color.red.opacity(0.7))
             Text("hPa")
-                .font(.custom("Noteworthy-Bold", size: 25))
             // .navigationBarHidden(true)//not sure what this does or if needed
         }//end of HStack
-       
-        .frame(width: 320,height: 35)
-        .background(RoundedRectangle(cornerRadius: 10).fill(Color(skyBlue)))
+        .dataEntryModifier()
         .onTapGesture {
             qnhEntry = ""
             isValid = true
@@ -57,7 +47,7 @@ struct QNHView: View {
             }
         }
     }
-
+//MARK: Toolbar
     @ToolbarContentBuilder
     private func toolbarItems() -> some ToolbarContent {
         if textFieldHasFocus ?? false {  //this is a conditional builder, only avail in iOS16
@@ -67,31 +57,26 @@ struct QNHView: View {
                     qnh = nil
                     textFieldHasFocus = nil
                 }
-            label: {Text("Cancel").bold() }.foregroundColor(.black)
+            label: {Text("Cancel").bold() }.foregroundColor(.black).font(.system(size: 18))
                 Button{
-                    isValid = checkQNH(of: qnhEntry)
-                    if isValid {
-                        qnh = Int(qnhEntry)
-                    } else {
-                        qnh = nil
-                    }
+                    isValid = checkQNH(for: qnhEntry)
+                    if isValid { qnh = Int(qnhEntry)
+                    } else {  qnh = nil }
                     textFieldHasFocus = nil
                 }
-            label: {Text("Enter").bold() }.foregroundColor(.black)
+            label: {Text("Enter").bold() }.foregroundColor(.black).font(.system(size: 18))
             }   //end ToolbarItemGroup
         }   //end if
     }
-
-    func checkQNH(of qnhInput: String) -> Bool {
+    //MARK: checkQNH
+    func checkQNH(for qnhInput: String) -> Bool {
         if qnhInput.isEmpty {
             return true
         }
         if let intQNH = Int(qnhInput) {
             if intQNH >= 950 && intQNH <= 1050 {
                 return true
-            }else {
-                return false
-            }
+            }else {  return false }
         }
         return false
     }
