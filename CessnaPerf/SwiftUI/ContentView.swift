@@ -66,13 +66,13 @@ struct ContentView: View {
                     .aspectRatio(contentMode: .fill)
                     .edgesIgnoringSafeArea(.all)
                     .ignoresSafeArea(.keyboard)
-                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height-50)
+                    .frame(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
                 VStack{
                     Text(showSideMenuView ? "" : "\(cessna.type) Take Off Perf")///clears the title for the side menu
                         .font(.custom("Noteworthy Bold", size: 26))
                         .foregroundColor(.white)
                         .padding(.top)
-                    Spacer()
+                    Spacer()//to force the Title to the top
                 .opacity(showSideMenuView ? 0.0 : 1.0)
                 }//end of second layer VStack
                 
@@ -93,11 +93,13 @@ struct ContentView: View {
                         .sheet(isPresented: $showResults) { ///this can go elsewhere but seems good idea to put close to Button
                             ResultsView(ftTOD: $ftTOD,  ftTOR: $ftTOR)
                         }
-                }.padding(.top, 70)///need something like this to prevent top textField go out of view when keyboard
+                }//end VStack
+                .padding(.top, 70)///need something like this to prevent top textField go out of view when keyboard
                     .opacity(showSideMenuView ? 0.0 : 1.0)//end of top layer VStack
                     .ignoresSafeArea(.keyboard)
                 Color.black
                     .opacity(showSideMenuView ? 0.5 : 0.0)
+                    .ignoresSafeArea(.all)
                     .onTapGesture {
                         showSideMenuView = false    ///the way to clear away the side menu view
                     }
